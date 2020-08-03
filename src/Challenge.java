@@ -509,4 +509,27 @@ public class Challenge {
                         return rightPart != 0 && num % rightPart == leftPart;
                     });
     }
+
+    public static boolean canBuild(String s1, String s2) {
+        Map<Character, Integer> characterOccurencesMapOfFirstString = new HashMap<>();
+        Map<Character, Integer> characterOccurencesMapOfSecondString = new HashMap<>();
+
+        for (char ch: s1.replaceAll("\\s","").toCharArray()) {
+            characterOccurencesMapOfFirstString.put(
+                    ch,
+                    characterOccurencesMapOfFirstString.getOrDefault(ch, 0) + 1
+            );
+        }
+
+        for (char ch: s2.replaceAll("\\s","").toCharArray()) {
+            characterOccurencesMapOfSecondString.put(
+                    ch,
+                    characterOccurencesMapOfSecondString.getOrDefault(ch, 0) + 1
+            );
+        }
+
+        return characterOccurencesMapOfFirstString.keySet().stream().allMatch(ch -> {
+            return characterOccurencesMapOfSecondString.getOrDefault(ch, 0) >= characterOccurencesMapOfFirstString.get(ch);
+        });
+    }
 }
