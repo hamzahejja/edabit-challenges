@@ -511,30 +511,4 @@ public class Challenge {
                         return rightPart != 0 && num % rightPart == leftPart;
                     });
     }
-
-    public static void main(String[] args) {
-        System.out.println(isPowerful(144));
-        System.out.println(battleOutcome(78925));
-        System.out.println(reverseOdd("Make sure uoy only esrever sdrow of ddo length"));
-        System.out.println(reverse("jkl5mn923o"));
-        System.out.println(missingLetter(new String[]{"a", "b", "c", "e", "f", "g"}));
-        System.out.println(correctSigns("13 > 44 > 33 > 1"));
-        System.out.println(Arrays.toString(characterMapping("babbcb")));
-        System.out.println(commonLastVowel("OOI UUI EEI AAI"));
-        System.out.println(selectLetters("EVERYTHING", "SomeThings"));
-        System.out.println(periodic("314159265"));
-        System.out.println(plusSign("+d+k+##f+"));
-        System.out.println(isAlphabeticallySorted("Paula has a French accent."));
-        System.out.println(happyAlgorithm(89));
-        System.out.println(swapTwo("FFGGHHI"));
-        System.out.println("AABBCCDDEEFF".replaceAll("\\G(..)(..)", "$2$1"));
-        System.out.println("chow mein".matches("^((?i)[sctp](?=h)).*$"));
-        System.out.println("OMG x box unboxing video x D".replaceAll("(^[a-zA-Z\\s]{17}(?=\\s))", "z")
-                .replaceAll("(?<=\\s)x(?=\\s)", "ecks")
-                .replaceAll("x", "cks"));
-
-        System.out.println(truncate("Lorem ipsum dolor sit amet.", 17));
-        System.out.println(BMI("205 pounds", "73 inches"));
-        System.out.println(BMI("55 kilos", "1.65 meters"));
-    }
 }
