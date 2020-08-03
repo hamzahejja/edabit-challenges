@@ -492,8 +492,6 @@ public class Challenge {
                 .allMatch(index -> {
                     String currentWord = arr[index];
                     String nextWord = arr[index + 1];
-                    System.out.println("1- " + new StringBuilder(currentWord).append(nextWord.charAt(nextWord.length() - 1)).toString().equals(nextWord));
-                    System.out.println("2- " + new StringBuilder(currentWord).append(nextWord.charAt(0)).toString().equals(nextWord));
                     return new StringBuilder(currentWord).append(nextWord.charAt(nextWord.length() - 1)).toString().equals(nextWord) ||
                             new StringBuilder(String.valueOf(nextWord.charAt(0))).append(nextWord.charAt(0)).toString().equals(nextWord);
                 });
