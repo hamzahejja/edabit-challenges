@@ -532,4 +532,13 @@ public class Challenge {
             return characterOccurencesMapOfSecondString.getOrDefault(ch, 0) >= characterOccurencesMapOfFirstString.get(ch);
         });
     }
+
+    public static int row(String str) {
+        return IntStream.range(0, str.length()).reduce(0, (acc, index) -> {
+            int charNumber = str.codePointAt(index) - (int) 'A' + 1;
+            int val = charNumber * (int) Math.pow(26, str.length() - index - 1);
+
+            return acc + val;
+        });
+    }
 }
