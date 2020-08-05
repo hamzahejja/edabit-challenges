@@ -571,4 +571,23 @@ public class Challenge {
         return lastWordOfFirstString.replaceAll("[^aieou]", "")
                 .equals(lastWordOfSecondString.replaceAll("[^aieou]", ""));
     }
+
+    public static String toCamelCase(String str) {
+        List<String> parts = Arrays.asList(str.split("_"));
+
+        return parts.subList(1, parts.size()).stream().reduce(parts.get(0), (acc, part) -> {
+            String camelCasedPart = new StringBuilder(part.substring(1))
+                    .insert(0, Character.toUpperCase(part.charAt(0)))
+                    .toString();
+
+            return new StringBuilder(acc).append(camelCasedPart).toString();
+        });
+    }
+
+    public static String toSnakeCase(String str) {
+        return Arrays.asList(str.replaceAll("([A-Z])"," $1").split(" "))
+                .stream()
+                .map(String::toLowerCase)
+                .collect(Collectors.joining("_"));
+    }
 }
