@@ -590,4 +590,15 @@ public class Challenge {
                 .map(String::toLowerCase)
                 .collect(Collectors.joining("_"));
     }
+
+    public static int mysteryFunc(int num) {
+        int sortedReversed = Integer.parseInt(new StringBuilder(String.valueOf(num)).reverse()
+                .chars()
+                .sorted()
+                .mapToObj(cp -> String.valueOf((char) cp))
+                .collect(Collectors.joining(""))
+        );
+
+        return num - sortedReversed;
+    }
 }
