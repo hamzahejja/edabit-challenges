@@ -541,4 +541,21 @@ public class Challenge {
             return acc + val;
         });
     }
+
+    public static String replace_nth(String txt, int nth, String old_char, String new_char) {
+        if (nth <= 0) return txt;
+
+        StringBuilder resultStringBuilder = new StringBuilder(txt);
+        Map<Character, Integer> charOccurencesMap = new HashMap<>();
+
+        for (int i = 0; i < txt.length(); i++) {
+            if (String.valueOf(txt.charAt(i)).equals(String.valueOf(old_char)) && (charOccurencesMap.getOrDefault(txt.charAt(i), 0) + 1) % nth == 0) {
+                resultStringBuilder.replace(i, i + 1, String.valueOf(new_char));
+            }
+
+            charOccurencesMap.put(txt.charAt(i), charOccurencesMap.getOrDefault(txt.charAt(i), 0) + 1);
+        }
+
+        return resultStringBuilder.toString();
+    }
 }
