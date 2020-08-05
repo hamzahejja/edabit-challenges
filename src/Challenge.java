@@ -558,4 +558,17 @@ public class Challenge {
 
         return resultStringBuilder.toString();
     }
+
+    public static boolean doesRhyme(String str1, String str2) {
+        String lastWordOfFirstString = str1.substring(str1.lastIndexOf(' '))
+                .replaceAll("[?!.,:]", "")
+                .toLowerCase();
+
+        String lastWordOfSecondString = str2.substring(str2.lastIndexOf(' '))
+                .replaceAll("[?!.,:]", "")
+                .toLowerCase();
+
+        return lastWordOfFirstString.replaceAll("[^aieou]", "")
+                .equals(lastWordOfSecondString.replaceAll("[^aieou]", ""));
+    }
 }
