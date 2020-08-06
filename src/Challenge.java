@@ -601,4 +601,20 @@ public class Challenge {
 
         return num - sortedReversed;
     }
+
+    public static String kixCode(String addr) {
+        String[] parts = addr.split(",");
+
+        return new StringBuilder(
+                parts[parts.length - 1]
+                        .trim()
+                        .replaceAll("(\\d+)\\s([A-Z]{2}).*", "$1$2")
+        ).append(
+                parts[parts.length - 2]
+                        .trim()
+                        .replaceAll("([^\\d]*)\\s(\\d+.*)", "$2")
+                        .replaceAll("[^\\w]", "X")
+                        .toUpperCase()
+        ).toString();
+    }
 }
