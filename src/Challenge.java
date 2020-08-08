@@ -617,4 +617,23 @@ public class Challenge {
                         .toUpperCase()
         ).toString();
     }
+
+    public static String overTime(double[] arr) {
+        double
+                startOfWorkingDay = arr[0],
+                endOfWorkingDay = arr[1],
+                hourlyRate = arr[2],
+                overtimeMultiplier = arr[3],
+                calculatedPay;
+
+        if (startOfWorkingDay < 17) {
+            calculatedPay = (endOfWorkingDay <= 17) ?
+                    (endOfWorkingDay - startOfWorkingDay) * hourlyRate :
+                    (17 - startOfWorkingDay) * hourlyRate + (endOfWorkingDay - 17) * hourlyRate * overtimeMultiplier;
+        } else {
+            calculatedPay = (endOfWorkingDay - startOfWorkingDay) * hourlyRate * overtimeMultiplier;
+        }
+
+        return String.format("$%.2f", calculatedPay);
+    }
 }
