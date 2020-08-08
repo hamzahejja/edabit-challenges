@@ -636,4 +636,35 @@ public class Challenge {
 
         return String.format("$%.2f", calculatedPay);
     }
+
+    public static String word_rank(String str) {
+        int currentWordScore, indexOfHighestScoringWord = -1;
+        int maxWordScore = Integer.MIN_VALUE;
+        String[] words = str.split(" ");
+
+        for (int index = 0; index < words.length; index++) {
+            currentWordScore = words[index].toLowerCase()
+                    .replaceAll("[^a-z]", "")
+                    .chars()
+                    .map(codePoint -> codePoint - (int) 'a' + 1)
+                    .reduce(0, (acc, letterScore) -> acc + letterScore);
+
+            if (currentWordScore > maxWordScore) {
+                maxWordScore = currentWordScore;
+                indexOfHighestScoringWord = index;
+            }
+        }
+
+        return words[indexOfHighestScoringWord].replaceAll("[^a-zA-Z]", "");
+    }
+
+    public static long sumDigProd(long... numbers) {
+        long num = Arrays.stream(numbers).reduce(Long::sum).getAsLong();
+
+        while (num / 10 != 0) {
+            num = String.valueOf(num).chars().map(codePoint -> codePoint - (int) '0').reduce(1, (acc, val) -> acc * val);
+        }
+
+        return num;
+    }
 }
