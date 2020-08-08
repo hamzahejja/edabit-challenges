@@ -709,4 +709,39 @@ public class Challenge {
 
         return numberOfIterations;
     }
+
+    public static String addStrNums(String num1, String num2) {
+        if (num1.isEmpty() && num2.isEmpty()) {
+            return String.valueOf(0);
+        }
+
+        int previousCarryFromLastSum = 0, tempSumResult;
+        int minLength = Math.min(num1.length(), num2.length());
+        int maxLength = Math.max(num1.length(), num2.length());
+        String nonSummablePortion = maxLength == num1.length() ?
+                num1.substring(0, maxLength - minLength - 1):
+                num2.substring(0, maxLength - minLength - 1);
+
+        StringBuilder resultStringBuilder = new StringBuilder("");
+
+        for (int i = 1; i <= Math.min(num1.length(), num2.length()); i++) {
+            if (! Character.isDigit(num2.charAt(num2.length() - i)) || ! Character.isDigit(num1.charAt(num1.length() - i))) {
+                return String.valueOf(-1);
+            }
+
+            tempSumResult = Character.getNumericValue(num2.charAt(num2.length() - i)) +
+                    Character.getNumericValue(num1.charAt(num1.length() - i)) +
+                    previousCarryFromLastSum;
+
+
+            previousCarryFromLastSum = tempSumResult / 10;
+            resultStringBuilder.append(tempSumResult % 10);
+        }
+
+        return resultStringBuilder.append(
+                maxLength == num1.length() ?
+                        Character.getNumericValue(num1.charAt(maxLength - minLength - 1)) + previousCarryFromLastSum :
+                        Character.getNumericValue(num2.charAt(maxLength - minLength - 1)) + previousCarryFromLastSum
+        ).reverse().insert(0, nonSummablePortion).toString().replaceAll("^0+", "");
+    }
 }
