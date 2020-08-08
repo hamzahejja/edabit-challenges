@@ -667,4 +667,46 @@ public class Challenge {
 
         return num;
     }
+
+    /**
+     * The additive persistence of an integer, n, is the number of times
+     * you have to replace n with the sum of its digits until
+     * n becomes a single digit integer.
+     * @param n
+     * @return {int}
+     */
+    public static int additivePersistence(int n) {
+        int numberOfIterations = 0;
+
+        while (n / 10 != 0) {
+            numberOfIterations++;
+
+            n = String.valueOf(n)
+                    .chars()
+                    .map(Character::getNumericValue)
+                    .sum();
+        }
+
+        return numberOfIterations;
+    }
+
+    /**
+     * The multiplicative persistence of an integer, n, is the number of times
+     * you have to replace n with the product of its digits until
+     * n becomes a single digit integer.
+     */
+    public static long multiplicativePersistence(long n) {
+        int numberOfIterations = 0;
+
+        while (n / 10 != 0) {
+            numberOfIterations++;
+
+            n = String.valueOf(n)
+                    .chars()
+                    .mapToLong(Character::getNumericValue)
+                    .reduce(1, (acc, digit) -> acc * digit);
+        }
+
+        return numberOfIterations;
+    }
 }
