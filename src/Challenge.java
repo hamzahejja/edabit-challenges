@@ -780,4 +780,25 @@ public class Challenge {
             ).stream().collect(Collectors.joining("")).compareTo(uniqueVowelsOfFirstWord) == 0;
         }).collect(Collectors.toList()).toArray(String[]::new);
     }
+
+    public static int maxPossible(int n1, int n2) {
+        String firstNumberAsString = String.valueOf(n1);
+        String descOrderedSecondNumber = Arrays
+                .stream(String.valueOf(n2).split(""))
+                .sorted(Comparator.reverseOrder())
+                .collect(Collectors.joining(""));
+
+        StringBuilder resultBuilder = new StringBuilder("");
+
+        for (int i = 0, j = 0; i < firstNumberAsString.length(); i++) {
+            if (j < descOrderedSecondNumber.length() && descOrderedSecondNumber.charAt(j) > firstNumberAsString.charAt(i)) {
+                resultBuilder.append(descOrderedSecondNumber.charAt(j));
+                j++;
+            } else {
+                resultBuilder.append(firstNumberAsString.charAt(i));
+            }
+        }
+
+        return Integer.parseInt(resultBuilder.toString());
+    }
 }
