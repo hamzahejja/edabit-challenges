@@ -744,4 +744,26 @@ public class Challenge {
                         Character.getNumericValue(num2.charAt(maxLength - minLength - 1)) + previousCarryFromLastSum
         ).reverse().insert(0, nonSummablePortion).toString().replaceAll("^0+", "");
     }
+
+    public static boolean sameLetterPattern(String str1, String str2) {
+        if (str1.length() != str2.length()) return false;
+
+        int firstUpdatedOccurencesCount, secondUpdatedOccurencesCount;
+        HashMap<Character, Integer> firstStrCharsOccurences = new HashMap<>();
+        HashMap<Character, Integer> secondStrCharsOccurences = new HashMap<>();
+
+        for (int i = 0; i < str1.length(); i++) {
+            firstUpdatedOccurencesCount = firstStrCharsOccurences.getOrDefault(str1.charAt(i), 0) + 1;
+            secondUpdatedOccurencesCount = secondStrCharsOccurences.getOrDefault(str2.charAt(i), 0) + 1;
+
+            if (firstUpdatedOccurencesCount != secondUpdatedOccurencesCount) {
+                return false;
+            }
+
+            firstStrCharsOccurences.put(str1.charAt(i), firstUpdatedOccurencesCount);
+            secondStrCharsOccurences.put(str2.charAt(i), secondUpdatedOccurencesCount);
+        }
+
+        return true;
+    }
 }
