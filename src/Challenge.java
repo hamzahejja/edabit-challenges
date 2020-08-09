@@ -7,9 +7,19 @@ import java.util.stream.IntStream;
 @SuppressWarnings("ALL")
 public class Challenge {
     public static boolean isPrime(int n) {
-        return IntStream
-                .rangeClosed(2, (int)(Math.sqrt(n) + 1))
-                .noneMatch(x -> n % x == 0);
+        if (n < 2) {
+            return false;
+        }
+
+        boolean isPrime = true;
+        for (int i = 2; i < n; i++) {
+            if (n % i == 0) {
+                isPrime = false;
+                break;
+            }
+        }
+
+        return true;
     }
 
     public static int firstIndex(String hex, String needle) {
@@ -800,5 +810,55 @@ public class Challenge {
         }
 
         return Integer.parseInt(resultBuilder.toString());
+    }
+
+    public static int digitalRoot (int number) {
+        while (String.valueOf(number).length() > 1) {
+            number = String.valueOf(number)
+                    .chars()
+                    .map(Character::getNumericValue)
+                    .sum();
+        }
+
+        return number;
+    }
+
+    public static int sumOfPrimeFactors(int number) {
+        List<Integer> primeFactorsByMultiplicity = new ArrayList<>();
+
+        for (int element = 2, temp = number; element < number; element++) {
+            while (temp % element == 0 && isPrime(element)) {
+                primeFactorsByMultiplicity.add(element);
+                temp /= element;
+            }
+        }
+
+        return primeFactorsByMultiplicity.stream()
+                .reduce(0, Integer::sum)
+                .intValue();
+    }
+
+    public static boolean isSmith(int number) {
+        return digitalRoot(number) == digitalRoot(sumOfPrimeFactors(number));
+    }
+
+    public static String smithType(int number) {
+        final String TRIVIAL_SMITH = "Trivial Smith";
+        final String YOUNGEST_SMITH = "Youngest Smith";
+        final String OLDEST_SMITH = "Oldest Smith";
+        final String SINGLE_SMITH = "Single Smith";
+        final String NOT_A_SMITH = "Not a Smith";
+
+        if (isPrime(number)) {
+            return TRIVIAL_SMITH;
+        }
+
+        if (isSmith(number)) {
+            return isSmith(number + 1) ?
+                    YOUNGEST_SMITH :
+                    isSmith(number - 1) ? OLDEST_SMITH : SINGLE_SMITH;
+        }
+
+        return NOT_A_SMITH;
     }
 }
