@@ -766,4 +766,18 @@ public class Challenge {
 
         return true;
     }
+
+    public static String[] sameVowelGroup(String[] words) {
+        final String nonVowelsRegex = "[^aeiou]";
+        final String uniqueVowelsOfFirstWord = new TreeSet<String>(
+                Arrays.asList(words[0].replaceAll(nonVowelsRegex, "").split(""))
+        ).stream().collect(Collectors.joining(""));
+
+
+        return Arrays.stream(words).filter(word -> {
+            return new TreeSet<String>(
+                    Arrays.asList(word.replaceAll(nonVowelsRegex, "").split(""))
+            ).stream().collect(Collectors.joining("")).compareTo(uniqueVowelsOfFirstWord) == 0;
+        }).collect(Collectors.toList()).toArray(String[]::new);
+    }
 }
