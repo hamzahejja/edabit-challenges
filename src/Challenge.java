@@ -19,7 +19,7 @@ public class Challenge {
             }
         }
 
-        return true;
+        return isPrime;
     }
 
     public static int firstIndex(String hex, String needle) {
