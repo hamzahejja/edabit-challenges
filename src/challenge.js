@@ -178,3 +178,17 @@ function findBrokenKeys(str1, str2) {
 
   return [...new Set(correctLetters.filter((l, i) => l !== typedLetters[i]))];
 }
+
+/**
+ * Do All Bigrams Exist?
+ * Write a function that returns true if you
+ * can find every single bigram from this array
+ * can be found at least once in an array of words.
+ *
+ * @param {object} bigrams
+ * @param {object} words
+ * @return {boolean}
+ */
+function canFind(bigrams, words) {
+  return bigrams.every(bigram => words.join("").indexOf(bigram) != -1);
+}
