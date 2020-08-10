@@ -204,3 +204,37 @@ function canFind(bigrams, words) {
 function isPositiveDominant(a) {
   return [...new Set(a.filter(num => num > 0))].length > [...new Set(a.filter(num => num < 0))].length;
 }
+
+/**
+ * LCM of Two Numbers
+ *
+ * @param {number} n1
+ * @param {number} n2
+ * @return {number} - Least Common Multiple (LCM)
+ */
+function lcm(n1, n2) {
+  const min = Math.min(n1, n2);
+  const max = Math.max(n1, n2);
+
+  if (max % min == 0) {
+    return max;
+  }
+
+  for (let num = 1;;num++) {
+    if (num % min == 0 && num % max == 0) {
+      return num;
+    }
+  }
+}
+
+/**
+ * Calculate the Total Price of Groceries.
+ *
+ * @param {object} groceries
+ * @return {number} - Total Price of Groceries.
+ */
+function getTotalPrice(groceries) {
+  const totalPrice = groceries.reduce((acc, grocery) => acc + grocery.quantity * grocery.price, 0);
+
+  return Number(totalPrice.toFixed(1));
+}
