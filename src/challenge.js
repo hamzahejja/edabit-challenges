@@ -161,3 +161,20 @@ function isPandigital(num) {
 
   return [...new Set(num.toString().split("").map(Number))].reduce((acc, val) => acc + val, 0) == sumOfDigits;
 }
+
+/**
+ * "Broken Keyboard" Challenge.
+ * Broken keys should be ordered by when they first appear in the sentence.
+ * Only one broken key per letter should be listed.
+ * Letters will all be in lower case.
+ *
+ * @param {string} str1
+ * @param {string} str2
+ * @return {object} - array containing distinct/unique broken keys.
+ */
+function findBrokenKeys(str1, str2) {
+  const typedLetters = str2.split("");
+  const correctLetters = str1.split("");
+
+  return [...new Set(correctLetters.filter((l, i) => l !== typedLetters[i]))];
+}
