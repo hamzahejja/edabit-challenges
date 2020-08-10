@@ -861,4 +861,18 @@ public class Challenge {
 
         return NOT_A_SMITH;
     }
+
+    public static boolean oddOneOut(String[] arr) {
+        Map<Integer, Integer> lengthsOccurencesMap = new HashMap<>();
+
+        for (String word: arr) {
+            lengthsOccurencesMap.put(
+                    word.length(),
+                    lengthsOccurencesMap.getOrDefault(word.length(), 0) + 1
+            );
+        }
+
+        return lengthsOccurencesMap.entrySet().size() == 2 &&
+                lengthsOccurencesMap.entrySet().stream().anyMatch(entry -> entry.getValue().intValue() == 1);
+    }
 }
