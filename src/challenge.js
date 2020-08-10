@@ -264,3 +264,24 @@ function canConcatenate(arr, target) {
 function reversedBinaryInteger(num) {
   return parseInt(num.toString(2).split("").reverse().join(""), 2);
 }
+
+/**
+ * Rearrange the Sentence
+ * Given a sentence with numbers representing a word's location
+ * embedded within each word, return the sorted sentence.
+ *
+ * @param {string} sentence
+ * @return {string}
+ */
+function rearrange(sentence) {
+  return sentence.split(' ')
+    .filter(Boolean)
+    .sort((lhsWord, rhsWord) => {
+      const locationOfLhsWord = Number(lhsWord.replace(/[^1-9]/g, '')) - 1;
+      const locationOfRhsWord = Number(rhsWord.replace(/[^1-9]/g, '')) - 1;
+
+      return locationOfLhsWord < locationOfRhsWord ? -1 : 1;
+    })
+    .map(word => word.replace(/[1-9]/g, ''))
+    .join(' ');
+}
