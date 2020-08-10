@@ -238,3 +238,19 @@ function getTotalPrice(groceries) {
 
   return Number(totalPrice.toFixed(1));
 }
+
+/**
+ * Concatenate to Form Target Array
+ * returns true if smaller arrays can concatenate to
+ * form the target array and false otherwise.
+ *
+ * @param {object} arr
+ * @param {object} target
+ * @return {boolean}
+ */
+function canConcatenate(arr, target) {
+  const concatenatedSmallerArrays = arr.reduce((acc, smallerArray) => [...acc, ...smallerArray], []);
+
+  return concatenatedSmallerArrays.length === target.length &&
+    concatenatedSmallerArrays.sort().every((val, index) => val === target.sort()[index]);
+}
