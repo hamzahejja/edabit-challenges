@@ -192,3 +192,15 @@ function findBrokenKeys(str1, str2) {
 function canFind(bigrams, words) {
   return bigrams.every(bigram => words.join("").indexOf(bigram) != -1);
 }
+
+/**
+ * Positive Dominant
+ * An array is positive dominant if it contains
+ * strictly more unique positive values than unique negative values.
+ *
+ * @param {object} a
+ * @returns {boolean} - if array contains more unique positives than negatives.
+ */
+function isPositiveDominant(a) {
+  return [...new Set(a.filter(num => num > 0))].length > [...new Set(a.filter(num => num < 0))].length;
+}
