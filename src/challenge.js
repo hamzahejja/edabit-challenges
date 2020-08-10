@@ -262,5 +262,5 @@ function canConcatenate(arr, target) {
  * @return {number}
  */
 function reversedBinaryInteger(num) {
-	return parseInt(num.toString(2).split("").reverse().join(""), 2);
+  return parseInt(num.toString(2).split("").reverse().join(""), 2);
 }
