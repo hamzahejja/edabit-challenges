@@ -861,4 +861,41 @@ public class Challenge {
 
         return NOT_A_SMITH;
     }
+
+    public static boolean oddOneOut(String[] arr) {
+        Map<Integer, Integer> lengthsOccurencesMap = new HashMap<>();
+
+        for (String word: arr) {
+            lengthsOccurencesMap.put(
+                    word.length(),
+                    lengthsOccurencesMap.getOrDefault(word.length(), 0) + 1
+            );
+        }
+
+        return lengthsOccurencesMap.entrySet().size() == 2 &&
+                lengthsOccurencesMap.entrySet().stream().anyMatch(entry -> entry.getValue().intValue() == 1);
+    }
+
+    public static int longestRun(int[] arr) {
+        int currentLength = 1;
+        int lastRecordedDifference = Integer.MIN_VALUE;
+        int maxLengthOfConsecutiveRun = Integer.MIN_VALUE;
+
+        boolean isIncreasingOrDecreasingPattern;
+
+        for (int index = 0; index < arr.length - 1; index++) {
+            isIncreasingOrDecreasingPattern = (lastRecordedDifference != Integer.MIN_VALUE && (arr[index + 1] - arr[index]) == lastRecordedDifference) ||
+                    (lastRecordedDifference == Integer.MIN_VALUE && Math.abs(arr[index + 1] - arr[index]) == 1);
+            if (isIncreasingOrDecreasingPattern) {
+                lastRecordedDifference = arr[index + 1] - arr[index];
+                currentLength++;
+            } else {
+                maxLengthOfConsecutiveRun = Math.max(currentLength, maxLengthOfConsecutiveRun);
+                currentLength = 1;
+                lastRecordedDifference = Integer.MIN_VALUE;
+            }
+        }
+
+        return Math.max(currentLength, maxLengthOfConsecutiveRun);
+    }
 }
