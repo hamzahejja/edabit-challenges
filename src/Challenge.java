@@ -943,4 +943,31 @@ public class Challenge {
                 .findFirst()
                 .get().getKey();
     }
+
+    /**
+     * Carrying the Digits
+     * https://edabit.com/challenge/5snfPLPbvjAsZ5kjo
+     * @param n1
+     * @param n2
+     * @return {int}
+     */
+    public static int carryDigits(int n1, int n2) {
+        String firstNumberAsStr = String.valueOf(n1), secondNumberAsStr = String.valueOf(n2);
+
+        int lastCarry = 0, numberOfCarryTimes = 0, lhsOperand, rhsOperand, sum;
+        int minimumNumberOfDigits = Math.min(String.valueOf(n1).length(), String.valueOf(n2).length());
+
+        for (int i = 0; i < minimumNumberOfDigits; i++ ) {
+            lhsOperand = Character.getNumericValue(firstNumberAsStr.charAt(firstNumberAsStr.length() - 1 - i));
+            rhsOperand = Character.getNumericValue(secondNumberAsStr.charAt(secondNumberAsStr.length() - 1 - i));
+            sum = lhsOperand + rhsOperand + lastCarry;
+
+            if (sum >= 10) {
+                numberOfCarryTimes++;
+                lastCarry = sum / 10;
+            }
+        }
+
+        return numberOfCarryTimes;
+    }
 }
