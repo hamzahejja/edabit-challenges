@@ -285,3 +285,51 @@ function rearrange(sentence) {
     .map(word => word.replace(/[1-9]/g, ''))
     .join(' ');
 }
+
+/**
+ * Product of Digits of Sum
+ * Create a function that takes numbers as arguments, adds them together,
+ * and returns the product of digits until the answer is only 1 digit long.
+ *
+ * @param  {...number} numbers
+ * @return {number}
+ */
+function sumDigProd(...numbers) {
+  let productOfDigits = numbers.reduce((acc, number) => acc + number , 0)
+    .toString()
+    .split('')
+    .map(Number)
+    .reduce((acc, digit) => acc * digit, 1);
+
+    while (productOfDigits % 10 != productOfDigits) {
+      productOfDigits = productOfDigits.toString()
+        .split('')
+        .map(Number)
+        .reduce((acc, digit) => acc * digit, 1);
+    }
+
+    return productOfDigits;
+}
+
+/**
+ * "Number Pairs"
+ * Create a function that determines how many number pairs are embedded
+ * in a space-separated string. The first numeric value in the space-separated string
+ * represents the count of the numbers, thus, excluded in the pairings.
+ *
+ * @param {string} str
+ * @return {number}
+ */
+function numberPairs(str) {
+  const seenNumbers = new Set();
+
+  return str.split(' ').slice(1).map(num => +num).filter(num => {
+    if (seenNumbers.has(num)) {
+      seenNumbers.delete(num);
+      return true;
+    }
+
+    seenNumbers.add(num);
+    return false;
+  }).length;
+}
