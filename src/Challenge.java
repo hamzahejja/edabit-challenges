@@ -945,6 +945,32 @@ public class Challenge {
     }
 
     /**
+     * Consecutive Numbers
+     * Create a function that determines whether elements in an array can
+     * be re-arranged to form a consecutive list of numbers where each number appears exactly once.
+     * [Consecutive Numbers](https://edabit.com/challenge/Md6usCHQ7Xsj2fQi3)
+     * @param arr
+     * @return {boolean}
+     */
+    public static boolean cons(int[] arr){
+        int lowerBound = Arrays.stream(arr).min().getAsInt();
+        int upperBound = Arrays.stream(arr).max().getAsInt();
+
+        Set<Integer> conequtiveElementsSet = IntStream
+                .rangeClosed(lowerBound, upperBound)
+                .boxed()
+                .collect(Collectors.toSet());
+
+        Set<Integer> existingElementsSet = Arrays
+                .stream(arr)
+                .boxed()
+                .collect(Collectors.toSet());
+
+        if (arr.length != conequtiveElementsSet.size()) return false;
+        return conequtiveElementsSet.size() == existingElementsSet.size();
+    }
+
+    /**
      * Carrying the Digits
      * https://edabit.com/challenge/5snfPLPbvjAsZ5kjo
      * @param n1
