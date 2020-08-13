@@ -394,6 +394,7 @@ function insertWhitespace(s) {
 /**
  * Layers in a Rug
  * Write a function that counts how many concentric layers a rug.
+ * https://edabit.com/challenge/8khL2WEhZ6M9onHL4
  *
  * @param {object} rug
  * @return {number}
@@ -404,6 +405,7 @@ function countLayers(rug) {
 
 /**
  * Get Students with Names and Top Notes.
+ * https://edabit.com/challenge/GJD5x54NaFZwbtxQW
  *
  * @param {object} students
  * @return {object}
