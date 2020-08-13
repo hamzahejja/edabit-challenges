@@ -351,3 +351,42 @@ function isThereConsecutive(arr, n, times) {
 
   return Boolean((arr.join('').match(regex) || []).length);
 }
+
+/**
+ * Reverse the Odd Length Words
+ * Given a string, reverse all the words which have
+ * odd length. The even length words are not changed.
+ *
+ * @param {string} str
+ * @return {string}
+ */
+function reverseOdd(str) {
+  return str.split(' ').map(
+    word => word.length % 2 == 0 ? word : [...word].reverse().join('')
+  ).join(' ');
+}
+
+/**
+ * Vowel to Vowel Links
+ * Given a sentence as str, return true if any two adjacent words
+ * have this property: One word ends with a vowel, while the word
+ * immediately after begins with a vowel.
+ *
+ * @param {string} str
+ * @return {boolean}
+ */
+function vowelLinks(str) {
+  return new RegExp(/[aeiou]\s[aeiou]/gi).test(str);
+}
+
+/**
+ * White Spaces Between Lower and Uppercase Letters.
+ * Write a function that inserts a white space between every instance
+ * of a lower character followed immediately by an upper character.
+ *
+ * @param {string} s
+ * @return {string}
+ */
+function insertWhitespace(s) {
+	return s.replace(/([a-z])([A-Z])/g, '$1 $2')
+}
