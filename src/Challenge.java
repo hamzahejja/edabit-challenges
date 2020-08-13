@@ -898,4 +898,35 @@ public class Challenge {
 
         return Math.max(currentLength, maxLengthOfConsecutiveRun);
     }
+
+    public static boolean isBalanced(String str) {
+        ArrayDeque<Character> deque = new ArrayDeque<>();
+
+        for (int i = 0; i < str.length(); i++) {
+            char currentChar = str.charAt(i);
+
+            if (currentChar == '(' || currentChar == '[' || currentChar == '{') {
+                deque.push(currentChar);
+                continue;
+            }
+
+            if (deque.isEmpty()) {
+                return false;
+            }
+
+            // get top element and compare it with
+            // current character, if the top element
+            // is the correct closing pair then pop
+            // it off the ArrayDeque datastructure
+            char top = deque.peek();
+
+            if ((currentChar == ')' && top == '(') || (currentChar == ']' && top == '[') || (currentChar == '}' && top == '{')) {
+                deque.pop();
+            } else {
+                return false;
+            }
+        }
+
+        return deque.isEmpty();
+    }
 }
