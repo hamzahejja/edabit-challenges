@@ -390,3 +390,24 @@ function vowelLinks(str) {
 function insertWhitespace(s) {
 	return s.replace(/([a-z])([A-Z])/g, '$1 $2')
 }
+
+/**
+ * Layers in a Rug
+ * Write a function that counts how many concentric layers a rug.
+ *
+ * @param {object} rug
+ * @return {number}
+ */
+function countLayers(rug) {
+	return new Set(rug).size;
+}
+
+/**
+ * Get Students with Names and Top Notes.
+ *
+ * @param {object} students
+ * @return {object}
+ */
+function getStudentsWithNamesAndTopNotes(students) {
+  return students.map(student => ({name: student.name, topNote: Math.max(...student.notes, 0)}));
+}
