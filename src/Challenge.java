@@ -929,4 +929,18 @@ public class Challenge {
 
         return deque.isEmpty();
     }
+
+    public static int findOdd(int[] arr) {
+        Map<Integer, Integer> elementApperancesMap = new HashMap<>();
+
+        for (int i = 0; i < arr.length; i++) {
+            elementApperancesMap.put(arr[i], elementApperancesMap.getOrDefault(arr[i], 0) + 1);
+        }
+
+        return elementApperancesMap.entrySet()
+                .stream()
+                .filter(entry -> entry.getValue() % 2 != 0)
+                .findFirst()
+                .get().getKey();
+    }
 }
