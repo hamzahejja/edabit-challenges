@@ -970,4 +970,37 @@ public class Challenge {
 
         return numberOfCarryTimes;
     }
+
+    /**
+     * Is One String in the Other?
+     * Create a function that takes two strings and returns true if either of the
+     * strings appears at the very end of the other string. Return false otherwise.
+     * The character * is a wildcard, so it can take the place of any character.
+     * [Is One String in the Other?](https://edabit.com/challenge/ZoDHtyWfFPttuTiQR)
+     * @param str1
+     * @param str2
+     * @return {boolean}
+     */
+    public static boolean overlap(String str1, String str2) {
+        int currentIndex, replacementIndex;
+        StringBuilder firstStringBuilder = new StringBuilder(str1), secondStringBuilder = new StringBuilder(str2);
+
+        for (int i = 0; i < Math.min(str1.length(), str2.length()); i++) {
+            if (str1.charAt(str1.length() - 1 - i) == '*') {
+                currentIndex = str1.length() - 1 - i;
+                replacementIndex = str2.length() - 1 - i;
+                firstStringBuilder.replace(currentIndex, currentIndex + 1, String.valueOf(str2.charAt(replacementIndex)));
+            } else if (str2.charAt(str2.length() - 1 - i) == '*') {
+                currentIndex = str2.length() - 1 - i;
+                replacementIndex = str1.length() - 1 - i;
+                secondStringBuilder.replace(currentIndex, currentIndex + 1, String.valueOf(str1.charAt(replacementIndex)));
+            }
+        }
+
+        str1 = firstStringBuilder.toString().toLowerCase();
+        str2 = secondStringBuilder.toString().toLowerCase();
+
+        return str1.lastIndexOf(str2) == (str1.length() - str2.length()) ||
+                str2.lastIndexOf(str1) == (str2.length() - str1.length());
+    }
 }
