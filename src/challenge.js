@@ -333,3 +333,21 @@ function numberPairs(str) {
     return false;
   }).length;
 }
+
+/**
+ * Consecutive Numbers
+ * Given an array of random digits of any length, return if
+ * the number n appears times times in a row.
+ *
+ * @param {object} arr
+ * @param {number} n
+ * @param {number} times
+ * @return {boolean}
+ */
+function isThereConsecutive(arr, n, times) {
+  const regex = times > 0 ?
+    new RegExp(`${n}{${times}}`):
+    new RegExp(`[^${n}]`);
+
+  return Boolean((arr.join('').match(regex) || []).length);
+}
