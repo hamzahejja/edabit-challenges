@@ -1133,28 +1133,6 @@ public class Challenge {
         }).toArray(String[]::new);
     }
 
-    /**************************************************************
-     **************************************************************/
-    public static Map<Character, Integer> buildRepitionsCountMapping(String input) {
-        int repititionCount = 1;
-        Map<Character, Integer> consecutiveCharsWithLengthMapping = new HashMap<>();
-
-        for (int index = 1; index < input.length(); index++) {
-            if (input.charAt(index) == input.charAt(index - 1)) {
-                repititionCount++;
-            } else if (repititionCount > 1) {
-                consecutiveCharsWithLengthMapping.put(input.charAt(index - 1), repititionCount);
-                repititionCount = 1;
-            }
-        }
-
-        if (repititionCount > 1) {
-            consecutiveCharsWithLengthMapping.put(input.charAt(input.length() - 1), repititionCount);
-        }
-
-        return consecutiveCharsWithLengthMapping;
-    }
-
     /**
      * Star Shorthand
      * Write a function that converts a string into star shorthand.
@@ -1175,6 +1153,4 @@ public class Challenge {
                             new StringBuilder(entry.getKey()).append('*').append(entry.getValue()).toString();
                 }).collect(Collectors.joining(""));
     }
-    /**************************************************************
-     **************************************************************/
 }
