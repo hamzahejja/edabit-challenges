@@ -1029,4 +1029,28 @@ public class Challenge {
         return str1.lastIndexOf(str2) == (str1.length() - str2.length()) ||
                 str2.lastIndexOf(str1) == (str2.length() - str1.length());
     }
+
+    /**
+     * Balanced Words
+     * https://edabit.com/challenge/NGnsMw8CG8gxEFW7w
+     * @param word
+     * @return {boolean}
+     */
+    public static boolean balanced(String word) {
+        // If word is palindromic then it'll always have
+        // balanced sum, hence we'll always return true
+        if (new StringBuilder(word).reverse().toString().equals(word)) {
+            return true;
+        }
+
+        int length = word.length();
+
+        if (length % 2 == 0) {
+            return word.substring(0, length / 2).chars().map(cp -> cp - 'a').sum() ==
+                    word.substring(length / 2).chars().map(cp -> cp - 'a').sum();
+        }
+
+        return word.substring(0, length / 2).chars().map(cp -> cp - 'a').sum() ==
+                word.substring(length / 2 + 1).chars().map(cp -> cp - 'a').sum();
+    }
 }
