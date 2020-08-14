@@ -1131,4 +1131,66 @@ public class Challenge {
             return ASC_SORTING ? comparatorResult : -1 * comparatorResult;
         }).toArray(String[]::new);
     }
+
+    /**************************************************************
+     **************************************************************/
+    public static Map<Character, Integer> buildRepitionsCountMapping(String input) {
+        int repititionCount = 1;
+        Map<Character, Integer> consecutiveCharsWithLengthMapping = new HashMap<>();
+
+        for (int index = 1; index < input.length(); index++) {
+            if (input.charAt(index) == input.charAt(index - 1)) {
+                repititionCount++;
+            } else if (repititionCount > 1) {
+                consecutiveCharsWithLengthMapping.put(input.charAt(index - 1), repititionCount);
+                repititionCount = 1;
+            }
+        }
+
+        if (repititionCount > 1) {
+            consecutiveCharsWithLengthMapping.put(input.charAt(input.length() - 1), repititionCount);
+        }
+
+        return consecutiveCharsWithLengthMapping;
+    }
+
+    /**
+     * Star Shorthand
+     * Write a function that converts a string into star shorthand.
+     * If a character is repeated n times, convert it into character*n.
+     * https://edabit.com/challenge/6KPGPdQDCXsHYaQTL
+     *
+     * @param str
+     * @return {String}
+     */
+    public static String toStarShorthand(String str) {
+        StringBuilder resultBuilder = new StringBuilder("");
+        Map<Character, Integer> repetitionsCountMap = buildRepitionsCountMapping(str);
+
+        for (char repeatedChar: repetitionsCountMap.keySet()) {
+            int repititionsCount = repetitionsCountMap.get(repeatedChar);
+
+            String regex = new StringBuilder("(?<!\\*)")
+                    .append(repeatedChar)
+                    .append('{')
+                    .append(repititionsCount)
+                    .append('}')
+                    .toString();
+
+            String replacement = new StringBuilder(String.valueOf(repeatedChar))
+                    .append('*')
+                    .append(repetitionsCountMap.get(repeatedChar))
+                    .toString();
+
+            resultBuilder.append(str.replaceAll(regex, replacement));
+        }
+
+        return resultBuilder.toString();
+    }
+    /**************************************************************
+     **************************************************************/
+
+    public static void main(String[] args) {
+        System.out.println(toStarShorthand("11223344"));
+    }
 }
