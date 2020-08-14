@@ -413,3 +413,27 @@ function countLayers(rug) {
 function getStudentsWithNamesAndTopNotes(students) {
   return students.map(student => ({name: student.name, topNote: Math.max(...student.notes, 0)}));
 }
+
+/**
+ * The Karaca's Encryption Algorithm.
+ * Step 1: Reverse the input
+ * Step 2: Replace all vowels using the following chart
+ *
+ * a => 0
+ * e => 1
+ * i => 2
+ * o => 2
+ * u => 3
+ *
+ * Step 3: Add "aca" to the end of the word
+ *
+ * @param {string} word
+ * @return {string}
+ */
+function encrypt(word) {
+  const vowels = ['a', 'e', 'o', 'u'];
+
+  return [...word].reverse().join('')
+    .replace(new RegExp(`[${vowels.join('')}]`, 'g'), (match) => vowels.indexOf(match))
+    .replace(/(\w)$/, '$1aca');
+}
