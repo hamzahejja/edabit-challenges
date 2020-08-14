@@ -1189,8 +1189,4 @@ public class Challenge {
     }
     /**************************************************************
      **************************************************************/
-
-    public static void main(String[] args) {
-        System.out.println(toStarShorthand("11223344"));
-    }
 }
