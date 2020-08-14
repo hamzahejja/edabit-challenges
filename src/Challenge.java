@@ -1,5 +1,6 @@
 import java.text.DecimalFormat;
 import java.util.*;
+import java.util.function.Function;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -1164,28 +1165,15 @@ public class Challenge {
      * @return {String}
      */
     public static String toStarShorthand(String str) {
-        StringBuilder resultBuilder = new StringBuilder("");
-        Map<Character, Integer> repetitionsCountMap = buildRepitionsCountMapping(str);
-
-        for (char repeatedChar: repetitionsCountMap.keySet()) {
-            int repititionsCount = repetitionsCountMap.get(repeatedChar);
-
-            String regex = new StringBuilder("(?<!\\*)")
-                    .append(repeatedChar)
-                    .append('{')
-                    .append(repititionsCount)
-                    .append('}')
-                    .toString();
-
-            String replacement = new StringBuilder(String.valueOf(repeatedChar))
-                    .append('*')
-                    .append(repetitionsCountMap.get(repeatedChar))
-                    .toString();
-
-            resultBuilder.append(str.replaceAll(regex, replacement));
-        }
-
-        return resultBuilder.toString();
+        return Arrays.stream(str.split(""))
+                .collect(Collectors.groupingBy(Function.identity(), LinkedHashMap::new, Collectors.counting()))
+                .entrySet()
+                .stream()
+                .map(entry -> {
+                    return (entry.getValue() == 1) ?
+                            entry.getKey() :
+                            new StringBuilder(entry.getKey()).append('*').append(entry.getValue()).toString();
+                }).collect(Collectors.joining(""));
     }
     /**************************************************************
      **************************************************************/
