@@ -1053,4 +1053,57 @@ public class Challenge {
         return word.substring(0, length / 2).chars().map(cp -> cp - 'a').sum() ==
                 word.substring(length / 2 + 1).chars().map(cp -> cp - 'a').sum();
     }
+
+    /**
+     * Triple + Double = So Much Trouble
+     * https://edabit.com/challenge/27h4mwAKD3hhy6onh
+     * Create a function that takes two integers and returns true if a number repeats
+     * three times in a row at any place in num1 AND that same number repeats two times in a row in num.
+     *
+     * @param num1
+     * @param num2
+     * @return {boolean}
+     */
+    public static boolean trouble(long num1, long num2) {
+        int consecutiveCount = 1;
+        long currentDigit, lastSeenDigit = Long.MIN_VALUE;
+
+        Set<Long> threeTimesInRow = new HashSet<>();
+
+        do {
+            currentDigit = num1 % 10;
+
+            if (currentDigit == lastSeenDigit) {
+                consecutiveCount++;
+            }
+
+            if (consecutiveCount == 3) {
+                threeTimesInRow.add(currentDigit);
+            }
+
+            num1 /= 10;
+            lastSeenDigit = currentDigit;
+        } while (num1 != 0);
+
+
+        lastSeenDigit = Long.MIN_VALUE;
+        consecutiveCount = 1;
+
+        do {
+            currentDigit = num2 % 10;
+
+            if (currentDigit == lastSeenDigit) {
+                consecutiveCount++;
+            }
+
+            if (consecutiveCount == 2) {
+                return threeTimesInRow.contains(currentDigit);
+            }
+
+            num2 /= 10;
+            lastSeenDigit = currentDigit;
+        } while (num2 != 0);
+
+        return false;
+    }
 }
