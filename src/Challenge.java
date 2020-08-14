@@ -1106,4 +1106,29 @@ public class Challenge {
 
         return false;
     }
+
+    /**
+     * Contact List
+     * Write a sorting function that takes in an array of names and
+     * sorts them by last name either alphabetically (ASC) or reverse-alphabetically (DESC).
+     * https://edabit.com/challenge/SnZ5y2hyxjZnWrMec
+     *
+     * @param arr
+     * @param sortBy
+     * @return {String[]}
+     */
+    public static String[] sortContacts(String[] arr, String sortBy) {
+        if (arr == null || arr.length == 0) {
+            return new String[]{};
+        }
+
+        final boolean ASC_SORTING = sortBy.equals("ASC");
+        return Arrays.stream(arr).sorted((lhsName, rhsName) -> {
+            int comparatorResult = lhsName.replaceAll(".*(?=\\s)\\s", "").compareTo(
+                    rhsName.replaceAll(".*(?=\\s)\\s", "")
+            );
+
+            return ASC_SORTING ? comparatorResult : -1 * comparatorResult;
+        }).toArray(String[]::new);
+    }
 }
