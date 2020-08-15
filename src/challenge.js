@@ -437,3 +437,39 @@ function encrypt(word) {
     .replace(new RegExp(`[${vowels.join('')}]`, 'g'), (match) => vowels.indexOf(match))
     .replace(/(\w)$/, '$1aca');
 }
+
+/**
+ * Check if input number is prime.
+ * Complexity: O(sqrt(n))
+ *
+ * @param {number} num
+ * @return {boolean}
+ */
+const isPrime = num => {
+  for (let i = 2, sqrroot = Math.sqrt(num); i <= sqrroot; i++) {
+    if (num % i == 0) {
+      return false;
+    }
+  }
+
+  return num > 1;
+}
+
+/**
+ * No Good Numbers
+ * A positive number's population is the number of 1s in its binary representation.
+ * An evil number has an even numbered population,
+ * whereas an odious number has an odd numbered population.
+ * Moreover, a number is pernicious if its population is a prime number.
+ * Create a function that takes a number as an argument and returns
+ * a sorted array of all its descriptors ("Evil", "Odious", or "Pernicious").
+ *
+ * @param {number} num
+ * @return {object} - Descriptors Array.
+ */
+function howBad(num) {
+  const onesCount = Number(num).toString(2).match(/1/g).length;
+  const descriptors = onesCount % 2 == 0 ? ['Evil'] : ['Odious'];
+
+  return isPrime(onesCount) ? [...descriptors, 'Pernicious'] : descriptors;
+}
