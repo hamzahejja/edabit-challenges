@@ -534,3 +534,37 @@ function finalCountdown(arr) {
 
   return [allCountdownSequences.length, allCountdownSequences];
 }
+
+/**
+ * Create a function that returns the characters from an array or string r on
+ * odd or even positions, depending on the specifier s. The specifier will be
+ * "odd" for items on odd positions (1, 3, 5, ...) and
+ * "even" for items on even positions (2, 4, 6, ...).
+ * https://edabit.com/challenge/fWkrdJb6EJrHsP7Sm
+ * @param {object|string} r
+ * @param {object|string} s
+ * @return {object|string}
+ */
+function charAtPos(r, s) {
+  return typeof(r) == 'string' ?
+    [...r].filter((_, index) => s === 'even' ? (index + 1) % 2 == 0 : (index + 1) % 2 != 0).join(''):
+    [...r].filter((_, index) => s === 'even' ? (index + 1) % 2 == 0 : (index + 1) % 2 != 0);
+}
+
+/**
+ * Oddly or Evenly Positioned From Last.
+ * Create a function that extracts the characters from an array (or a string)
+ * on odd or even positions, depending on the specifier. The string "odd" for items on odd positions
+ * (... 5, 3, 1) and "even" for even positions (... 6, 4, 2) from the last item of that array or string.
+ *
+ * @param {object|string} r
+ * @param {object|string} s
+ * @return {object|string}
+ */
+function oddlyOrEvenlyPositionedFromLast(r, s) {
+  const extractedElements = [...r].filter(
+    (_, index, arr) => s === 'even' ? (arr.length - index) % 2 == 0 : (arr.length - index) % 2 != 0
+  );
+
+  return typeof(r) == 'string' ? extractedElements.join('') : extractedElements;
+}
