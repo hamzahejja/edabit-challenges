@@ -493,3 +493,44 @@ function sumMissingNumbers(arr) {
 
   return sumOfElementsInRange - sumOfExistingElements;
 }
+
+/**
+ * Distance to Nearest Vowel
+ * https://edabit.com/challenge/b9FBAhxaijR9fzxgo
+ *
+ * @param {string} str
+ * @return {object}
+ */
+function distanceToNearestVowel(str) {
+  const vowels = ['a', 'e', 'i', 'o', 'u'];
+  const indicesOfVowels = [...str].reduce((indices, char, index) => vowels.includes(char) ? [...indices, index] : indices, []);
+
+  return [...str].map((_, currentIndex) =>  indicesOfVowels.includes(currentIndex) ?
+    0 : Math.min(...indicesOfVowels.map(vowelIndex => Math.abs(vowelIndex - currentIndex)))
+  );
+}
+
+/**
+ * Count the Countdown Sequences
+ * https://edabit.com/challenge/HW4ZzYmDaASKfwdq6
+ *
+ * @param {object} arr
+ * @return {object} - of the form [numberOfCountdownSequences, countdownSequences]
+ */
+function finalCountdown(arr) {
+  let allCountdownSequences = [];
+  let currentCountdownElements = [];
+
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] == 1) {
+      allCountdownSequences.push([...currentCountdownElements, 1]);
+      currentCountdownElements = [];
+    } else if (arr[i + 1] == arr[i] - 1) {
+      currentCountdownElements.push(arr[i]);
+    } else {
+      currentCountdownElements = [];
+    }
+  }
+
+  return [allCountdownSequences.length, allCountdownSequences];
+}
