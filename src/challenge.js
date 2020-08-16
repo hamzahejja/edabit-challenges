@@ -568,3 +568,33 @@ function oddlyOrEvenlyPositionedFromLast(r, s) {
 
   return typeof(r) == 'string' ? extractedElements.join('') : extractedElements;
 }
+
+/**
+ * Knights on a Board.
+ * Write a function that returns true if the knights are placed on a chessboard such that no knight
+ * can capture another knight. Here, 0s represent empty squares and 1s represent knights.
+ *
+ * @param {object} board
+ * @return {boolean}
+ */
+function cannotCapture(board) {
+	const indicesOfKnights = board.reduce((indices, row, currentIndex) => {
+    const onesIndices = row.reduce((acc, piece, index) => piece == 1 ? [...acc, [currentIndex, index]]: acc, []);
+    return [...indices, ...onesIndices];
+  }, []);
+
+  return indicesOfKnights.every(knightIndex => {
+    const [rowIndex, colIndex] = knightIndex;
+    const cannotCaptureMovingVerticallyThenHorizontally = !indicesOfKnights.some(indexArr => indexArr[0] == rowIndex - 2 && indexArr[1] == colIndex - 1) &&
+      !indicesOfKnights.some(indexArr => indexArr[0] == rowIndex - 2 && indexArr[1] == colIndex + 1) &&
+      !indicesOfKnights.some(indexArr => indexArr[0] == rowIndex + 2 && indexArr[1] == colIndex - 1) &&
+      !indicesOfKnights.some(indexArr => indexArr[0] == rowIndex + 2 && indexArr[1] == colIndex + 1);
+
+    const cannotCaptureMovingHorizontallyThenVertically = !indicesOfKnights.some(indexArr => indexArr[0] == rowIndex - 1 && indexArr[1] == colIndex - 2) &&
+      !indicesOfKnights.some(indexArr => indexArr[0] == rowIndex + 1 && indexArr[1] == colIndex - 2) &&
+      !indicesOfKnights.some(indexArr => indexArr[0] == rowIndex - 1 && indexArr[1] == colIndex + 2) &&
+      !indicesOfKnights.some(indexArr => indexArr[0] == rowIndex + 1 && indexArr[1] == colIndex + 2);
+
+    return cannotCaptureMovingVerticallyThenHorizontally && cannotCaptureMovingHorizontallyThenVertically;
+  })
+}
