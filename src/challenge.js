@@ -473,3 +473,23 @@ function howBad(num) {
 
   return isPrime(onesCount) ? [...descriptors, 'Pernicious'] : descriptors;
 }
+
+/**
+ * Sum of Missing Numbers
+ * https://edabit.com/challenge/8a2J9T4FM5fgSwn4w
+ * Create a function that returns the sum of missing numbers.
+ *
+ * @param {object} arr
+ * @return {number}
+ */
+function sumMissingNumbers(arr) {
+  const min = Math.min(...arr);
+  const max = Math.max(...arr);
+
+  const sumOfExistingElements = arr.reduce((acc, val) => acc + val, 0);
+  const sumOfElementsInRange = Array(max - min + 1).fill()
+    .map((_, index) => min + index)
+    .reduce((acc, val) => acc + val, 0);
+
+  return sumOfElementsInRange - sumOfExistingElements;
+}
