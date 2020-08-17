@@ -598,3 +598,76 @@ function cannotCapture(board) {
     return cannotCaptureMovingVerticallyThenHorizontally && cannotCaptureMovingHorizontallyThenVertically;
   })
 }
+
+
+/**
+ * Generate 3-Letter Code from Surname.
+ *
+ * @param {string} surname
+ * @return {string}
+ */
+function generateCodeFromSurname(surname) {
+  const vowels = String(surname).replace(/[^aeiou]/gi, '');
+  const consonants = String(surname).replace(/[aeiou]/gi, '');
+
+  if (consonants.length >= 3) {
+    return consonants.substr(0, 3).toUpperCase();
+  } else {
+    return (consonants.length + vowels.length >= 3) ?
+      `${consonants}${vowels}`.substr(0, 3).toUpperCase() :
+      `${consonants}${vowels}${Array(3 - (consonants.length + vowels.length)).fill('X').join('')}`.toUpperCase();
+  }
+}
+
+/**
+ * Generate 3 Capital Letters from Name.
+ *
+ * @param {string} name
+ * @return {string}
+ */
+function generateCodeFromName(name) {
+  const vowels = name.replace(/[^aeiou]/gi, '');
+  const consonants = name.replace(/[aeiou]/gi, '');
+
+  if (consonants.length > 3) {
+    return `${consonants[0]}${consonants[2]}${consonants[3]}`.toUpperCase();
+  }
+
+  if (consonants.length == 3) {
+    return consonants.toUpperCase();
+  }
+
+  if (consonants.length < 3) {
+    return name.length < 3 ?
+      `${consonants}${vowels}${Array(3 - (consonants.length + vowels.length)).fill('x').join('')}`.toUpperCase() :
+      `${consonants}${vowels}`.substr(0, 3).toUpperCase();
+  }
+}
+
+/**
+ * Genereate 2 Numbers, 1 Letter and 2 Number from
+ * Date of Birth + Gender of Person.
+ *
+ * @param {string} dateOfBirth
+ * @param {string} gender
+ * @return {string}
+ */
+function generateCodeFromDobAndGender(dateOfBirth, gender) {
+  const monthsToLetterMapping = {
+    1: "A", 2: "B", 3: "C", 4: "D", 5: "E", 6: "H",
+    7: "L", 8: "M", 9: "P", 10: "R", 11: "S", 12: "T"
+  };
+
+  const [day, month, year] = dateOfBirth.split('/');
+
+  const dayMapping = gender === 'F' ?
+    (Number(day) + 40).toString() :
+    (Number(day) < 10) ? `0${day}` : day;
+
+    return `${year.slice(-2)}${monthsToLetterMapping[month]}${dayMapping}`;
+}
+
+
+function fiscalCode(person) {
+  return `${generateCodeFromSurname(person.surname)}${generateCodeFromName(person.name)}${generateCodeFromDobAndGender(person.dob, person.gender)}`;
+}
