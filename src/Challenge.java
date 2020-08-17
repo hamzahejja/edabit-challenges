@@ -1153,4 +1153,47 @@ public class Challenge {
                             new StringBuilder(entry.getKey()).append('*').append(entry.getValue()).toString();
                 }).collect(Collectors.joining(""));
     }
+
+    public static Map<String, String> buildQueryParametersMap(String url, String[] paramsToStrip) {
+        Map<String, String> urlQueryParamsMap = new HashMap<>();
+        String[] keyValuePair, urlQueryParams = url.substring(url.indexOf('?') + 1).split("&");
+
+        for (String queryParam: urlQueryParams) {
+            keyValuePair = queryParam.split("=");
+            urlQueryParamsMap.put(keyValuePair[0], keyValuePair[1]);
+        }
+
+        for (String strippedParameter: paramsToStrip) {
+            urlQueryParamsMap.remove(strippedParameter);
+        }
+
+        return urlQueryParamsMap;
+    }
+
+    /**
+     * Strip URL Query Parameters
+     * Create a function that takes a URL (string), removes duplicate query parameters and
+     * parameters specified within the 2nd argument (which will be an optional array).
+     * https://edabit.com/challenge/W7juRdtzze5ZbrfbJ
+     *
+     * @param url
+     * @param paramsToStrip
+     * @return {String}
+     */
+    public static String stripUrlParams(String url, String[] paramsToStrip) {
+        if (url.indexOf('?') == -1) return url;
+
+        Map<String, String> queryParamsMap = paramsToStrip == null ?
+                buildQueryParametersMap(url, new String[]{}):
+                buildQueryParametersMap(url, paramsToStrip);
+
+        String baseUrl = url.substring(0, url.indexOf('?') + 1);
+        String modifiedQueryParameters = buildQueryParametersMap(
+                url, (paramsToStrip == null ? new String[]{} : paramsToStrip)
+        ).keySet().stream().map(
+                key -> new StringBuilder(key).append('=').append(queryParamsMap.get(key)).toString()
+        ).collect(Collectors.joining("&"));
+
+        return new StringBuilder(baseUrl).append(modifiedQueryParameters).toString();
+    }
 }
