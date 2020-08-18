@@ -1196,4 +1196,26 @@ public class Challenge {
 
         return new StringBuilder(baseUrl).append(modifiedQueryParameters).toString();
     }
+
+    /**
+     * Reorder Digits.
+     * Create a function that reorders the digits of each numerical element
+     * in an array based on ascending (asc) or descending (desc) order.
+     * https://edabit.com/challenge/EiTYFd9jwghDz3aoG
+     *
+     * @param arr
+     * @param orderBy
+     * @return {int[]}
+     */
+    public static int[] reorderDigits(int[] arr, String orderBy) {
+        return Arrays.stream(arr).map(number -> {
+            String sortedNumber = Arrays.stream(
+                    String.valueOf(number).split("")
+            ).sorted((lhsStr, rhsStr) -> {
+                return orderBy.equals("asc") ? lhsStr.compareTo(rhsStr) : rhsStr.compareTo(lhsStr);
+            }).collect(Collectors.joining(""));
+
+            return Integer.parseInt(sortedNumber);
+        }).toArray();
+    }
 }
