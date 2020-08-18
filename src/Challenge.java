@@ -1218,4 +1218,19 @@ public class Challenge {
             return Integer.parseInt(sortedNumber);
         }).toArray();
     }
+
+    /**
+     * Parseltongue.
+     * Each word in a sssentence must contain either:
+     * At least 2 instances of the letter "s" (i.e. must be together ss), or
+     * Zero instances of the letter "s".
+     * https://edabit.com/challenge/n3Sw2MEa4TkEhthgB
+     *
+     * @param sentence
+     * @return {boolean}
+     */
+    public static boolean isParselTongue(String sentence) {
+        return Arrays.stream(sentence.split(" "))
+                .allMatch(word -> !word.toLowerCase().contains("s") || word.toLowerCase().indexOf("ss") != -1);
+    }
 }
