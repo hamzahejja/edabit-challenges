@@ -1233,4 +1233,21 @@ public class Challenge {
         return Arrays.stream(sentence.split(" "))
                 .allMatch(word -> !word.toLowerCase().contains("s") || word.toLowerCase().indexOf("ss") != -1);
     }
+
+    /**
+     * Remove the Last Vowel
+     * Write a function that removes the last vowel in each word in a sentence.
+     * https://edabit.com/challenge/buctumjkfFWGx5iP6
+     *
+     * @param str
+     * @return {String}
+     */
+    public static String removeLastVowel(String str) {
+        String lastVowelRegex = "((?i)[aeiou])(?!.*(?i)[aeiou])";
+
+        return Arrays.stream(str.split(" ")).map(
+                word -> word.replaceAll(lastVowelRegex, "")
+        ).collect(Collectors.joining(" "));
+    }
+
 }
