@@ -671,3 +671,33 @@ function generateCodeFromDobAndGender(dateOfBirth, gender) {
 function fiscalCode(person) {
   return `${generateCodeFromSurname(person.surname)}${generateCodeFromName(person.name)}${generateCodeFromDobAndGender(person.dob, person.gender)}`;
 }
+
+/**
+ * Prison Break.
+ * Starting from the leftmost cell, you are tasked with seeing how many prisoners you can
+ * set free, with a catch. Each time you free a prisoner, the locked cells become unlocked, and the unlocked cells become locked again.
+ * Create a function that, given this unique prison arrangement, returns the number of freed prisoners.
+ *
+ * @param {object} prison
+ * @return {number}
+ */
+function freedPrisoners(prison) {
+  let numberOfFreedPrisoners = 0;
+  let remainingCellsBinary = Array.from(prison).join('');
+  let indexOfNextUnlockedCell = remainingCellsBinary.indexOf('1');
+
+  if (new RegExp(`01{${remainingCellsBinary.length - 1}}`).test(remainingCellsBinary)) return 0;
+
+  while (indexOfNextUnlockedCell != -1 && indexOfNextUnlockedCell < remainingCellsBinary.length) {
+
+    numberOfFreedPrisoners++;
+    remainingCellsBinary = remainingCellsBinary.split('')
+      .map(cell => 1 - Number(cell))
+      .join('')
+      .slice(indexOfNextUnlockedCell + 1);
+
+    indexOfNextUnlockedCell = remainingCellsBinary.indexOf('1');
+  }
+
+  return numberOfFreedPrisoners;
+}
