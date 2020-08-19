@@ -1250,4 +1250,45 @@ public class Challenge {
         ).collect(Collectors.joining(" "));
     }
 
+    /**
+     * 12 vs 24 Hours.
+     * Create a function that converts 12-hour time to
+     * 24-hour time or vice versa. Return the output as a string.
+     * https://edabit.com/challenge/ayvtiYuzTxkphRBxB
+     * @param time
+     * @return {String}
+     */
+    public static String convertTime(String time) {
+        final String AM_SUFFIX = "am";
+        final String[] timeSpecifications = time.split(" ");
+
+        String hours, minutes,suffix;
+        int indexOfHoursMinutesSep = time.indexOf(':');
+
+        if (timeSpecifications.length == 2) {
+            hours = time.substring(0, indexOfHoursMinutesSep);
+            minutes = time.substring(indexOfHoursMinutesSep + 1, time.indexOf(" "));
+            suffix = timeSpecifications[1];
+
+            if (hours.equals("12")) {
+                return suffix.equals(AM_SUFFIX) ?
+                        new StringBuilder("0:").append(minutes).toString():
+                        new StringBuilder("12:").append(minutes).toString();
+            }
+
+            return suffix.equals(AM_SUFFIX)?
+                    new StringBuilder(hours).append(':').append(minutes).toString():
+                    new StringBuilder(String.valueOf(Integer.parseInt(hours) + 12)).append(':').append(minutes).toString();
+        }
+
+        hours = time.substring(0, indexOfHoursMinutesSep);
+        minutes = time.substring(indexOfHoursMinutesSep + 1);
+
+        return Integer.parseInt(hours) < 12 ?
+                new StringBuilder(hours).append(':').append(minutes).append(" am").toString():
+                new StringBuilder(String.valueOf(Integer.parseInt(hours) - 12)).append(':')
+                        .append(minutes)
+                        .append(" pm")
+                        .toString();
+    }
 }
