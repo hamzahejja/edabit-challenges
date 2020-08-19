@@ -700,3 +700,30 @@ function freedPrisoners(prison) {
 
   return numberOfFreedPrisoners;
 }
+
+/**
+ * Find All Digits
+ * Taking each four digit number of an array in turn, return the number that you are on
+ * when all of the digits 0-9 have been discovered. If not all of the digits can be found, return "Missing digits!".
+ *
+ * @param {object} nums
+ * @return {number}
+ */
+function findAllDigits(nums) {
+  let temp;
+  const foundDigits = new Set();
+
+  for (number of nums) {
+    temp = number;
+    while (temp != 0) {
+      foundDigits.add(temp % 10);
+
+      if (foundDigits.size == 10) {
+        return number;
+      }
+      temp = Math.floor(temp / 10);
+    }
+  }
+
+  return 'Missing digits!';
+}
