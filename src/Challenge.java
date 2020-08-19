@@ -1153,4 +1153,142 @@ public class Challenge {
                             new StringBuilder(entry.getKey()).append('*').append(entry.getValue()).toString();
                 }).collect(Collectors.joining(""));
     }
+
+    public static Map<String, String> buildQueryParametersMap(String url, String[] paramsToStrip) {
+        Map<String, String> urlQueryParamsMap = new HashMap<>();
+        String[] keyValuePair, urlQueryParams = url.substring(url.indexOf('?') + 1).split("&");
+
+        for (String queryParam: urlQueryParams) {
+            keyValuePair = queryParam.split("=");
+            urlQueryParamsMap.put(keyValuePair[0], keyValuePair[1]);
+        }
+
+        for (String strippedParameter: paramsToStrip) {
+            urlQueryParamsMap.remove(strippedParameter);
+        }
+
+        return urlQueryParamsMap;
+    }
+
+    /**
+     * Strip URL Query Parameters
+     * Create a function that takes a URL (string), removes duplicate query parameters and
+     * parameters specified within the 2nd argument (which will be an optional array).
+     * https://edabit.com/challenge/W7juRdtzze5ZbrfbJ
+     *
+     * @param url
+     * @param paramsToStrip
+     * @return {String}
+     */
+    public static String stripUrlParams(String url, String[] paramsToStrip) {
+        if (url.indexOf('?') == -1) return url;
+
+        Map<String, String> queryParamsMap = paramsToStrip == null ?
+                buildQueryParametersMap(url, new String[]{}):
+                buildQueryParametersMap(url, paramsToStrip);
+
+        String baseUrl = url.substring(0, url.indexOf('?') + 1);
+        String modifiedQueryParameters = buildQueryParametersMap(
+                url, (paramsToStrip == null ? new String[]{} : paramsToStrip)
+        ).keySet().stream().map(
+                key -> new StringBuilder(key).append('=').append(queryParamsMap.get(key)).toString()
+        ).collect(Collectors.joining("&"));
+
+        return new StringBuilder(baseUrl).append(modifiedQueryParameters).toString();
+    }
+
+    /**
+     * Reorder Digits.
+     * Create a function that reorders the digits of each numerical element
+     * in an array based on ascending (asc) or descending (desc) order.
+     * https://edabit.com/challenge/EiTYFd9jwghDz3aoG
+     *
+     * @param arr
+     * @param orderBy
+     * @return {int[]}
+     */
+    public static int[] reorderDigits(int[] arr, String orderBy) {
+        return Arrays.stream(arr).map(number -> {
+            String sortedNumber = Arrays.stream(
+                    String.valueOf(number).split("")
+            ).sorted((lhsStr, rhsStr) -> {
+                return orderBy.equals("asc") ? lhsStr.compareTo(rhsStr) : rhsStr.compareTo(lhsStr);
+            }).collect(Collectors.joining(""));
+
+            return Integer.parseInt(sortedNumber);
+        }).toArray();
+    }
+
+    /**
+     * Parseltongue.
+     * Each word in a sssentence must contain either:
+     * At least 2 instances of the letter "s" (i.e. must be together ss), or
+     * Zero instances of the letter "s".
+     * https://edabit.com/challenge/n3Sw2MEa4TkEhthgB
+     *
+     * @param sentence
+     * @return {boolean}
+     */
+    public static boolean isParselTongue(String sentence) {
+        return Arrays.stream(sentence.split(" "))
+                .allMatch(word -> !word.toLowerCase().contains("s") || word.toLowerCase().indexOf("ss") != -1);
+    }
+
+    /**
+     * Remove the Last Vowel
+     * Write a function that removes the last vowel in each word in a sentence.
+     * https://edabit.com/challenge/buctumjkfFWGx5iP6
+     *
+     * @param str
+     * @return {String}
+     */
+    public static String removeLastVowel(String str) {
+        String lastVowelRegex = "((?i)[aeiou])(?!.*(?i)[aeiou])";
+
+        return Arrays.stream(str.split(" ")).map(
+                word -> word.replaceAll(lastVowelRegex, "")
+        ).collect(Collectors.joining(" "));
+    }
+
+    /**
+     * 12 vs 24 Hours.
+     * Create a function that converts 12-hour time to
+     * 24-hour time or vice versa. Return the output as a string.
+     * https://edabit.com/challenge/ayvtiYuzTxkphRBxB
+     * @param time
+     * @return {String}
+     */
+    public static String convertTime(String time) {
+        final String AM_SUFFIX = "am";
+        final String[] timeSpecifications = time.split(" ");
+
+        String hours, minutes,suffix;
+        int indexOfHoursMinutesSep = time.indexOf(':');
+
+        if (timeSpecifications.length == 2) {
+            hours = time.substring(0, indexOfHoursMinutesSep);
+            minutes = time.substring(indexOfHoursMinutesSep + 1, time.indexOf(" "));
+            suffix = timeSpecifications[1];
+
+            if (hours.equals("12")) {
+                return suffix.equals(AM_SUFFIX) ?
+                        new StringBuilder("0:").append(minutes).toString():
+                        new StringBuilder("12:").append(minutes).toString();
+            }
+
+            return suffix.equals(AM_SUFFIX)?
+                    new StringBuilder(hours).append(':').append(minutes).toString():
+                    new StringBuilder(String.valueOf(Integer.parseInt(hours) + 12)).append(':').append(minutes).toString();
+        }
+
+        hours = time.substring(0, indexOfHoursMinutesSep);
+        minutes = time.substring(indexOfHoursMinutesSep + 1);
+
+        return Integer.parseInt(hours) < 12 ?
+                new StringBuilder(hours).append(':').append(minutes).append(" am").toString():
+                new StringBuilder(String.valueOf(Integer.parseInt(hours) - 12)).append(':')
+                        .append(minutes)
+                        .append(" pm")
+                        .toString();
+    }
 }
