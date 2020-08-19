@@ -710,20 +710,14 @@ function freedPrisoners(prison) {
  * @return {number}
  */
 function findAllDigits(nums) {
-  let temp;
-  const foundDigits = new Set();
+  let foundDigits = new Set();
 
-  for (number of nums) {
-    temp = number;
-    while (temp != 0) {
-      foundDigits.add(temp % 10);
-
-      if (foundDigits.size == 10) {
-        return number;
-      }
-      temp = Math.floor(temp / 10);
+  for (let number of nums) {
+    for (let digit of [...String(number)]) {
+      foundDigits.add(digit);
+      if (foundDigits.size == 10) return number;
     }
   }
 
-  return 'Missing digits!';
+  return `Missing digits!`;
 }
