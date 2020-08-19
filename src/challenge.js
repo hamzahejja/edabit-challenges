@@ -689,7 +689,6 @@ function freedPrisoners(prison) {
   if (new RegExp(`01{${remainingCellsBinary.length - 1}}`).test(remainingCellsBinary)) return 0;
 
   while (indexOfNextUnlockedCell != -1 && indexOfNextUnlockedCell < remainingCellsBinary.length) {
-
     numberOfFreedPrisoners++;
     remainingCellsBinary = remainingCellsBinary.split('')
       .map(cell => 1 - Number(cell))
