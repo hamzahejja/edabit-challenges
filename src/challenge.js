@@ -721,3 +721,35 @@ function findAllDigits(nums) {
 
   return `Missing digits!`;
 }
+
+/**
+ * Valid Name
+ * A term is either an initials or word.
+ * initials = 1 character.
+ * words = 2+ characters (no dots allowed).
+ * Both initials and words must be capitalized.
+ * Initials must end with a dot.
+ * A name must be either 2 or 3 terms long.
+ * If the name is 3 words long, you can expand the first and middle name or expand the first name only.
+ * The last name must be a word (not an initial).
+ *
+ * @param {string} name
+ * @return {string}
+ */
+function validName(name) {
+  const initialsRegex = new RegExp("^[A-Z]\.$", "g");
+  const wordRegex = new RegExp("^[A-Z][a-zA-Z]+$", "g");
+  const terms = String(name).split(' ');
+
+  if (terms.length == 3 && initialsRegex.test(terms[0]) && wordRegex.test(terms[1])) {
+    return false;
+  }
+
+  if (initialsRegex.test(terms[terms.length - 1])) {
+    return false;
+  }
+
+  return (terms.length == 2 || terms.length == 3) && terms.every((term, index) => {
+    return Boolean(term.match(initialsRegex)) || Boolean(term.match(wordRegex));
+  });
+}
