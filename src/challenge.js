@@ -753,3 +753,51 @@ function validName(name) {
     return Boolean(term.match(initialsRegex)) || Boolean(term.match(wordRegex));
   });
 }
+
+/**
+ * Perform Math Operation and Return Resutl
+ * Allowed Operations: ^, +, -, / , *
+ *
+ * @param {number} firstOperand
+ * @param {number} secondOperand
+ * @param {number} operation
+ * @return {number}
+ */
+const calculate = (firstOperand, secondOperand, operation) => {
+  firstOperand = typeof(firstOperand) == 'string' ? Number(firstOperand) : firstOperand;
+  secondOperand = typeof(secondOperand) == 'string' ? Number(secondOperand) : secondOperand;
+
+	switch(operation) {
+		case '^':
+			return firstOperand ** secondOperand;
+
+		case '+':
+			return firstOperand + secondOperand;
+
+		case '-':
+			return firstOperand - secondOperand;
+
+		case '*':
+			return firstOperand * secondOperand;
+
+		case '/':
+			return firstOperand / secondOperand;
+  }
+}
+
+/**
+ * Calculating Mathematical Expression.
+ * Create a function that takes a mathematical expression as a string, array of numbers on which
+ * the mathematical expression is to be calculated and return the result as an array of string.
+ *
+ * @param {string} exp
+ * @param {object} numbers
+ * @return {object}
+ */
+function mathematicalExp(exp, numbers) {
+  const [operation, rhsOperand] = exp.match(/(?<=f\(x\)=x)([\+\-\^\/\*])(?=\d)\d/g)[0].split("");
+
+  return Array.from(numbers).map(number => {
+    return `f(${number})=${calculate(number, rhsOperand, operation)}`;
+  })
+}
