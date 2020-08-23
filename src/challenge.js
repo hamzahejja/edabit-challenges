@@ -766,24 +766,24 @@ function validName(name) {
 const calculate = (firstOperand, secondOperand, operation) => {
   firstOperand = typeof(firstOperand) == 'string' ? Number(firstOperand) : firstOperand;
   secondOperand = typeof(secondOperand) == 'string' ? Number(secondOperand) : secondOperand;
-	
-  switch(operation) {
-	case '^':
-		return firstOperand ** secondOperand;
 
-	case '+':
-		return firstOperand + secondOperand;
+	switch(operation) {
+		case '^':
+			return firstOperand ** secondOperand;
 
-	case '-':
-		return firstOperand - secondOperand;
+		case '+':
+			return firstOperand + secondOperand;
 
-	case '*':
-		return firstOperand * secondOperand;
+		case '-':
+			return firstOperand - secondOperand;
 
-	case '/':
-		return firstOperand / secondOperand;
+		case '*':
+			return firstOperand * secondOperand;
+
+		case '/':
+			return firstOperand / secondOperand;
   }
-}
+} 
 
 /**
  * Calculating Mathematical Expression.
@@ -800,4 +800,24 @@ function mathematicalExp(exp, numbers) {
   return Array.from(numbers).map(number => {
     return `f(${number})=${calculate(number, rhsOperand, operation)}`;
   })
+}
+
+/**
+ * Create a function that decomposes an address string into an array of five substrings:
+ * Street Number
+ * Street Name
+ * City Name
+ * State
+ * Zip Code
+ *
+ * @param {string} str
+ * @return {object}
+ */
+function decomposeAddress(str) {
+  return [
+    ...str.match(/^\d+/g),
+    ...str.match(/[a-zA-Z]+\s[A-Z][a-z](?=\s)/g),
+    ...str.match(/(?<=[A-Z][a-z]\s)(.+)(?=,)/g),
+    ...str.match(/(?<=,\s)[A-Z]{2}\s\d+$/g)[0].split(' ')
+  ];
 }
