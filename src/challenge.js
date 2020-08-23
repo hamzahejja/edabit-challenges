@@ -766,22 +766,22 @@ function validName(name) {
 const calculate = (firstOperand, secondOperand, operation) => {
   firstOperand = typeof(firstOperand) == 'string' ? Number(firstOperand) : firstOperand;
   secondOperand = typeof(secondOperand) == 'string' ? Number(secondOperand) : secondOperand;
+	
+  switch(operation) {
+	case '^':
+		return firstOperand ** secondOperand;
 
-	switch(operation) {
-		case '^':
-			return firstOperand ** secondOperand;
+	case '+':
+		return firstOperand + secondOperand;
 
-		case '+':
-			return firstOperand + secondOperand;
+	case '-':
+		return firstOperand - secondOperand;
 
-		case '-':
-			return firstOperand - secondOperand;
+	case '*':
+		return firstOperand * secondOperand;
 
-		case '*':
-			return firstOperand * secondOperand;
-
-		case '/':
-			return firstOperand / secondOperand;
+	case '/':
+		return firstOperand / secondOperand;
   }
 }
 
