@@ -1291,4 +1291,45 @@ public class Challenge {
                         .append(" pm")
                         .toString();
     }
+
+    public static int calculateLhunSummation(long num) {
+        String reversedNumberAsString = new StringBuilder(String.valueOf(num))
+                .reverse()
+                .toString()
+                .substring(1);
+
+        return IntStream.range(0, reversedNumberAsString.length())
+                .map(index -> {
+                    int digit = Character.getNumericValue(reversedNumberAsString.charAt(index));
+
+                    if (index % 2 != 0) {
+                        return digit;
+                    }
+
+                    int doubledValue = digit * 2;
+                    return doubledValue <= 9 ?
+                            doubledValue:
+                            ((doubledValue / 10) + (doubledValue % 10));
+                }).sum();
+    }
+
+    /**
+     * Validate Credit Card Number.
+     * Create a function that takes a number as an argument and returns
+     * true if the number is a valid credit card number, false otherwise.
+     * Credit card numbers must be between 14-19 digits in length, and pass the Luhn test.
+     *
+     * @param num
+     * @return {boolean}
+     */
+    public static boolean validateCard(long num) {
+        if (! Long.toString(num).matches("^[0-9]{14,19}$")) {
+            return false;
+        }
+
+        String numAsString = String.valueOf(num);
+        int checkDigit = Character.getNumericValue(numAsString.charAt(numAsString.length() - 1));
+
+        return (10 - calculateLhunSummation(num) % 10) == checkDigit;
+    }
 }
