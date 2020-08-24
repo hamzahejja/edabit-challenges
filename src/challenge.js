@@ -923,3 +923,31 @@ function happy(n) {
 
   return happy([...`${n}`].map(Number).reduce((sumOfSquares, digit) => sumOfSquares + (digit ** 2), 0));
 }
+
+/**
+ * Headline Hash Tags.
+ * Write a function that retrieves the top 3 longest words of a newspaper
+ * headline and transforms them into hashtags. If multiple words tie for
+ * the same length, retrieve the word that occurs first.
+ *
+ * @param {string} str
+ * @return {object}
+ */
+function getHashTags(str) {
+  const words = str.replace(/[^a-zA-Z\s]/g, '').split(' ');
+
+  if (words.length >= 3) {
+    return words.map((word, index) => ({word, index, length: word.length}))
+      .sort((wordObj1, wordObj2) => {
+        if (wordObj1.length > wordObj2.length) return -1;
+        if (wordObj1.length == wordObj2.length) return wordObj1.index < wordObj2.index ? -1 : 1;
+        return 1;
+      })
+      .slice(0, 3)
+      .reduce((headlines, obj) => {
+        return [...headlines, `#${obj.word.toLowerCase()}`]
+      }, []);
+  }
+
+  return words.sort().reverse().map(word => `#${word.toLowerCase()}`)
+}
