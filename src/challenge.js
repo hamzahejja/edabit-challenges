@@ -951,3 +951,24 @@ function getHashTags(str) {
 
   return words.sort().reverse().map(word => `#${word.toLowerCase()}`)
 }
+
+/**
+ * Calculate Factorial of a Number.
+ *
+ * @param {number} n
+ * @return {number}
+ */
+function factorial(n) {
+  if (n == 0 || n == 1) return 1;
+  return n * factorial(n - 1);
+}
+
+/**
+ * Amount of Possible Combinations.
+ * @param {number} k
+ * @param {number} n
+ * @return {number}.
+ */
+function combinations(k, n) {
+  return Math.round(factorial(n)/(factorial(n - k) * factorial(k)));
+}
