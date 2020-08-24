@@ -875,3 +875,33 @@ function isSet(cards) {
     return set.size == 1 || set.size == 3;
   });
 }
+
+/**
+ * Track the Robot (Part 2).
+ * This robot roams around a 2D grid. It starts at (0, 0) facing North. After each time it moves,
+ * the robot rotates 90 degrees clockwise. Given the amount the robot has moved each time,
+ * you have to calculate the robot's final position.
+ *
+ * @param  {...any} steps
+ * @return {object} - Final Coordinates/Location of Robot (x, y)
+ */
+function trackRobot(...steps) {
+  let currentDirection = 0;
+
+  const directionMapping = {
+    0: [0, +1],
+    1: [+1, 0],
+    2: [0, -1],
+    3: [-1, 0]
+  };
+
+  return steps.reduce((acc, step) => {
+    const [currentXCoordinate, currentYCoordinate] = acc;
+    const [currentXDirection, currentYDirection] = directionMapping[(currentDirection++) % Object.keys(directionMapping).length];
+
+    return [
+      currentXCoordinate + (currentXDirection * step),
+      currentYCoordinate + (currentYDirection * step),
+    ];
+  }, [0, 0])
+}
