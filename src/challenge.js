@@ -991,3 +991,20 @@ function allPairs(arr, target) {
     return Math.min(...lhsPair) < Math.min(...rhsPair) ? -1 : 1;
   });
 }
+
+/**
+ * Number of Leap Years
+ * Given a range of years as a string,
+ * return the number of leap years there are within the range (inclusive).
+ *
+ * @param {string} years
+ * @return {number}
+ */
+function numLeapYears(years) {
+  const [startYear, endYear] = years.split('-').map(Number);
+
+  return Array.from(
+    {length: endYear - startYear + 1},
+    (_, index) => index + startYear
+  ).filter(year => new Date(year, 1, 29).getMonth() === 1).length;
+}
