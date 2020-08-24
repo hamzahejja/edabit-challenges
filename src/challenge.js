@@ -966,3 +966,28 @@ const factorial = (num) => {
 function combinations(k, n) {
   return Math.round(factorial(n)/(factorial(n - k) * factorial(k)));
 }
+
+/**
+ * All Pairs that Sum to Target
+ * Create a function that returns all pairs of numbers in an array that
+ * sum to a target. Sort the pairs in ascending order with respect to the smaller number.
+ * https://edabit.com/challenge/KYeCAfYxsvomapQg2
+ *
+ * @param {object} arr
+ * @param {number} target
+ * @return {object}
+ */
+function allPairs(arr, target) {
+  let set = new Set();
+
+  return arr.reduce((pairs, number) => {
+    if (set.has(target - number)) {
+      return [...pairs, [Math.min(target - number, number), Math.max(target - number, number)]];
+    } else {
+      set.add(number);
+      return pairs;
+    }
+  }, []).sort((lhsPair, rhsPair) => {
+    return Math.min(...lhsPair) < Math.min(...rhsPair) ? -1 : 1;
+  });
+}
