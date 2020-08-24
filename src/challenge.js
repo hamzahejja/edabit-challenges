@@ -905,3 +905,21 @@ function trackRobot(...steps) {
     ];
   }, [0, 0])
 }
+
+/**
+ * Happy Numbers
+ * Given any number, we can create a new number by adding
+ * the sums of squares of digits of that number. For example,
+ * given 203, our new number is 4 + 0 + 9 = 13.
+ * If we repeat this process, we get a sequence of numbers,
+ * Given a positive whole number, you have to determine whether that number is happy or unhappy.
+ *
+ * @param {number} n
+ * @return {boolean}
+ */
+function happy(n) {
+  if (n == 1) return true;
+  if (n == 4) return false;
+
+  return happy([...`${n}`].map(Number).reduce((sumOfSquares, digit) => sumOfSquares + (digit ** 2), 0));
+}
