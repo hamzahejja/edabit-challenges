@@ -952,15 +952,9 @@ function getHashTags(str) {
   return words.sort().reverse().map(word => `#${word.toLowerCase()}`)
 }
 
-/**
- * Calculate Factorial of a Number.
- *
- * @param {number} n
- * @return {number}
- */
-function factorial(n) {
-  if (n == 0 || n == 1) return 1;
-  return n * factorial(n - 1);
+const factorial = (num) => {
+  return Array.from({length: num}, (_, i) => i + 1)
+    .reduce((prod, num) => prod * num, 1);
 }
 
 /**
