@@ -857,3 +857,21 @@ function molarMass(compound) {
       mass + molarMassMapping[chemicalElement] * 1;
   }, 0)
 }
+
+/**
+ * Validating a Set in the Set Game.
+ * In the game Set, three cards form a set if each of the cards
+ * are identical or completely different for each of the four properties.
+ *
+ * @param {object} cards
+ * @return {boolean}
+ */
+function isSet(cards) {
+  const properties = Object.keys(cards[0]);
+
+  return properties.every(property => {
+    const set = new Set(Array.from(cards).map(card => card[property]));
+
+    return set.size == 1 || set.size == 3;
+  });
+}
