@@ -821,3 +821,39 @@ function decomposeAddress(str) {
     ...str.match(/(?<=,\s)[A-Z]{2}\s\d+$/g)[0].split(' ')
   ];
 }
+
+/**
+ * Molar Mass of Chemical Compound
+ * Create a function that takes a name of a chemical compound
+ * as a string and returns the molar mass of the compound.
+ *
+ * @param {string} compound
+ * @return {number}
+ */
+function molarMass(compound) {
+  const molarMassMapping = {
+    'H': 1,
+    'B': 10,
+    'O': 16,
+    'S': 32,
+    'N': 14,
+    'Cl': 35
+  };
+
+  const chemicalFormulaOfCompound = {
+    'Water': 'H2 O',
+    'BoricAcid': 'H3 B O3',
+    'NitricAcid': 'H N O3',
+    'SulfuricAcid': 'H2 S O4',
+    'HydroChloricAcid': 'H Cl',
+  };
+
+  return chemicalFormulaOfCompound[compound].split(' ').reduce((mass, element) => {
+    const chemicalElement = element.match(/[A-Z][a-z]*/g)[0];
+    const numberOfMolecules = (element.match(/\d/g) || [])[0];
+
+    return numberOfMolecules ?
+      mass + molarMassMapping[chemicalElement] * Number(numberOfMolecules):
+      mass + molarMassMapping[chemicalElement] * 1;
+  }, 0)
+}
