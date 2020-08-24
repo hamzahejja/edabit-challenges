@@ -1332,4 +1332,34 @@ public class Challenge {
 
         return (10 - calculateLhunSummation(num) % 10) == checkDigit;
     }
+
+    /**
+     * Strong Password.
+     * Create a function that determines the minimum number of characters needed to make a strong password.
+     * Its length is at least 6.
+     * It contains at least one digit.
+     * It contains at least one lowercase English character.
+     * It contains at least one uppercase English character.
+     * It contains at least one special character: !@#$%^&*()-+
+     *
+     * @param password
+     * @return
+     */
+    public static int strongPassword(String password) {
+        final int MIN_LENGTH = 6;
+        if (password.length() < MIN_LENGTH) {
+            return MIN_LENGTH - password.length();
+        }
+
+        int minimimNumberOfCharsNeeded = 0;
+        int digitsCount = password.length() - password.replaceAll("[0-9]", "").length();
+        int lowerCaseCharsCount = password.length() - password.replaceAll("[a-z]", "").length();
+        int upperCaseCharsCount = password.length() - password.replaceAll("[A-Z]", "").length();
+        int specialCharsCount = password.length() - password.replaceAll("[!@#$%\\^&\\*\\(\\)\\-\\+]", "").length();
+
+        return (digitsCount < 1 ? 1 : 0) +
+                (lowerCaseCharsCount < 1 ? 1 : 0) +
+                (upperCaseCharsCount < 1 ? 1 : 0) +
+                (specialCharsCount < 1 ? 1 : 0);
+    }
 }
