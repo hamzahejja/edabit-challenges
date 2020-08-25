@@ -1,6 +1,7 @@
 import java.text.DecimalFormat;
 import java.util.*;
 import java.util.function.Function;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -1435,5 +1436,25 @@ public class Challenge {
         return word.chars().map(codePoint -> codePoint + 1)
                 .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
                 .toString();
+    }
+
+    /**
+     * Word Buckets.
+     * Write a function that divides a phrase into word buckets, with each bucket
+     * containing n or fewer characters. Only include full words inside each bucket.
+     * @param phrase
+     * @param n
+     * @return {String[]}
+     */
+    public static String[] bucketize(String phrase, int n) {
+        List<String> buckets = new ArrayList<>();
+        String bucketExtractionRegex = "(((?<=\\s)|(?<!.))[A-Za-z\\s]{1,2})((?=\\s)|(?!.))".replace("2", String.valueOf(n));
+        Matcher matcher = Pattern.compile(bucketExtractionRegex).matcher(phrase);
+
+        while (matcher.find()) {
+            buckets.add(matcher.group().strip());
+        }
+
+        return buckets.stream().toArray(String[]::new);
     }
 }
