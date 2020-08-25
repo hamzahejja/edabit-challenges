@@ -1432,8 +1432,8 @@ public class Challenge {
      * @return {String}
      */
     public static String move(String word) {
-        return word.chars()
-                .mapToObj(codePoint -> String.valueOf((char) (codePoint + 1)))
-                .collect(Collectors.joining(""));
+        return word.chars().map(codePoint -> codePoint + 1)
+                .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+                .toString();
     }
 }
