@@ -1362,4 +1362,36 @@ public class Challenge {
                 (upperCaseCharsCount < 1 ? 1 : 0) +
                 (specialCharsCount < 1 ? 1 : 0);
     }
+
+    /**
+     * Array of Multiples.
+     * Create a function that takes two numbers as arguments (num, length)
+     * and returns an array of multiples of num up to length.
+     *
+     * @param num
+     * @param length
+     * @return {int[]} - Array of Multiples of Number (num) of Length(length).
+     */
+    public static int[] arrayOfMultiples(int num, int length) {
+        return IntStream.rangeClosed(1, length)
+                .map(multiple -> num * multiple)
+                .toArray();
+    }
+
+    /**
+     * Total Volume of All Boxes.
+     * Given an array of boxes, create a function that returns
+     * the total volume of all those boxes combined together.
+     * A box is represented by an array with three elements: length, width and height.
+     *
+     * @param part
+     * @return {int}
+     */
+    public static int totalVolume(int[][] part) {
+        return Arrays.stream(part)
+                .mapToInt(box -> box[0] * box[1] * box[2])
+                .sum();
+    }
+
+
 }
