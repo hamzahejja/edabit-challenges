@@ -1410,4 +1410,16 @@ public class Challenge {
                 Integer.parseInt(mathEquationComponents[0]) - Integer.parseInt(mathEquationComponents[2]):
                 Integer.parseInt(mathEquationComponents[0]) + Integer.parseInt(mathEquationComponents[2]);
     }
+
+    /**
+     * Capital Split.
+     * Create a function which adds spaces before every capital in a word.
+     * Uncapitalize the whole string afterwards.
+     *
+     * @param txt
+     * @return {String}
+     */
+    public static String capSpace(String txt) {
+        return txt.replaceAll("([A-Z][a-z]+)", " $1").toLowerCase();
+    }
 }
