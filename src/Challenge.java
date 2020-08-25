@@ -1422,4 +1422,18 @@ public class Challenge {
     public static String capSpace(String txt) {
         return txt.replaceAll("([A-Z][a-z]+)", " $1").toLowerCase();
     }
+
+    /**
+     * Change Every Letter to the Next Letter.
+     * Write a function that changes every letter to the next letter.
+     * https://edabit.com/challenge/2Cbbs3pvH2gCMZMsg
+     *
+     * @param word
+     * @return {String}
+     */
+    public static String move(String word) {
+        return word.chars()
+                .mapToObj(codePoint -> String.valueOf((char) (codePoint + 1)))
+                .collect(Collectors.joining(""));
+    }
 }
