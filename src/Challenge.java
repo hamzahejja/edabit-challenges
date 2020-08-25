@@ -1393,5 +1393,21 @@ public class Challenge {
                 .sum();
     }
 
+    /**
+     * Solve a Linear Equation.
+     * Create a function that returns the value of x (the "unknown" in the equation).
+     * Each equation will be formatted like this: x + 6 = 12
+     *
+     * @param equation
+     * @return {int}
+     */
+    public static int solveEquation(String equation) {
+        String[] mathEquationComponents = equation.replaceAll(
+                "x ([\\+\\-]) (-?\\d+) = (-?\\d+)", "$3 $1 $2"
+        ).split(" ");
 
+        return mathEquationComponents[1].equals("+") ?
+                Integer.parseInt(mathEquationComponents[0]) - Integer.parseInt(mathEquationComponents[2]):
+                Integer.parseInt(mathEquationComponents[0]) + Integer.parseInt(mathEquationComponents[2]);
+    }
 }
