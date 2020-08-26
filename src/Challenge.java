@@ -1457,4 +1457,34 @@ public class Challenge {
 
         return buckets.stream().toArray(String[]::new);
     }
+
+    /**
+     * Caesar's Cipher.
+     * Create a function that takes a string s (text to be encrypted) and
+     * an integer k (the rotation factor). It should return an encrypted string.
+     * Caesar's cipher shifts each letter by a number of letters. If the shift takes you
+     * past the end of the alphabet, just rotate back to the front of the alphabet
+     *
+     * @param s
+     * @param k
+     * @return {String}
+     */
+    public static String caesarCipher(String s, int k) {
+        char currentChar;
+        int alphabetsCount = (int)'z' - (int)'a' + 1, startingAsciiCode, offsetOfNewChar;
+        StringBuilder encryptionStrBuilder = new StringBuilder("");
+
+        for (int i = 0; i < s.length(); i++) {
+            currentChar = s.charAt(i);
+            if (! Character.isLetter(currentChar)) {
+                encryptionStrBuilder.append(currentChar);
+            } else {
+                startingAsciiCode = Character.isLowerCase(s.charAt(i)) ? (int) 'a' : (int) 'A';
+                offsetOfNewChar = ((int) s.charAt(i) + k - startingAsciiCode) % alphabetsCount;
+                encryptionStrBuilder.append((char) (startingAsciiCode + offsetOfNewChar));
+            }
+        }
+
+        return encryptionStrBuilder.toString();
+    }
 }
