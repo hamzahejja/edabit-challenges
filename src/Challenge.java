@@ -1487,4 +1487,37 @@ public class Challenge {
 
         return encryptionStrBuilder.toString();
     }
+
+    /**
+     * Edabit's Encryption Scheme.
+     * https://edabit.com/challenge/jfCsugyp9BSLYEtwb
+     *
+     * @param s
+     * @return {String}
+     */
+    public static String encryption(String s) {
+        s = s.replaceAll("[\\s]", "");
+        double sqrtOfLength = Math.sqrt(s.length());
+
+        StringBuilder encryptedStrBuilder = new StringBuilder("");
+        int targetIndex, numberOfRows = (int) Math.floor(sqrtOfLength), numberOfColumns = (int) Math.ceil(sqrtOfLength);
+
+        while (numberOfRows < numberOfColumns && numberOfRows * numberOfColumns < s.length()) {
+            numberOfRows++;
+        }
+
+        for (int col = 0; col < numberOfColumns; col++) {
+            encryptedStrBuilder.append(" ");
+
+            for (int row = 0; row < numberOfRows; row++) {
+                targetIndex = (col + (numberOfColumns * row));
+
+                if (targetIndex < s.length()) {
+                    encryptedStrBuilder.append(s.charAt(col + (numberOfColumns * row)));
+                }
+            }
+        }
+
+        return encryptedStrBuilder.toString().trim();
+    }
 }
