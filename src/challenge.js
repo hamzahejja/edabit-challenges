@@ -1008,3 +1008,37 @@ function numLeapYears(years) {
     (_, index) => index + startYear
   ).filter(year => new Date(year, 1, 29).getMonth() === 1).length;
 }
+
+/**
+ * What's the Missing Letter ?
+ * Given a string of letters in the English alphabet, return the letter that's missing from the string.
+ * The missing letter will make the string be in alphabetical order (from A to Z).
+ *
+ * @param {string} str
+ * @return {string}
+ */
+function missingLetter(str) {
+  for (let i = 0; i < str.length - 1; i++) {
+    if (str.charCodeAt(i + 1) - str.charCodeAt(i) != 1) {
+      return String.fromCharCode(str.charCodeAt(i) + 1);
+    }
+  }
+
+  return 'No Missing Letter';
+}
+
+/**
+ * Frequency Distribution.
+ * Create a function that returns the frequency distribution of an array.
+ * This function should return an object, where the keys are the unique elements and
+ * the values are the frequency in which those elements occur.
+ *
+ * @param {object} arr
+ * @return {objecT}
+ */
+function getFrequencies(arr) {
+  return Array.from(arr).reduce((frequenceyDist, val) => ({
+    ...frequenceyDist,
+    [val]: (frequenceyDist[val] || 0) + 1,
+  }), {});
+}
