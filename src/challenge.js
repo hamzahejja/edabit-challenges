@@ -1042,3 +1042,40 @@ function getFrequencies(arr) {
     [val]: (frequenceyDist[val] || 0) + 1,
   }), {});
 }
+
+/**
+ * Return Overlapping String Matches using Regexp
+ *
+ * @param {string} input
+ * @param {string|RegExp} regex
+ * @param {string} flags
+ */
+function getOverlappingRegexMatches(input, regex, flags = '') {
+  regex = typeof(regex == 'string') ? new RegExp(regex, flags) : regex;
+  let match, overlappedMatches = [];
+
+  while (match = regex.exec(input)) {
+    overlappedMatches.push(match[1]);
+    regex.lastIndex = match.index + 1;
+  }
+
+  return overlappedMatches;
+}
+
+/**
+ * Create a function that takes an integer argument and returns
+ * an array of prime numbers found in the decimal representation of that number.
+ * The array should be in acending order. If a prime number appears more than once, every occurance should be listed.
+ *
+ * @param {number} num
+ * @return {object}
+ */
+function extractPrimes(num) {
+  return Array.from({length: [...String(num)].length - 1}, (_, index) => index + 1)
+    .reduce((numbers, partialLength) => {
+      const regex = `(?=(\\d(?=\\d{${partialLength}})\\d{${partialLength}}))`
+      return [...numbers, ...getOverlappingRegexMatches(`${num}`, regex, 'g').filter(match => ! match.startsWith('0')).map(Number)];
+    }, [...String(num)].map(Number))
+    .filter(number => isPrime(number))
+    .sort((lhsNumber, rhsNumber) => lhsNumber - rhsNumber);
+}
