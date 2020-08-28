@@ -1151,3 +1151,45 @@ function countChocolates(money, cost) {
 
 	return eatenChocolatesCount + bonusChocolatesEarned;
 }
+
+/**
+ * Fit the Pattern.
+ * Create a function that checks if the sub-arrays in an array adhere to the specified pattern.
+ *
+ * @param {object} arr
+ * @param {string} pattern
+ * @returns {boolean}
+ */
+function checkPattern(arr, pattern) {
+  let letterPatternMapping = {}, patternLetterMapping = {};
+
+  return [...`${pattern}`].every((letter, index) => {
+    const patternAsString = arr[index].join('');
+
+    if (! letterPatternMapping[letter] && ! patternLetterMapping[patternKey]) {
+      letterPatternMapping[letter] = patternAsString;
+      patternLetterMapping[patternAsString] = letter;
+
+      return true;
+    }
+
+    return letterPatternMapping[letter] === patternAsString;
+  })
+}
+
+/**
+ * Least Common Multiple.
+ * Given an array of integers, create a function that will find the smallest positive
+ * integer that is evenly divisible by all the members of the array. In other words,
+ * find the least common multiple (LCM).
+ *
+ * @param {object} nums
+ * @returns {number}
+ *
+ */
+function lcm(nums) {
+  const greatestCommonDivisor = (num1, num2) => num2 == 0 ? num1 : greatestCommonDivisor(num2, num1 % num2);
+  const leastCommonMultiple = (num1, num2) => (num1 * num2) / greatestCommonDivisor(num1, num2);
+
+  return nums.reduce((acc, val) => leastCommonMultiple(acc, val), nums[0]);
+}
