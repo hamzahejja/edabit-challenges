@@ -1074,8 +1074,38 @@ function extractPrimes(num) {
   return Array.from({length: [...String(num)].length - 1}, (_, index) => index + 1)
     .reduce((numbers, partialLength) => {
       const regex = `(?=(\\d(?=\\d{${partialLength}})\\d{${partialLength}}))`
-      return [...numbers, ...getOverlappingRegexMatches(`${num}`, regex, 'g').filter(match => ! match.startsWith('0')).map(Number)];
+      return [
+        ...numbers,
+        ...getOverlappingRegexMatches(`${num}`, regex, 'g').filter(match => ! match.startsWith('0')).map(Number)
+      ];
     }, [...String(num)].map(Number))
     .filter(number => isPrime(number))
     .sort((lhsNumber, rhsNumber) => lhsNumber - rhsNumber);
+}
+
+/**
+ * Numbers First, Letters Second.
+ * Write a function that sorts array while keeping the array structure.
+ * Numbers should be first then letters both in ascending order.
+ */
+function numThenChar(arr) {
+  const compareFn = (lhsOperand, rhsOperand) => {
+    if (typeof(lhsOperand) == 'number' && typeof(rhsOperand) == 'number') {
+      return lhsOperand < rhsOperand ? -1 : 1;
+    } else if (typeof(lhsOperand) == 'string' && typeof(rhsOperand) == 'string') {
+      return lhsOperand.charCodeAt(0) < rhsOperand.charCodeAt(0) ? -1 : 1;
+    } else {
+      return typeof(lhsOperand) == 'number' ? -1 : 1;
+    }
+  }
+
+  const sortedFlattenArr = Array.from(arr).flat().sort(compareFn);
+
+  let i = 0;
+  return arr.reduce((result, subArray) => {
+    result = [...result, sortedFlattenArr.slice(i, i + subArray.length)];
+    i += subArray.length;
+
+    return result;
+  }, [])
 }
