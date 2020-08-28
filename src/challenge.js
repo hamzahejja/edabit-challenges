@@ -1193,3 +1193,27 @@ function lcm(nums) {
 
   return nums.reduce((acc, val) => leastCommonMultiple(acc, val), nums[0]);
 }
+
+/**
+ * Eight Sums Up.
+ * Create a function that gets every pair of numbers from an array that sums up to
+ * eight and returns it as an array of pairs (pair sorted ascendingly) collated into an object.
+ *
+ * @param {object} arr
+ * @return {object}
+ */
+function sumsUp(arr) {
+  const target = 8;
+  let set = new Set();
+
+  const pairs = arr.reduce((pairs, val) => {
+    if (set.has(target - val)) {
+      return [...pairs, [target - val, val]];
+    }
+
+    set.add(val);
+    return pairs;
+  }, []).map(pair => pair.sort((lhsNumber, rhsNumber) => lhsNumber - rhsNumber));
+
+  return { pairs };
+}
