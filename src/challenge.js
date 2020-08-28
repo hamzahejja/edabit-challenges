@@ -1109,3 +1109,45 @@ function numThenChar(arr) {
     return result;
   }, [])
 }
+
+/**
+ * Eat Chocolates.
+ * Arun recently started eating chocolates. The shopkeeper tells Arun that for every three chocolates Arun eats,
+ * he will give him one chocolate in exchange for three chocolate wrappers.
+ * Given the total money Arun has and the cost of one chocolate, help Arun figure out how many chocolates he can eat.
+ *
+ * @param {string} money
+ * @param {string} cost
+ * @return {number}
+ */
+function countChocolates(money, cost) {
+  let budget = Number(money.replace(/\s/g, '').match(/\-?(\d+)(?=\$)|(\d)(?=\s?dollars)/g)[0] || '0');
+  const costPerChocolate = Number(cost.replace(/\s/g, '').match(/\-?(\d+)(?=\$)|(\d)(?=\s?dollars)/)[0] || '0');
+
+  if (budget <= 0 || costPerChocolate <= 0) {
+    return 'Invalid Input';
+  }
+
+  let eatenChocolatesCount = 0;
+  let bonusChocolatesEarned = 0;
+
+  while (budget >= costPerChocolate * 3) {
+    eatenChocolatesCount += 3;
+    bonusChocolatesEarned += 1;
+    budget -= costPerChocolate * 3;
+  }
+
+	while (bonusChocolatesEarned >= 3) {
+    eatenChocolatesCount += 3;
+    bonusChocolatesEarned = bonusChocolatesEarned - 3 + 1;
+  }
+
+	bonusChocolatesEarned = bonusChocolatesEarned + (budget/costPerChocolate);
+
+	while (bonusChocolatesEarned >= 3) {
+    eatenChocolatesCount += 3;
+    bonusChocolatesEarned = bonusChocolatesEarned - 3 + 1;
+  }
+
+	return eatenChocolatesCount + bonusChocolatesEarned;
+}
