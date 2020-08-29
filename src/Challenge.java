@@ -1531,7 +1531,6 @@ public class Challenge {
      */
     public static String expand(long num) {
         String numberAsString = String.valueOf(num);
-        StringBuilder resultStrBuilder = new StringBuilder();
         int highestExponentOfTen = numberAsString.length() - 1;
 
         return IntStream.range(0, numberAsString.length())
