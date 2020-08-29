@@ -1520,4 +1520,28 @@ public class Challenge {
 
         return encryptedStrBuilder.toString().trim();
     }
+
+    /**
+     * Express Number in Expanded Notation.
+     * Create a function that takes a number and return
+     * a string with the number in expanded notation (AKA expanded form).
+     *
+     * @param num
+     * @return {String}
+     */
+    public static String expand(long num) {
+        String numberAsString = String.valueOf(num);
+        StringBuilder resultStrBuilder = new StringBuilder();
+        int highestExponentOfTen = numberAsString.length() - 1;
+
+        return IntStream.range(0, numberAsString.length())
+                .filter(index -> numberAsString.charAt(index) != '0')
+                .mapToObj(index -> {
+                    return String.valueOf(
+                            Character.getNumericValue(numberAsString.charAt(index)) *
+                                    (long) Math.pow(10, highestExponentOfTen - index)
+                    );
+                })
+                .collect(Collectors.joining(" + "));
+    }
 }
