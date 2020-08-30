@@ -1626,4 +1626,24 @@ public class Challenge {
 
         return resultStrBuilder.toString();
     }
+
+    /**
+     * Highest Pair.
+     * You will be given a collection of five cards. If your hand contains at least one pair,
+     * return the card number of the highest pair (trivial if there only exists a single pair).
+     * Else, return "".
+     *
+     * @param arr
+     * @return {String}
+     */
+    public static String highestPair(String[] arr) {
+        String cardsValueOrdering = "0123456789JQKA";
+        Map<String, Long> cardsCountsMap =  Arrays.stream(arr)
+                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+
+        return cardsCountsMap.keySet().stream()
+                .filter(card -> cardsCountsMap.get(card) >= 2)
+                .max((lhsCard, rhsCard) -> cardsValueOrdering.indexOf(lhsCard) > cardsValueOrdering.indexOf(rhsCard) ? 1 : -1)
+                .orElse("");
+    }
 }
