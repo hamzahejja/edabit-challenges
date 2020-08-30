@@ -1582,4 +1582,48 @@ public class Challenge {
                 .append(dividend / greatestCommonDivisor)
                 .toString();
     }
+
+    /**
+     * Build Mapping from Letters to Corresponding Numbers for Phone Decoder.
+     *
+     * @return {Map<Character, Integer>}
+     */
+    private static Map<Character, Integer> buildLetterToNumberMapping() {
+        int numberMappedTo = 2;
+        Map<Character, Integer> letterToNumberMap = new HashMap<>();
+        String[] letterCombinations = { "ABC", "DEF", "GHI", "JKL", "MNO", "PQRS", "TUV", "WXYZ" };
+
+        for (int i = 0; i < letterCombinations.length; i++) {
+            for (char letter: letterCombinations[i].toCharArray()) {
+                letterToNumberMap.put(letter, numberMappedTo);
+            }
+            numberMappedTo++;
+        }
+
+        return letterToNumberMap;
+    }
+
+
+    /**
+     * Phone Number Word Decoder.
+     * Create a program that converts a phone number with letters to one with only numbers.
+     * https://edabit.com/challenge/8NZaLdJBkhZCgNBc7
+     *
+     * @param phone
+     * @return {String}
+     */
+    public static String textToNum(String phone) {
+        StringBuilder resultStrBuilder = new StringBuilder();
+        Map<Character, Integer> letterToNumberMapping = buildLetterToNumberMapping();
+
+        for (char ch: phone.toCharArray()) {
+            if (Character.isLetter(ch)) {
+                resultStrBuilder.append(letterToNumberMapping.get(ch));
+            } else {
+                resultStrBuilder.append(ch);
+            }
+        }
+
+        return resultStrBuilder.toString();
+    }
 }
