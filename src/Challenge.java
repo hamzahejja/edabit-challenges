@@ -1627,6 +1627,18 @@ public class Challenge {
         return resultStrBuilder.toString();
     }
 
+    private static int cardValuesComparator (String lhsCard, String rhsCard) {
+        String faceCardsValueOrdering = "JQKA";
+
+        if (lhsCard.matches("\\d+") && rhsCard.matches("\\d+")) {
+            return Integer.valueOf(lhsCard).compareTo(Integer.valueOf(rhsCard));
+        } else if (lhsCard.matches("[JQKA]") && rhsCard.matches("[JQKA]")) {
+            return faceCardsValueOrdering.indexOf(lhsCard) > faceCardsValueOrdering.indexOf(rhsCard) ? 1 : -1;
+        }
+
+        return lhsCard.matches("[JQKA]") ? 1 : -1;
+    }
+
     /**
      * Highest Pair.
      * You will be given a collection of five cards. If your hand contains at least one pair,
@@ -1637,13 +1649,13 @@ public class Challenge {
      * @return {String}
      */
     public static String highestPair(String[] arr) {
-        String cardsValueOrdering = "0123456789JQKA";
-        Map<String, Long> cardsCountsMap =  Arrays.stream(arr)
-                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
-
-        return cardsCountsMap.keySet().stream()
-                .filter(card -> cardsCountsMap.get(card) >= 2)
-                .max((lhsCard, rhsCard) -> cardsValueOrdering.indexOf(lhsCard) > cardsValueOrdering.indexOf(rhsCard) ? 1 : -1)
+        return Arrays.stream(arr)
+                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
+                .entrySet()
+                .stream()
+                .filter(entry -> entry.getValue() >= 2)
+                .map(entry -> entry.getKey())
+                .max((lhsCard, rhsCard) -> cardValuesComparator(lhsCard, rhsCard))
                 .orElse("");
     }
 }
