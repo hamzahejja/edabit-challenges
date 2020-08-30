@@ -1543,4 +1543,43 @@ public class Challenge {
                 })
                 .collect(Collectors.joining(" + "));
     }
+
+    public static double lineLength(int[][] point) {
+        int absoluteXDifference = Math.abs(point[0][0] - point[1][0]);
+        int absoluteYDifference = Math.abs(point[0][1] - point[1][1]);
+
+        return Math.sqrt(Math.pow(absoluteXDifference, 2) + Math.pow(absoluteYDifference, 2));
+    }
+
+    private static int gcd(int num1, int num2) {
+        if (num2 == 0) {
+            return num1;
+        }
+
+        return gcd(num2, num1 % num2);
+    }
+
+    /**
+     * Simplified Fractions.
+     * Create a function that returns the simplified version of a fraction.
+     * https://edabit.com/challenge/bmwpoeCybNWnBxn7M
+     *
+     * @param str
+     * @return {String}
+     */
+    public static String simplify(String str) {
+        String[] divisionOperands = str.split("/");
+        int divisor = Integer.parseInt(divisionOperands[0]);
+        int dividend = Integer.parseInt(divisionOperands[1]);
+        int greatestCommonDivisor = gcd(divisor, dividend);
+
+        if (divisor % dividend == 0) {
+            return String.valueOf(divisor / dividend);
+        }
+
+        return new StringBuilder(String.valueOf(divisor / greatestCommonDivisor))
+                .append('/')
+                .append(dividend / greatestCommonDivisor)
+                .toString();
+    }
 }
