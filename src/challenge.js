@@ -1238,8 +1238,7 @@ function compute(operation, firstOp, secondOp) {
  */
 function prefix(exp) {
   let prefixNotationMatches;
-
-	while (prefixNotationMatches = exp.match(/[\+\-\*\/] (-?)\d+ (-?)\d+/g)) {
+  while (prefixNotationMatches = exp.match(/[\+\-\*\/] (-?)\d+ (-?)\d+/g)) {
     [...prefixNotationMatches].forEach(prefixNotation => {
       const [operation, firstOperand, secondOperand] = prefixNotation.split(' ').map(part => {
         return new RegExp(/-?\d+/g).test(part) ? Number(part) : part;
