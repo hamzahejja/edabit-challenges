@@ -1217,3 +1217,37 @@ function sumsUp(arr) {
 
   return { pairs };
 }
+
+
+function compute(operation, firstOp, secondOp) {
+  switch(operation) {
+    case '+': return firstOp + secondOp;
+    case '-': return firstOp - secondOp;
+    case '*': return firstOp * secondOp;
+    case '/': return firstOp / secondOp;
+  }
+}
+
+/**
+ * Prefix Notation Evaluation.
+ * Create a function that takes a mathematical expression in
+ * prefix notation as a string and evaluates the expression.
+ *
+ * @param {string} exp
+ * @return {number}
+ */
+function prefix(exp) {
+  let prefixNotationMatches;
+
+	while (prefixNotationMatches = exp.match(/[\+\-\*\/] (-?)\d+ (-?)\d+/g)) {
+    [...prefixNotationMatches].forEach(prefixNotation => {
+      const [operation, firstOperand, secondOperand] = prefixNotation.split(' ').map(part => {
+        return new RegExp(/-?\d+/g).test(part) ? Number(part) : part;
+      });
+
+      exp = exp.replace(prefixNotation, `${compute(operation, firstOperand, secondOperand)}`);
+    });
+  }
+
+  return Number(exp);
+}
