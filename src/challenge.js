@@ -1278,3 +1278,27 @@ function drange(...args) {
     return roundingPrecision > 0 ? +value.toFixed(roundingPrecision) : value;
   });
 }
+
+/**
+ * Contact List.
+ * Write a sorting function that takes in an array of names
+ * and sorts them by last name either alphabetically (ASC) or reverse-alphabetically (DESC).
+ *
+ * @param {object} names
+ * @param {string} sort
+ * @return {object}
+ */
+function sortContacts(names, sort) {
+  if (! Boolean(names) || names.length == 0) {
+    return [];
+  }
+
+  return names.sort((lhsName, rhsName) => {
+      const lhsLastName = lhsName.split(' ')[1];
+      const rhsLastName = rhsName.split(' ')[1];
+
+      return sort === 'ASC' ?
+        lhsLastName.localeCompare(rhsLastName):
+        rhsLastName.localeCompare(lhsLastName);
+    });
+}
