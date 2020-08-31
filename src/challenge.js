@@ -1269,10 +1269,8 @@ function countDecimalPlaces(num) {
  * @param {Array} a
  * @return {Array}
  */
-function drange(a) {
-  const start = arguments.length > 1 ? arguments[0] : 0;
-  const stop = arguments.length > 1 ? arguments[1] : arguments[0];
-  const step = (arguments.length == 1 || arguments.length == 2) ? 1 : arguments[2];
+function drange(...args) {
+  const [start, stop, step] = [,[0,args[0],1],[...args,1],[...args]][args.length];
   const roundingPrecision = Math.max(countDecimalPlaces(start), countDecimalPlaces(stop), countDecimalPlaces(step));
 
   return Array.from({ length: Math.ceil((stop - start) / step) }, (v, index) => {
