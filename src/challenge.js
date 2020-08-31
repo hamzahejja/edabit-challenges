@@ -1294,11 +1294,11 @@ function sortContacts(names, sort) {
   }
 
   return names.sort((lhsName, rhsName) => {
-      const lhsLastName = lhsName.split(' ')[1];
-      const rhsLastName = rhsName.split(' ')[1];
+    const lhsLastName = lhsName.split(' ')[1];
+    const rhsLastName = rhsName.split(' ')[1];
 
-      return sort === 'ASC' ?
-        lhsLastName.localeCompare(rhsLastName):
-        rhsLastName.localeCompare(lhsLastName);
-    });
+    return sort === 'ASC' ?
+      lhsLastName.localeCompare(rhsLastName):
+      rhsLastName.localeCompare(lhsLastName);
+  });
 }
