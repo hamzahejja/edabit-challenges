@@ -1250,3 +1250,33 @@ function prefix(exp) {
 
   return Number(exp);
 }
+
+/**
+ * Count the number of Decimal Places given a Number.
+ *
+ * @param {number} num
+ * @return {number}
+ */
+function countDecimalPlaces(num) {
+  return (num.toString().split('.')[1] || '').length;
+}
+
+/**
+ * Decimal Range Function.
+ * Create a function that can take 1, 2, or 3 arguments 1 being start,
+ * 2 being stop and 3 being step and returns an array. This should be able to return float values.
+ *
+ * @param {Array} a
+ * @return {Array}
+ */
+function drange(a) {
+  const start = arguments.length > 1 ? arguments[0] : 0;
+  const stop = arguments.length > 1 ? arguments[1] : arguments[0];
+  const step = (arguments.length == 1 || arguments.length == 2) ? 1 : arguments[2];
+  const roundingPrecision = Math.max(countDecimalPlaces(start), countDecimalPlaces(stop), countDecimalPlaces(step));
+
+  return Array.from({ length: Math.ceil((stop - start) / step) }, (v, index) => {
+    const value = start + index * step;
+    return roundingPrecision > 0 ? +value.toFixed(roundingPrecision) : value;
+  });
+}
