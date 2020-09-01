@@ -1302,3 +1302,34 @@ function sortContacts(names, sort) {
       rhsLastName.localeCompare(lhsLastName);
   });
 }
+
+function interprime(n) {
+  if (isPrime(n)) return [];
+
+  const firstPreceedingPrime = Array.from(
+    {length: n - 2},
+    (_, index) => 2 + index
+  ).filter(num => isPrime(num)).pop();
+
+  return isPrime(n + (n - firstPreceedingPrime)) ?
+    [firstPreceedingPrime, n + (n - firstPreceedingPrime)] :
+    [];
+}
+
+/**
+ * Find the Most Frequent Element in an Array.
+ * Create a function that takes an array and return
+ * the most frequently occuring element contained within it.
+ *
+ * @param {object} arr
+ * @return {number|string|null|undefined}
+ */
+function findFrequent(arr) {
+  const elementOccurencesMap = arr.reduce((occsMap, element) => {
+    return occsMap.set(element, (occsMap.get(element) || 0 ) + 1);
+  }, new Map());
+
+  return Array.from(elementOccurencesMap.keys())
+    .sort((keyA, keyB) => elementOccurencesMap.get(keyB) < elementOccurencesMap.get(keyA) ? -1 : 1)
+    .shift();
+}
