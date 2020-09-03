@@ -1441,3 +1441,28 @@ function majorityVote(arr) {
 
   return ! majorityVote.length ? null : majorityVote[0];
 }
+
+/**
+ * Alphabet Clash (Battle of the ASCII Values).
+ * In this challenge, you have to establish the points scored by two players
+ * (called Player A and Player Z) after an ASCII game session.
+ *
+ * @param {string} str_A
+ * @param {object} ind_A
+ * @param {string} str_Z
+ * @param {object} ind_Z
+ * @return {object} - Points of Players A,Z.
+ */
+function alphaClash(str_A, ind_A, str_Z, ind_Z) {
+  const filteredStringA = [...`${str_A}`].filter((_, index) => ! ind_Z.includes(index)).join('');
+  const filteredStringZ = [...`${str_Z}`].filter((_, index) => ! ind_A.includes(index)).join('');
+
+  return [...`${filteredStringA}`].reduce((scoreObj, ch, currIndex) => {
+    const asciiCodeA = ch.charCodeAt(0);
+    const asciiCodeZ = filteredStringZ.charAt(currIndex).charCodeAt(0);
+
+    return asciiCodeA > asciiCodeZ ?
+      {...scoreObj, A: (scoreObj.A || 0) + (asciiCodeA - asciiCodeZ)}:
+      {...scoreObj, Z: (scoreObj.Z || 0) + (asciiCodeZ - asciiCodeA)};
+  }, {A: 0, Z: 0});
+}
