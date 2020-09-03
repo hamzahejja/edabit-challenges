@@ -1377,3 +1377,33 @@ function mode(nums) {
     .map(entry => entry[0])
     .sort((lhsVal, rhsVal) => lhsVal < rhsVal ? -1 : 1);
 }
+
+/**
+ * Count 5s and Win.
+ * Get the Luckiest Number.
+ * considers a number to be luckiest if it has the highest number of five in it.
+ * If two numbers have the same frequency of five, Arun considers the larger of them to be luckiest,
+ * and if there is no five in any number, the first given number is considered luckiest.
+ *
+ * @param {object} arr
+ * @return {number|null};
+ */
+function getLuckiest(arr) {
+  if (arr.length === 0) return null;
+
+	const numbersWithFive = arr.reduce((acc, val) => {
+    const fivesCount = [...`${val}`].reduce((acc, digit) => acc + (Number(digit) === 5 ? 1 : 0), 0);
+
+    return fivesCount > 0 ? {...acc, [val]: fivesCount} : acc;
+  }, {});
+
+  if (Object.entries(numbersWithFive).length === 0) {
+    return arr[0];
+  }
+
+  return Math.max(
+    ...Object.entries(numbersWithFive)
+      .filter(entry => entry[1] === Math.max(...Object.values(numbersWithFive)))
+      .map(entry => Number(entry[0]))
+  );
+}
