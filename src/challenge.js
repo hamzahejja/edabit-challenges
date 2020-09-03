@@ -1421,6 +1421,13 @@ function decode(str) {
   );
 }
 
+/**
+ * Create a function to return the element that
+ * occurs > N/2 where N: length of the array.
+ *
+ * @param {object} arr
+ * @return {number|null}
+ */
 function majorityVote(arr) {
   if (! arr.length) return null;
 
