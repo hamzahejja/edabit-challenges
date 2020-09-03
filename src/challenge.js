@@ -1466,3 +1466,25 @@ function alphaClash(str_A, ind_A, str_Z, ind_Z) {
       {...scoreObj, Z: (scoreObj.Z || 0) + (asciiCodeZ - asciiCodeA)};
   }, {A: 0, Z: 0});
 }
+
+/**
+ * Advanced Array Sort.
+ * Create a function that takes in an array of numbers or strings and
+ * returns an array with the items from the original array stored in subarrays.
+ * Items of the same value should be in the same subarray.
+ *
+ * @param {object} arr
+ * @return {object}
+ */
+function advancedSort(arr) {
+  const elementsCountMap = arr.reduce((map, element) => {
+    return map.set(element, (map.get(element) || 0) + 1);
+  }, new Map());
+
+  return Array.from(elementsCountMap.entries())
+    .reduce((sortedArr, entry) => {
+      return [...sortedArr, Array(entry[1]).fill(entry[0])];
+    }, []);
+}
+
+console.log(advancedSort(["b", "a", "b", "a", "c"]));
