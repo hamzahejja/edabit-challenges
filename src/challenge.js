@@ -1390,7 +1390,7 @@ function mode(nums) {
  */
 function getLuckiest(arr) {
   if (arr.length === 0) return null;
-	
+
   const numbersWithFive = arr.reduce((acc, val) => {
     const fivesCount = [...`${val}`].reduce((acc, digit) => acc + (Number(digit) === 5 ? 1 : 0), 0);
 
@@ -1405,5 +1405,18 @@ function getLuckiest(arr) {
     ...Object.entries(numbersWithFive)
       .filter(entry => entry[1] === Math.max(...Object.values(numbersWithFive)))
       .map(entry => Number(entry[0]))
+  );
+}
+
+/**
+ * Crack the Code.
+ * This is a reverse-coding challenge. Create a function that outputs the correct array from the input.
+ *
+ * @param {string} str
+ * @return {object}
+ */
+function decode(str) {
+  return [...`${str}`].map(
+    ch => [...`${ch.charCodeAt(0)}`].reduce((sum, digit) => sum + Number(digit), 0)
   );
 }
