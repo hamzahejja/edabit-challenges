@@ -1336,3 +1336,25 @@ function findFrequent(arr) {
     .sort((keyA, keyB) => elementOccurencesMap.get(keyB) < elementOccurencesMap.get(keyA) ? -1 : 1)
     .shift();
 }
+
+/**
+ * Balanced Words.
+ * We can assign a value to each character in a word, based on their position in the alphabet,
+ * A balanced word is one where the sum of values on the left-hand side
+ * of the word equals the sum of values on the right-hand side. For odd length words,
+ * the middle character (balance point) is ignored.
+ *
+ * @param {string} word
+ * @return {boolean}
+ */
+function balanced(word) {
+  if ([...`${word}`].reverse().join('') === word) return true;
+
+  const getCharValue = str => str.charCodeAt(0) - 'a'.charCodeAt(0);
+
+  return word.length % 2 == 0 ?
+    [...word.slice(0, word.length / 2)].map(getCharValue).reduce((leftSum, val) => leftSum + val, 0) ===
+      [...word.slice(word.length / 2)].map(getCharValue).reduce((rightSum, val) => rightSum + val, 0) :
+    [...word.slice(0, Math.floor(word.length / 2))].map(getCharValue).reduce((leftSum, val) => leftSum + val, 0) ===
+      [...word.slice(Math.ceil(word.length / 2))].map(getCharValue).reduce((rightSum, val) => rightSum + val, 0);
+}
