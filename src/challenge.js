@@ -1311,9 +1311,12 @@ function interprime(n) {
     (_, index) => 2 + index
   ).filter(num => isPrime(num)).pop();
 
-  return isPrime(n + (n - firstPreceedingPrime)) ?
-    [firstPreceedingPrime, n + (n - firstPreceedingPrime)] :
-    [];
+  let firstFollowingPrime = n;
+  do { firstFollowingPrime++; } while(! isPrime(firstFollowingPrime));
+
+
+  return (n - firstPreceedingPrime) === (firstFollowingPrime - n) ?
+    [firstPreceedingPrime, firstFollowingPrime] : [];
 }
 
 /**
