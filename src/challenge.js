@@ -1390,8 +1390,8 @@ function mode(nums) {
  */
 function getLuckiest(arr) {
   if (arr.length === 0) return null;
-
-	const numbersWithFive = arr.reduce((acc, val) => {
+	
+  const numbersWithFive = arr.reduce((acc, val) => {
     const fivesCount = [...`${val}`].reduce((acc, digit) => acc + (Number(digit) === 5 ? 1 : 0), 0);
 
     return fivesCount > 0 ? {...acc, [val]: fivesCount} : acc;
