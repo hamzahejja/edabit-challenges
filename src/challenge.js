@@ -1486,5 +1486,3 @@ function advancedSort(arr) {
       return [...sortedArr, Array(entry[1]).fill(entry[0])];
     }, []);
 }
-
-console.log(advancedSort(["b", "a", "b", "a", "c"]));
