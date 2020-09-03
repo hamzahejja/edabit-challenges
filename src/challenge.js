@@ -1420,3 +1420,17 @@ function decode(str) {
     ch => [...`${ch.charCodeAt(0)}`].reduce((sum, digit) => sum + Number(digit), 0)
   );
 }
+
+function majorityVote(arr) {
+  if (! arr.length) return null;
+
+  const occurencesCountMap = arr.reduce((map, element) => {
+    return map.set(element, (map.get(element) || 0) + 1)
+  }, new Map());
+
+  const majorityVote = Array.from(occurencesCountMap.entries())
+    .filter(entry => entry[1] > arr.length / 2)
+    .map(entry => entry[0]);
+
+  return ! majorityVote.length ? null : majorityVote[0];
+}
