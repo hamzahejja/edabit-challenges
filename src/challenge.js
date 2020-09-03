@@ -1358,3 +1358,22 @@ function balanced(word) {
     [...word.slice(0, Math.floor(word.length / 2))].map(getCharValue).reduce((leftSum, val) => leftSum + val, 0) ===
       [...word.slice(Math.ceil(word.length / 2))].map(getCharValue).reduce((rightSum, val) => rightSum + val, 0);
 }
+
+/**
+ * Basic Statistics: Mode
+ * The mode of a group of numbers is the value (or values) that occur most often (occur more than once).
+ * Given a sorted array of numbers, return an array of all modes in ascending order.
+ *
+ * @param {object} nums
+ * @return {object}
+ */
+function mode(nums) {
+  const occurencesMap = nums.reduce((map, val) => {
+    return map.set(val, (map.get(val) || 0) + 1);
+  }, new Map());
+
+  return Array.from(occurencesMap.entries())
+    .filter(entry => entry[1] === Math.max(...Array.from(occurencesMap.values())))
+    .map(entry => entry[0])
+    .sort((lhsVal, rhsVal) => lhsVal < rhsVal ? -1 : 1);
+}
