@@ -1658,4 +1658,40 @@ public class Challenge {
                 .max((lhsCard, rhsCard) -> cardValuesComparator(lhsCard, rhsCard))
                 .orElse("");
     }
+
+    public static int evaluateMathematicalOperation(int firstOperand, int secondOperand, char mathematicalOperation) {
+        switch(mathematicalOperation) {
+            case '+': return firstOperand + secondOperand;
+            case '-': return firstOperand - secondOperand;
+            case '*': return firstOperand * secondOperand;
+            case '/': return firstOperand / secondOperand;
+            default: return Integer.MIN_VALUE;
+        }
+    }
+
+    /**
+     * Postfix Notation.
+     * Postfix notation is a mathematical notation in which operators follow their operands.
+     * In other words, pfexp1 pfexp2 op, where pfexp1 and pfexp2 are both postfix expressions.
+     *
+     * @param expr
+     * @return {int}
+     */
+    public static int postfix(String expr) {
+        String mathOperations = "+-*/";
+        int firstOperand, secondOperand;
+        Stack<Integer> operands = new Stack<>();
+
+        for (String piece: expr.split("\\s")) {
+            if (mathOperations.indexOf(piece) != -1) {
+                secondOperand = operands.pop();
+                firstOperand = operands.pop();
+                operands.push(evaluateMathematicalOperation(firstOperand, secondOperand, piece.charAt(0)));
+            } else {
+                operands.push(Integer.parseInt(piece));
+            }
+        }
+
+        return operands.pop();
+    }
 }
