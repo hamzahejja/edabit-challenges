@@ -1486,3 +1486,30 @@ function advancedSort(arr) {
       return [...sortedArr, Array(entry[1]).fill(entry[0])];
     }, []);
 }
+
+/**
+ * Hole Number Sequence.
+ * What do the digits 0, 4, 6, 8, and 9 have in common? Well, they are whole numbers.
+ * Your task is to create a function with argument N that returns the sum of the
+ * holes for the integers n in the range of range 0 < n <= N.
+ *
+ * @param {number} N
+ * @return {number}
+ */
+function sumOfHoles(N) {
+  const holeNumbers = {
+    '0': 1,
+    '4': 1,
+    '6': 1,
+    '9': 1,
+    '8': 2,
+  }
+
+  return Array.from({length: N}, (_, i) => i + 1).reduce((sumOfHoles, number) => {
+    const holesCount = String(number).split('')
+      .filter(digit => holeNumbers[digit])
+      .reduce((acc, digit) => acc + holeNumbers[digit], 0);
+
+    return sumOfHoles + holesCount;
+  }, 0);
+}
