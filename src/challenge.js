@@ -1513,3 +1513,35 @@ function sumOfHoles(N) {
     return sumOfHoles + holesCount;
   }, 0);
 }
+
+/**
+ * A number is gapful if it is at least 3 digits long and is divisible by
+ * the number formed by stringing the first and last numbers together.
+ *  The smallest number that fits this description is 100.
+ *
+ * @param {number} n
+ * @return {boolean}
+ */
+const isGapful = n => {
+  const nstring = n.toString();
+  return nstring.length >= 3 && n % Number(`${nstring.charAt(0)}${nstring.charAt(nstring.length - 1)}`) == 0;
+}
+
+/**
+ * Mind the Gap.
+ *
+ * @param {number} n
+ * @return {number}
+ */
+function gapful(n) {
+  if (n < 100) return 100;
+
+  let firstGapfulPreceeding = n, firstGapfulFollowing = n;
+
+  while (! isGapful(firstGapfulPreceeding)) firstGapfulPreceeding--;
+  while (! isGapful(firstGapfulFollowing)) firstGapfulFollowing++;
+
+  return Math.abs(firstGapfulFollowing - n) === Math.abs(firstGapfulPreceeding - n) ?
+    firstGapfulPreceeding :
+    Math.abs(firstGapfulFollowing - n) > Math.abs(firstGapfulPreceeding - n) ? firstGapfulPreceeding : firstGapfulFollowing;
+}
