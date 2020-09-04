@@ -1736,4 +1736,46 @@ public class Challenge {
                 .sorted()
                 .toArray(String[]::new);
     }
+
+    public static int[] reverseArray(int[] input) {
+        return IntStream.range(0, input.length)
+                .map(index -> input[input.length - 1 - index])
+                .toArray();
+    }
+
+    public static List<Integer> reverseList(List<Integer> list) {
+        return IntStream.range(0, list.size())
+                .map(index -> list.get(list.size() - 1 - index))
+                .boxed()
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Selective Array Reversal.
+     * Create a function that takes an array and a number and selectively
+     * reverse the order of the array based on the number you're given (second argument).
+     *
+     * @param lst
+     * @param length
+     * @return {int[]}
+     */
+    public static int[] selReverse(int[] lst, int length) {
+        if (length == 0) return lst;
+        if (lst.length < length) return reverseArray(lst);
+
+        int i = 0;
+        List<Integer> output = new ArrayList<>();
+        List<Integer> arrAsList = Arrays.stream(lst).boxed().collect(Collectors.toList());
+
+        while (i + length <= lst.length) {
+            output.addAll(reverseList(arrAsList.subList(i, i + length)));
+            i += length;
+        }
+
+        if (i < lst.length) {
+            output.addAll(reverseList(arrAsList.subList(i, arrAsList.size())));
+        }
+
+        return output.stream().mapToInt(Integer::intValue).toArray();
+    }
 }
