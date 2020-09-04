@@ -1694,4 +1694,24 @@ public class Challenge {
 
         return operands.pop();
     }
+
+    /**
+     * IPv4 Validation.
+     * Create a function that takes a string (IPv4 address in standard dot-decimal format)
+     * and returns true if the IP is valid or false if it's not
+     *
+     * @param str
+     * @return {boolean}
+     */
+    public static boolean isValidIP(String str) {
+        if (str.isEmpty() || str.startsWith(" ") || str.endsWith(" ")) {
+            return false;
+        }
+
+        String[] octets = str.split("\\.");
+
+        return octets.length == 4 && Arrays.stream(octets).allMatch(octet -> {
+            return octet.matches("(0(?![1-9]))|(^[1-9]\\d?$)|(^1[0-9][0-9]$)|(^2[0-4][0-9]$)|(^25[0-5]$)");
+        });
+    }
 }
