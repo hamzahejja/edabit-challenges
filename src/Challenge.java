@@ -1714,4 +1714,26 @@ public class Challenge {
             return octet.matches("(0(?![1-9]))|(^[1-9]\\d?$)|(^1[0-9][0-9]$)|(^2[0-4][0-9]$)|(^25[0-5]$)");
         });
     }
+
+    /**
+     * Return the Most Frequent Character.
+     * Write a function that returns the most frequent character in an array of words.
+     *
+     * @param arr
+     * @return {String[]}
+     */
+    public static String[] mostFrequentChar(String[] arr) {
+        String[] charactersOfWordsCombined = String.join("", arr).split("");
+        Map<String, Long> charsFrequencyMap = Arrays.stream(charactersOfWordsCombined)
+                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+
+        long maxFrequency = charsFrequencyMap.values().stream().max(Long::compareTo).get();
+
+        return charsFrequencyMap.entrySet()
+                .stream()
+                .filter(entry -> entry.getValue().compareTo(maxFrequency) == 0)
+                .map(Map.Entry::getKey)
+                .sorted()
+                .toArray(String[]::new);
+    }
 }
