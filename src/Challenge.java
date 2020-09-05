@@ -1778,4 +1778,34 @@ public class Challenge {
 
         return output.stream().mapToInt(Integer::intValue).toArray();
     }
+
+    public static String longestSubstring(String digits) {
+        boolean isAlternating;
+        int currentDigit, previousDigit;
+        StringBuilder currentSubstringBuilder;
+        String longestAlternatingSubstring = "";
+
+        for (int i = 0; i < digits.length(); i++) {
+            currentSubstringBuilder = new StringBuilder().append(digits.charAt(i));
+
+            for (int j = i + 1; j < digits.length(); j++) {
+                currentDigit = Character.getNumericValue(digits.charAt(j));
+                previousDigit = Character.getNumericValue(digits.charAt(j - 1));
+                isAlternating = ((previousDigit % 2 == 0) && (currentDigit % 2 != 0)) || ((previousDigit % 2 != 0) && (currentDigit % 2 == 0));
+                if (! isAlternating) {
+                    longestAlternatingSubstring = currentSubstringBuilder.length() <= longestAlternatingSubstring.length() ?
+                            longestAlternatingSubstring:
+                            currentSubstringBuilder.toString();
+                    break;
+                }
+                currentSubstringBuilder.append(digits.charAt(j));
+            }
+
+            if (currentSubstringBuilder.length() > longestAlternatingSubstring.length()) {
+                longestAlternatingSubstring = currentSubstringBuilder.toString();
+            }
+        }
+
+        return longestAlternatingSubstring;
+    }
 }
