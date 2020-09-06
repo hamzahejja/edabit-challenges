@@ -1545,3 +1545,31 @@ function gapful(n) {
     firstGapfulPreceeding :
     Math.abs(firstGapfulFollowing - n) > Math.abs(firstGapfulPreceeding - n) ? firstGapfulPreceeding : firstGapfulFollowing;
 }
+
+/**
+ * Length of Sorting Cycle.
+ * Given an element in an array, write a function to determine the length of a particular element's sorting cycle.
+ * Given one element in the array, a sorting cycle is the number of swaps it takes so that the
+ * last displaced swapped item is back in its correct order.
+ *
+ * @param {object} arr
+ * @param {number} n
+ * @return {number}
+ */
+function cycleLength(arr, n) {
+  const correctOrderArr = Array.from(arr).sort((num1, num2) => num1 < num2 ? -1 : 1);
+  let swapTemp, currentIndex = arr.indexOf(n), swapIndex = correctOrderArr.indexOf(n), sortingCycleLength = 0;
+
+  if (currentIndex === swapIndex) return 0;
+
+  while (correctOrderArr.indexOf(arr[currentIndex]) != currentIndex && correctOrderArr.indexOf(arr[swapIndex]) != swapIndex) {
+    swapTemp = arr[currentIndex];
+    arr[currentIndex] = arr[swapIndex];
+    arr[swapIndex] = swapTemp;
+    swapIndex = correctOrderArr.indexOf(arr[currentIndex]);
+
+    sortingCycleLength++;
+  }
+
+  return sortingCycleLength;
+}
