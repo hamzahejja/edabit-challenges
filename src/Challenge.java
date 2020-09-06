@@ -1868,4 +1868,49 @@ public class Challenge {
 
         return new StringBuilder(str).append('1').toString();
     }
+
+    /**
+     * Given left-hand-side Operand, right-hand-side Operand and
+     * a certain Mathematical Relationship, test to see if the
+     * mathematical relation is valid/true for the passed parameters and
+     * return true if so, else false.
+     *
+     * @param lhsOperand
+     * @param rhsOperand
+     * @param mathRelation
+     * @return {boolean}
+     */
+    public static boolean isValidMathRelation(int lhsOperand, int rhsOperand, String mathRelation) {
+        if (mathRelation.equals("=")) {
+            return lhsOperand == rhsOperand;
+        } else if (mathRelation.equals("<")) {
+            return lhsOperand < rhsOperand;
+        } else if (mathRelation.equals(">")) {
+            return lhsOperand > rhsOperand;
+        } else if (mathRelation.equals("<=")) {
+            return lhsOperand <= rhsOperand;
+        } else {
+            return lhsOperand >= rhsOperand;
+        }
+    }
+
+    /**
+     * You will be given a string consisting of a list of integers and
+     * their relationships to their neighboring integers.
+     * Test to see that all the relationships between the integers in the string are true.
+     * If they are, return true. If they are not, return false.
+     *
+     * @param str
+     * @return {boolean}
+     */
+    public static boolean validateTheRelationships(String str) {
+        String[] operands = str.split("([<>](?!=)|=|<=|>=)");
+        String[] mathematicalRelations = Arrays.stream(str.split("-?\\d+"))
+                .filter(inequality -> ! inequality.isEmpty())
+                .toArray(String[]::new);
+
+        return IntStream.range(0, mathematicalRelations.length).allMatch(index -> {
+            return isValidMathRelation(Integer.parseInt(operands[index]), Integer.parseInt(operands[index + 1]), mathematicalRelations[index]);
+        });
+    }
 }
