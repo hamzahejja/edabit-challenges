@@ -1573,3 +1573,21 @@ function cycleLength(arr, n) {
 
   return sortingCycleLength;
 }
+
+/**
+ * Generating Words from Names.
+ * Write a function that returns true if a given name can generate an array of words.
+ *
+ * @param {string} name
+ * @param {object} words
+ * @return {boolean}
+ */
+function anagram(name, words) {
+  const combinedWords = words.join('');
+  const filteredName = `${name}`.replace(/\s/g, '').toLowerCase();
+
+  return [...filteredName].every(ch => {
+    return filteredName.length === combinedWords.length &&
+      filteredName.match(new RegExp(ch, 'ig')).length === combinedWords.match(new RegExp(ch, 'ig')).length
+  });
+}
