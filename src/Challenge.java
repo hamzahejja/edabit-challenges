@@ -1808,4 +1808,64 @@ public class Challenge {
 
         return longestAlternatingSubstring;
     }
+
+    /**
+     * The Atbash cipher is an encryption method in which each letter of a word is replaced with its "mirror" letter in the alphabet:
+     * A <=> Z; B <=> Y; C <=> X; etc. Create a function that takes a string and applies the Atbash cipher to it.
+     *
+     * @param str
+     * @return {String}
+     */
+    public static String atbash(String str) {
+        char encryptedChar;
+        int currentAsciiCode;
+        int endingAsciiForSmallLetters = (int) 'z';
+        int startingAsciiForSmallLetters = (int) 'a';
+        int endingAsciiForCapitalLetters = (int) 'Z';
+        int startingAsciiForCapitalLetters = (int) 'A';
+
+        StringBuilder encryptedStrBuilder = new StringBuilder();
+
+        for (char ch: str.toCharArray()) {
+            if (Character.isLetter(ch)) {
+                currentAsciiCode = (int) ch;
+
+                if (Character.isLowerCase(ch)) {
+                    encryptedChar = (char) ((endingAsciiForSmallLetters - currentAsciiCode) + startingAsciiForSmallLetters);
+                } else {
+                    encryptedChar = (char) ((endingAsciiForCapitalLetters - currentAsciiCode) + startingAsciiForCapitalLetters);
+                }
+
+                encryptedStrBuilder.append(encryptedChar);
+            } else {
+                encryptedStrBuilder.append(ch);
+            }
+        }
+
+        return encryptedStrBuilder.toString();
+    }
+
+    /**
+     * String Incrementer.
+     * Write a function which increments a string to create a new string.
+     * If the string ends with a number, the number should be incremented by 1.
+     * If the string doesn't end with a number, 1 should be added to the new string.
+     * If the number has leading zeros, the amount of digits should be considered.
+     *
+     * @param str
+     * @return {String}
+     */
+    public static String incrementString(String str) {
+        if (str.matches("^.*\\d+$")) {
+            String originalNumberAsStr = str.replaceAll("[^\\d]", "");
+            int numberAfterIncrementation = Integer.parseInt(originalNumberAsStr) + 1;
+            String replacementStr = new StringBuilder(
+                    originalNumberAsStr.substring(0, originalNumberAsStr.length() - String.valueOf(numberAfterIncrementation). length())
+            ).append(String.valueOf(numberAfterIncrementation)).toString();
+
+            return str.replace(originalNumberAsStr, replacementStr);
+        }
+
+        return new StringBuilder(str).append('1').toString();
+    }
 }
