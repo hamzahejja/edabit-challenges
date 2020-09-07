@@ -71,4 +71,25 @@ function mergeArrays($a, $b) {
         array_merge($result, array_slice($a, $minLength), array_slice($b, $minLength));
 }
 
+/**
+ * Digit Distance.
+ * The digit distance between two numbers is the total
+ * value of the difference between each pair of digits.
+ *
+ * @param integer $num1
+ * @param integer $num2
+ * @return integer
+ */
+function digitDistance($num1, $num2) {
+    $totalDistance = 0;
+
+    while ($num1 && $num2) {
+        $totalDistance += abs($num1 % 10 - $num2 % 10);
+        $num1 /= 10;
+        $num2 /= 10;
+    }
+
+    return $totalDistance;
+}
+
 ?>
