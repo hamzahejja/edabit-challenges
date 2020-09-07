@@ -121,4 +121,22 @@ function canBuild($digits, $arr) {
     return true;
 }
 
+/**
+ * Number of Even or Odd Digits.
+ * Create a function that takes in an array of integers and returns
+ * the number of even or odd digits for each number, depending on the parameter.
+ *
+ * @param array $arr
+ * @param string $type
+ * @return array
+ */
+function countDigits($arr, $type) {
+    return array_map(function($number) use ($type) {
+        $digits = str_split(strval($number));
+        $oddCount = count(array_filter($digits, function($digit) { return $digit % 2 != 0; }));
+
+        return $type === "odd" ? $oddCount : count($digits) - $oddCount;
+    }, $arr);
+}
+
 ?>
