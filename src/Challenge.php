@@ -92,4 +92,37 @@ function digitDistance($num1, $num2) {
     return $totalDistance;
 }
 
+/**
+ * Can You Make the Numbers.
+ * You are given an array representing the number of 0s, 1s, 2s, ..., 9s you have.
+ * can_build([#0s, #1s, #2s, ..., #9s], [num1, num2, ...])
+ * Write a function that returns true if you can build the following numbers using only the digits you have.
+ *
+ * @param array $digits
+ * @param array $arr
+ * @return boolean
+ */
+function canBuild($digits, $arr) {
+    $providedCountOfDigits = array_reduce(range(0, 9), function($acc, $index) use ($digits) {
+        return array_merge($acc, [$index => $digits[$index]]);
+    }, []);
+
+    $requiredCountOfDigits = array_reduce($arr, function($acc, $number) {
+        $digits = str_split(strval($number));
+        for($i = 0; $i < count($digits); $i++) {
+            $acc[$digits[$i]] = array_key_exists($digits[$i], $acc) ? $acc[$digits[$i]] + 1 : 1;
+        }
+
+        return $acc;
+    }, []);
+
+    foreach($requiredCountOfDigits as $d => $requiredCount) {
+        if ($providedCountOfDigits[$d] < $requiredCount) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
 ?>
