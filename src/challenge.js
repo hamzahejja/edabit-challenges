@@ -1632,3 +1632,22 @@ function countIdenticalArrays(arr1, arr2, arr3, arr4) {
 
   return uniqueArrays.size == 4 ? 0 : 4 - uniqueArrays.size + 1;
 }
+
+/**
+ * Create a function that groups an array of numbers based on a size parameter.
+ * The size represents the maximum length of each sub-array.
+ * The size parameter represents the maximum size for each sub-array (see ex.4).
+ * You should try to fill each sub-array evenly.
+ * ([1, 2, 3, 4, 5, 6], 3) -> [[1, 3, 5], [2, 4, 6]]
+ * ([1, 2, 3, 4, 5, 6], 2) -> [[1, 4], [2, 5], [3, 6]]
+ * ([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], 4) -> [[1, 4, 7, 10], [2, 5, 8, 11], [3, 6, 9]]
+ *
+ * @param {object} arr
+ * @param {number} size
+ * @return {object}
+ */
+function group(arr, size) {
+	return Array.from({ length: Math.ceil(arr.length / size)}, (_, i) => i).map(index => {
+    return arr.filter((_, i) => (i - index) % Math.ceil(arr.length / size) == 0);
+  });
+}
