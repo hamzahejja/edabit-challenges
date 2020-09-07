@@ -50,4 +50,25 @@ function countOverlapping($intervals, $point) {
     }));
 }
 
+/**
+ * Create a function that takes two arrays and combines them
+ * by alternatingly taking elements from each array in turn.
+ *
+ * @param array $a
+ * @param array $b
+ * @return array
+ */
+function mergeArrays($a, $b) {
+    $minLength = min(count($a), count($b));
+    $maxLength = max(count($a), count($b));
+
+    $result = array_reduce(range(0, $minLength - 1), function($acc, $index) use ($a, $b) {
+        return array_merge($acc, [$a[$index], $b[$index]]);
+    }, []);
+
+    return $minLength === $maxLength ?
+        $result :
+        array_merge($result, array_slice($a, $minLength), array_slice($b, $minLength));
+}
+
 ?>
