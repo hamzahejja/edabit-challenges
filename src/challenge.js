@@ -1651,3 +1651,31 @@ function group(arr, size) {
     return arr.filter((_, i) => (i - index) % Math.ceil(arr.length / size) == 0);
   });
 }
+
+/**
+ * Early Birds.
+ * You are given two integers as parameters: range is the ending number of the string sequence to generate,
+ * and n is the number to analyze. You must implement a function that returns an array that contains the
+ * position indexes of n (with every position index being an array in turn), and the string "Early Bird!"
+ * as the last element of the array only if n is an Early Bird. If n it's not an Early Bird and the
+ * returned array has to contain just the array with its natural position index.
+ *
+ * @param {number} range
+ * @param {number} n
+ */
+function isEarlyBird(range, n) {
+  const naturalNumberStringSequence = Array.from({ length: range + 1}, (_, index) => index).join('');
+  const searchRegex = new RegExp(`${n.toString().charAt(0)}(?=(${n.toString().slice(1)}))`, "g");
+
+  let indicesOfNumberMatchesWithinStr = []
+  while (match = searchRegex.exec(naturalNumberStringSequence)) {
+    indicesOfNumberMatchesWithinStr = [
+      ...indicesOfNumberMatchesWithinStr,
+      Array.from({length: `${n}`.length}, (_, i) => match.index + i)
+    ];
+  }
+
+  return indicesOfNumberMatchesWithinStr.length === 1 ?
+    indicesOfNumberMatchesWithinStr :
+    [...indicesOfNumberMatchesWithinStr, "Early Bird!"];
+}
