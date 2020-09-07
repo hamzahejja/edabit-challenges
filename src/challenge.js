@@ -1647,7 +1647,7 @@ function countIdenticalArrays(arr1, arr2, arr3, arr4) {
  * @return {object}
  */
 function group(arr, size) {
-	return Array.from({ length: Math.ceil(arr.length / size)}, (_, i) => i).map(index => {
+  return Array.from({ length: Math.ceil(arr.length / size)}, (_, i) => i).map(index => {
     return arr.filter((_, i) => (i - index) % Math.ceil(arr.length / size) == 0);
   });
 }
