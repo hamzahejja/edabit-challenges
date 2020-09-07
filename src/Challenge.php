@@ -30,4 +30,24 @@ function consecutiveCombo($a1, $a2) {
     return ! count(array_diff($consecutiveSequenceOfElements, $combinedElements));
 }
 
+/**
+ * Intersecting Intervals.
+ * Create a function that takes in an array of intervals and returns
+ * how many intervals overlap with a given point.
+ * An interval overlaps a particular point if the point exists
+ * inside the interval, or on the interval's boundary.
+ *
+ * @param array $intervals
+ * @param integer $point
+ * @return integer
+ */
+function countOverlapping($intervals, $point) {
+    return count(array_filter($intervals, function($interval) use ($point) {
+        $lowerBoundary = $interval[0];
+        $upperBoundary = $interval[1];
+
+        return $point >= $lowerBoundary && $point <= $upperBoundary;
+    }));
+}
+
 ?>
