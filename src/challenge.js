@@ -1591,3 +1591,44 @@ function anagram(name, words) {
       filteredName.match(new RegExp(ch, 'ig')).length === combinedWords.match(new RegExp(ch, 'ig')).length
   });
 }
+
+/**
+ * Leader in an Array.
+ * Create a function that finds all elements in the given array, such that
+ * each element is greater than all elements to the right of it.
+ *
+ * @param {object} arr
+ * @return {object}
+ */
+function leader(arr) {
+  return arr.filter((val, index) => {
+    return arr.slice(index + 1).every(rightSideElement => rightSideElement < val);
+  });
+}
+
+/**
+ * You are given an array of strings consisting of grocery items, with prices in parentheses.
+ * Return an array of prices in float format.
+ *
+ * @param {object} arr
+ * @return {object}
+ */
+function getPrices(arr) {
+  return arr.map(item => Number(item.replace(/[^\d\.\d+]/g, '')));
+}
+
+/**
+ * Create a function that takes four arrays as arguments and
+ * returns a count of the total number of identical arrays.
+ *
+ * @param {object} arr1
+ * @param {object} arr2
+ * @param {object} arr3
+ * @param {object} arr4
+ * @return {number}
+ */
+function countIdenticalArrays(arr1, arr2, arr3, arr4) {
+  const uniqueArrays = new Set([arr1, arr2, arr3, arr4].map(arr => arr.join('')));
+
+  return uniqueArrays.size == 4 ? 0 : 4 - uniqueArrays.size + 1;
+}
