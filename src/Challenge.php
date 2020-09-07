@@ -103,10 +103,6 @@ function digitDistance($num1, $num2) {
  * @return boolean
  */
 function canBuild($digits, $arr) {
-    $providedCountOfDigits = array_reduce(range(0, 9), function($acc, $index) use ($digits) {
-        return array_merge($acc, [$index => $digits[$index]]);
-    }, []);
-
     $requiredCountOfDigits = array_reduce($arr, function($acc, $number) {
         $digits = str_split(strval($number));
         for($i = 0; $i < count($digits); $i++) {
@@ -117,7 +113,7 @@ function canBuild($digits, $arr) {
     }, []);
 
     foreach($requiredCountOfDigits as $d => $requiredCount) {
-        if ($providedCountOfDigits[$d] < $requiredCount) {
+        if ($digits[$d] < $requiredCount) {
             return false;
         }
     }
