@@ -138,5 +138,24 @@ function countDigits($arr, $type) {
         return $type === "odd" ? $oddCount : count($digits) - $oddCount;
     }, $arr);
 }
+/**
+ * Find the Fulcrum
+ * A fulcrum of an array is an integer such that all elements to the
+ * left of it and all elements to the right of it sum to the same value.
+ * Write a function that finds the fulcrum of an array.
+ *
+ * @param array $arr
+ * @return integer
+ */
+function findFulcrum($arr) {
+	foreach(array_slice($arr, 1, -1, true) as $index => $num) {
+        $leftSum = array_sum(array_slice($arr, 0, $index));
+        $rightSum = array_sum(array_slice($arr, $index + 1));
+        if ($leftSum === $rightSum) {
+            return $num;
+        }
+    }
+    return -1;
+}
 
 ?>
