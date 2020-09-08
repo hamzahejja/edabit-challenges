@@ -217,4 +217,23 @@ function getProducts($arr) {
     return array_map(function($val) use ($productOfAllElements) { return $productOfAllElements / $val; }, $arr);
 }
 
+/**
+ * Remix the String.
+ * Create a function that takes both a string and an array of numbers as arguments.
+ *  Rearrange the letters in the string to be in the order specified by the index numbers. Return the "remixed" string.
+ *
+ * @param string $str
+ * @param array $arr
+ */
+function remix($str, $arr) {
+    $rearrangedByOrderSpecified = array_reduce(range(0, strlen($str) - 1), function ($acc, $i) use ($str, $arr) {
+        $acc[$arr[$i]] = $str[$i];
+        return $acc;
+    }, array_fill(0, strlen($str), ''));
+
+    return implode('', $rearrangedByOrderSpecified);
+}
+
+
+
 ?>
