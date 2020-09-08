@@ -234,4 +234,56 @@ function remix($str, $arr) {
     return implode('', $rearrangedByOrderSpecified);
 }
 
+/**
+ * Spicy Food.
+ * Given your friend's unfortunate taste preferences, you decide to split the bill
+ * only for non-spicy items. You will pay in full for the spicy dishes.
+ * Given two ordered arrays, one classifying the dishes as spicy vs. non-spicy and the other
+ * listing their prices, write a function that outputs an array where the first element is how
+ * much you pay and the second element is how much your friend pays.
+ *
+ * @param array $spicy
+ * @param array $cost
+ * @return array
+ */
+function billSplit($spicy, $cost) {
+    $totalBill = array_sum($cost);
+    $myPay = array_reduce(
+        range(0, count($spicy) - 1),
+        function($acc, $index) use ($spicy, $cost) {
+            return $acc + (strcmp(strtolower($spicy[$index]), 'n') ? $cost[$index] : $cost[$index] / 2);
+        }, 0);
+
+    return [intval($myPay), intval($totalBill - $myPay)];
+}
+
+function currentlyWinning($scores) {
+    $scoresOfY = array_map(function($key) use ($scores) { return $scores[$key]; }, array_filter(array_keys($scores), function($key) { return $key % 2 === 0; }));
+    $scoresOfO = array_map(function($key) use ($scores) { return $scores[$key]; }, array_filter(array_keys($scores), function($key) { return $key % 2 !== 0; }));
+
+    $cumulativeScoresY = [];
+    $cumulativeScoresO = [];
+
+	array_map(function($index, $val) use (&$cumulativeScoresY) {
+            $cumulativeScoresY[$index] = $cumulativeScoresY ? $val + $cumulativeScoresY[$index - 1] : $val;
+        },
+        range(0, count($scores) / 2 - 1),
+        $scoresOfY
+    );
+
+    array_map(
+        function($index, $val) use (&$cumulativeScoresO) {
+            $cumulativeScoresO[$index] = $cumulativeScoresO ? $val + $cumulativeScoresO[$index - 1] : $val;
+        },
+        range(0, count($scores) / 2 - 1),
+        $scoresOfO
+    );
+
+    return array_map(function($cumulativeScoreY, $cumulativeScoreO) {
+        if ($cumulativeScoreY > $cumulativeScoreO) return 'Y';
+        elseif ($cumulativeScoreY < $cumulativeScoreO) return 'O';
+        else return 'T';
+    }, $cumulativeScoresY, $cumulativeScoresO);
+}
+
 ?>
