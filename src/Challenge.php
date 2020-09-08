@@ -158,4 +158,37 @@ function findFulcrum($arr) {
     return -1;
 }
 
+/**
+ * All Pairs that Sum to Target.
+ * Create a function that returns all pairs of numbers in an array that sum to a target.
+ * Sort the pairs in ascending order with respect to the smaller number,
+ * then order each pair in this order: [smaller, larger].
+ *
+ * @param array $arr
+ * @param integer $target
+ * @return array
+ */
+function allPairs($arr, $target) {
+    $foundNumbers = [];
+    $matchingPairs = [];
+
+    foreach($arr as $number) {
+        if (array_search($target - $number, $foundNumbers) !== false) {
+            $matchingPairs[] = $number > ($target - $number) ?
+                [$target - $number, $number] : [$number, $target - $number];
+        } else {
+            $foundNumbers[] = $number;
+        }
+    }
+
+    usort($matchingPairs, function($lhsPair, $rhsPair) {
+        $lhsSmallerNumber = min($lhsPair);
+        $rhsSmallerNumber = min($rhsPair);
+
+        return $lhsSmallerNumber - $rhsSmallerNumber;
+    });
+
+    return $matchingPairs;
+}
+
 ?>
