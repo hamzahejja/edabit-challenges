@@ -286,4 +286,21 @@ function currentlyWinning($scores) {
     }, $cumulativeScoresY, $cumulativeScoresO);
 }
 
+/**
+ * Which Number Is Not like the Others?
+ * Create a function that takes an array of numbers and return the number that's unique.
+ *
+ * @param array $arr
+ * @return integer
+ */
+function unique($arr) {
+    $countOfValues = array_reduce($arr, function($acc, $val) {
+        $key = strval($val);
+
+        return array_replace($acc, [$key => array_key_exists($key, $acc) ? $acc[$key] + 1 : 1]);
+    }, []);
+
+	return array_keys(array_filter($countOfValues, function($count) { return $count === 1; }))[0];
+}
+
 ?>
