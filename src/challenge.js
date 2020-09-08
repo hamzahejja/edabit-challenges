@@ -1679,3 +1679,44 @@ function isEarlyBird(range, n) {
     indicesOfNumberMatchesWithinStr :
     [...indicesOfNumberMatchesWithinStr, "Early Bird!"];
 }
+
+/**
+ * Concatenate Variable Number of Input Arrays
+ * Create a function that concatenates n input arrays, where n is variable.
+ *
+ * @param  {...any} args
+ * @return {object}
+ */
+function concat(...args) {
+  return args.reduce((concatenatedElements, arg) => {
+    return [...concatenatedElements, ...arg];
+  }, [])
+}
+
+/**
+ * Sum of Slices of an Array (Part 1).
+ * Create a function that takes an array as an argument and return an array of
+ * the sum of each of its slices. An array's slices are groups of consecutive
+ * values that add up to a maximum of 100. No slice's total sum should exceed 100.
+ *
+ * @param {object} arr
+ * @return {object}
+ */
+function sumOfSlices(arr) {
+  let summationSoFar = 0, currSlice = [], slicesFound = [];
+
+  for(let i = 0; i < arr.length; i++) {
+    if (summationSoFar + arr[i] > 100) {
+      slicesFound.push(currSlice);
+      currSlice = [arr[i]];
+      summationSoFar = arr[i];
+    } else {
+      currSlice.push(arr[i]);
+      summationSoFar += arr[i];
+    }
+  }
+
+  if (currSlice.length !== 0) slicesFound.push(currSlice);
+
+  return slicesFound.map(slice => slice.reduce((sum, val) => sum + val, 0));
+}
