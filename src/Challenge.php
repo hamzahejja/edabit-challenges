@@ -191,4 +191,30 @@ function allPairs($arr, $target) {
     return $matchingPairs;
 }
 
+/**
+ * Product of All Other Numbers.
+ * You have an array of integers, and for each index you want to find the product of
+ * every integer except the integer at that index. Create a function that takes an
+ * array of integers and returns an array of the products.
+ *
+ * @param array $arr
+ * @return array
+ */
+function getProducts($arr) {
+    $countOfZeros = count(array_filter($arr, function($val) { return $val === 0; }));
+
+    if ($countOfZeros > 1) return array_fill(0, count($arr), 0);
+
+    else if ($countOfZeros == 1) {
+        $nonZeroProduct = array_product(array_filter($arr, function($val) { return $val !== 0; }));
+
+        return array_map(function($val) use ($nonZeroProduct) {
+            return $val !== 0 ? 0 : $nonZeroProduct;
+        }, $arr);
+    }
+
+    $productOfAllElements = array_reduce($arr, function($product, $val) { return $product * $val; }, 1);
+    return array_map(function($val) use ($productOfAllElements) { return $productOfAllElements / $val; }, $arr);
+}
+
 ?>
