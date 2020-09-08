@@ -234,6 +234,4 @@ function remix($str, $arr) {
     return implode('', $rearrangedByOrderSpecified);
 }
 
-
-
 ?>
