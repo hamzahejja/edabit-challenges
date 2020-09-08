@@ -300,7 +300,7 @@ function unique($arr) {
         return array_replace($acc, [$key => array_key_exists($key, $acc) ? $acc[$key] + 1 : 1]);
     }, []);
 
-	return array_keys(array_filter($countOfValues, function($count) { return $count === 1; }))[0];
+    return array_keys(array_filter($countOfValues, function($count) { return $count === 1; }))[0];
 }
 
 ?>
