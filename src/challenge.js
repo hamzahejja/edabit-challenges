@@ -1720,3 +1720,53 @@ function sumOfSlices(arr) {
 
   return slicesFound.map(slice => slice.reduce((sum, val) => sum + val, 0));
 }
+
+/**
+ * Patterned Wristband.
+ * A wristband can have 4 patterns:
+ * horizontal: each item in a row is identical.
+ * vertical: each item in a column is identical.
+ * diagonal left: each item is identical to the one on it's upper left or bottom right.
+ * diagonal right: each item is identical to the one on it's upper right or bottom left.
+ * Write a function that returns true if the section can be correctly classified into one of the 4 types, and false otherwise.
+ *
+ * @param {object} arr
+ * @return {boolean}
+ */
+function isWristband(arr) {
+  const rowsCount = arr.length;
+  const columnsCount = arr[0].length;
+
+  const isHorizontalWristband = arr.every(row => new Set(row).size === 1);
+  if (isHorizontalWristband) return true;
+
+  const isVerticalWristband = Array.from({ length: columnsCount }, (_, colIndex) => {
+    return Array.from( {length: arr.length }, (_, rowIndex) => arr[rowIndex][colIndex]);
+  }).every(column => new Set(column).size === 1);
+
+  if (isVerticalWristband) return true;
+
+  const isLeftDiagonalWristband = Array.from({ length: rowsCount * columnsCount }, (_, i) => i).every(i => {
+    const rowIndex = Math.floor(i / columnsCount);
+    const colIndex = i % columnsCount;
+    const upperLeft = rowIndex - 1 > 0 && colIndex - 1 > 0 ? arr[rowIndex - 1][colIndex - 1] : arr[rowIndex][colIndex];
+    const bottomRight = rowIndex + 1 < rowsCount && colIndex + 1 < columnsCount ? arr[rowIndex + 1][colIndex + 1] : arr[rowIndex][colIndex];
+
+    return arr[rowIndex][colIndex] === upperLeft && arr[rowIndex][colIndex] === bottomRight;
+  });
+
+  if (isLeftDiagonalWristband) return true;
+
+  const isRightDiagonalWristband = Array.from({ length: rowsCount * columnsCount }, (_, i) => i).every(i => {
+    const rowIndex = Math.floor(i / columnsCount);
+    const colIndex = i % columnsCount;
+    const upperRight = rowIndex - 1 > 0 && colIndex + 1 < columnsCount ? arr[rowIndex - 1][colIndex + 1] : arr[rowIndex][colIndex];
+    const bottomLeft = rowIndex + 1 < rowsCount && colIndex - 1 > 0 ? arr[rowIndex + 1][colIndex - 1] : arr[rowIndex][colIndex];
+
+    return arr[rowIndex][colIndex] === upperRight && arr[rowIndex][colIndex] === bottomLeft;
+  });
+
+  if (isRightDiagonalWristband) return true;
+
+  return false;
+}
