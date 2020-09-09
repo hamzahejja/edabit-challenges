@@ -1974,4 +1974,18 @@ public class Challenge {
         return Arrays.stream(a1).boxed().collect(Collectors.toSet()).size() ==
                 Arrays.stream(a2).boxed().collect(Collectors.toSet()).size();
     }
+
+    /**
+     * Given a string, create a function to reverse the case.
+     * All lower-cased letters should be upper-cased, and vice versa.
+     *
+     * @param String str
+     * @return String
+     */
+    public static String reverseCase(String str) {
+        return str.chars()
+                .map(cp -> Character.isLowerCase(cp) ? Character.toUpperCase(cp) : Character.toLowerCase(cp))
+                .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+                .toString();
+    }
 }
