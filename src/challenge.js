@@ -1591,3 +1591,132 @@ function anagram(name, words) {
       filteredName.match(new RegExp(ch, 'ig')).length === combinedWords.match(new RegExp(ch, 'ig')).length
   });
 }
+
+/**
+ * Leader in an Array.
+ * Create a function that finds all elements in the given array, such that
+ * each element is greater than all elements to the right of it.
+ *
+ * @param {object} arr
+ * @return {object}
+ */
+function leader(arr) {
+  return arr.filter((val, index) => {
+    return arr.slice(index + 1).every(rightSideElement => rightSideElement < val);
+  });
+}
+
+/**
+ * You are given an array of strings consisting of grocery items, with prices in parentheses.
+ * Return an array of prices in float format.
+ *
+ * @param {object} arr
+ * @return {object}
+ */
+function getPrices(arr) {
+  return arr.map(item => Number(item.replace(/[^\d\.\d+]/g, '')));
+}
+
+/**
+ * Create a function that takes four arrays as arguments and
+ * returns a count of the total number of identical arrays.
+ *
+ * @param {object} arr1
+ * @param {object} arr2
+ * @param {object} arr3
+ * @param {object} arr4
+ * @return {number}
+ */
+function countIdenticalArrays(arr1, arr2, arr3, arr4) {
+  const uniqueArrays = new Set([arr1, arr2, arr3, arr4].map(arr => arr.join('')));
+
+  return uniqueArrays.size == 4 ? 0 : 4 - uniqueArrays.size + 1;
+}
+
+/**
+ * Create a function that groups an array of numbers based on a size parameter.
+ * The size represents the maximum length of each sub-array.
+ * The size parameter represents the maximum size for each sub-array (see ex.4).
+ * You should try to fill each sub-array evenly.
+ * ([1, 2, 3, 4, 5, 6], 3) -> [[1, 3, 5], [2, 4, 6]]
+ * ([1, 2, 3, 4, 5, 6], 2) -> [[1, 4], [2, 5], [3, 6]]
+ * ([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], 4) -> [[1, 4, 7, 10], [2, 5, 8, 11], [3, 6, 9]]
+ *
+ * @param {object} arr
+ * @param {number} size
+ * @return {object}
+ */
+function group(arr, size) {
+  return Array.from({ length: Math.ceil(arr.length / size)}, (_, i) => i).map(index => {
+    return arr.filter((_, i) => (i - index) % Math.ceil(arr.length / size) == 0);
+  });
+}
+
+/**
+ * Early Birds.
+ * You are given two integers as parameters: range is the ending number of the string sequence to generate,
+ * and n is the number to analyze. You must implement a function that returns an array that contains the
+ * position indexes of n (with every position index being an array in turn), and the string "Early Bird!"
+ * as the last element of the array only if n is an Early Bird. If n it's not an Early Bird and the
+ * returned array has to contain just the array with its natural position index.
+ *
+ * @param {number} range
+ * @param {number} n
+ */
+function isEarlyBird(range, n) {
+  const naturalNumberStringSequence = Array.from({ length: range + 1}, (_, index) => index).join('');
+  const searchRegex = new RegExp(`${n.toString().charAt(0)}(?=(${n.toString().slice(1)}))`, "g");
+
+  let indicesOfNumberMatchesWithinStr = []
+  while (match = searchRegex.exec(naturalNumberStringSequence)) {
+    indicesOfNumberMatchesWithinStr = [
+      ...indicesOfNumberMatchesWithinStr,
+      Array.from({length: `${n}`.length}, (_, i) => match.index + i)
+    ];
+  }
+
+  return indicesOfNumberMatchesWithinStr.length === 1 ?
+    indicesOfNumberMatchesWithinStr :
+    [...indicesOfNumberMatchesWithinStr, "Early Bird!"];
+}
+
+/**
+ * Concatenate Variable Number of Input Arrays
+ * Create a function that concatenates n input arrays, where n is variable.
+ *
+ * @param  {...any} args
+ * @return {object}
+ */
+function concat(...args) {
+  return args.reduce((concatenatedElements, arg) => {
+    return [...concatenatedElements, ...arg];
+  }, [])
+}
+
+/**
+ * Sum of Slices of an Array (Part 1).
+ * Create a function that takes an array as an argument and return an array of
+ * the sum of each of its slices. An array's slices are groups of consecutive
+ * values that add up to a maximum of 100. No slice's total sum should exceed 100.
+ *
+ * @param {object} arr
+ * @return {object}
+ */
+function sumOfSlices(arr) {
+  let summationSoFar = 0, currSlice = [], slicesFound = [];
+
+  for(let i = 0; i < arr.length; i++) {
+    if (summationSoFar + arr[i] > 100) {
+      slicesFound.push(currSlice);
+      currSlice = [arr[i]];
+      summationSoFar = arr[i];
+    } else {
+      currSlice.push(arr[i]);
+      summationSoFar += arr[i];
+    }
+  }
+
+  if (currSlice.length !== 0) slicesFound.push(currSlice);
+
+  return slicesFound.map(slice => slice.reduce((sum, val) => sum + val, 0));
+}
