@@ -300,7 +300,26 @@ function unique($arr) {
         return array_replace($acc, [$key => array_key_exists($key, $acc) ? $acc[$key] + 1 : 1]);
     }, []);
 
-    return array_keys(array_filter($countOfValues, function($count) { return $count === 1; }))[0];
+	return array_keys(array_filter($countOfValues, function($count) { return $count === 1; }))[0];
+}
+
+/**
+ * Tallest Skyscraper.
+ * A city skyline can be represented as a 2-D array with 1s representing buildings.
+ * Create a function that takes a skyline (2-D array of 0's and 1's) and returns the height of the tallest skyscraper.
+ *
+ * @param $arr
+ * @return integer
+ */
+function tallestSkyscraper($arr) {
+    $columnsCount = count(reset($arr));
+    $heightsOfSkyscrapers = array_map(function($colIndex) use ($arr) {
+        $colContentsAsStr = implode('', array_column($arr, $colIndex));
+
+        return strlen($colContentsAsStr) - strlen(preg_replace('/(1)((?<=1)|(?=1))/', '', $colContentsAsStr));
+    }, range(0, $columnsCount - 1));
+
+    return max($heightsOfSkyscrapers);
 }
 
 ?>
