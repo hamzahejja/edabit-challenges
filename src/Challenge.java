@@ -1913,4 +1913,51 @@ public class Challenge {
             return isValidMathRelation(Integer.parseInt(operands[index]), Integer.parseInt(operands[index + 1]), mathematicalRelations[index]);
         });
     }
+
+    /**
+     * Simulate the Rock-Paper-Scissors Game.
+     *
+     * @param String s1
+     * @param String s2
+     * @return String
+     */
+    public static String rps(String s1, String s2) {
+        if (s1.equals(s2)) return "TIE";
+
+        Map<String, Integer> potentialCasesWithWinningPlayerNumber = new HashMap<>();
+        potentialCasesWithWinningPlayerNumber.put("paper-rock", 1);
+        potentialCasesWithWinningPlayerNumber.put("rock-scissors", 1);
+        potentialCasesWithWinningPlayerNumber.put("scissors-paper", 1);
+        potentialCasesWithWinningPlayerNumber.put("rock-paper", 2);
+        potentialCasesWithWinningPlayerNumber.put("scissors-rock", 2);
+        potentialCasesWithWinningPlayerNumber.put("paper-scissors", 2);
+
+        return new StringBuilder("Player ")
+                .append(potentialCasesWithWinningPlayerNumber.get(String.join("-", s1, s2)))
+                .append(" wins")
+                .toString();
+    }
+
+    /**
+     * Find the 2nd Occurences of `zip` in the Input String.
+     *
+     * @param String str
+     * @return int
+     */
+    public static int findZip(String str) {
+        int counterOfOccurences = 0;
+        String currentStr, SEARCH_WORD = "zip";
+        StringBuilder tempStringBuilder = new StringBuilder();
+
+        for (int i = 0; i < str.length(); i++) {
+            tempStringBuilder.append(str.charAt(i));
+            currentStr = tempStringBuilder.toString();
+
+            if (currentStr.lastIndexOf(SEARCH_WORD) != currentStr.indexOf(SEARCH_WORD)) {
+                return i - 2;
+            }
+        }
+
+        return -1;
+    }
 }
