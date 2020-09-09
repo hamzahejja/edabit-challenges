@@ -322,4 +322,23 @@ function tallestSkyscraper($arr) {
     return max($heightsOfSkyscrapers);
 }
 
+/**
+ * Create a function that alternates the case of the letters in a string (known as Spongecase).
+ * The first letter should always be UPPERCASE.
+ * Ignore spaces.
+ *
+ * @param string $str
+ * @return string
+ */
+function alternatingCaps($str) {
+	$alternatingCapsCharacters = array_reduce(range(1, strlen($str) - 1), function($acc, $index) use ($str) {
+        $lastSeenChar = ctype_space($acc[$index - 1]) ? $acc[$index - 2] : $acc[$index - 1];
+        $acc[$index] = ctype_lower($lastSeenChar) ? strtoupper($str[$index]) : strtolower($str[$index]);
+
+        return $acc;
+    }, [strtoupper($str[0])]);
+
+    return implode('', $alternatingCapsCharacters);
+}
+
 ?>
