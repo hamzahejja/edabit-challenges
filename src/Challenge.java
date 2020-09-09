@@ -1960,4 +1960,18 @@ public class Challenge {
 
         return -1;
     }
+
+    /**
+     * Same Number of Unique Elements.
+     * Write a function that returns true if two arrays have
+     * the same number of unique elements, and false otherwise.
+     *
+     * @param int[] a1
+     * @param int []a2
+     * @return boolean
+     */
+    public static boolean same(int[] a1, int[] a2) {
+        return Arrays.stream(a1).boxed().collect(Collectors.toSet()).size() ==
+                Arrays.stream(a2).boxed().collect(Collectors.toSet()).size();
+    }
 }
