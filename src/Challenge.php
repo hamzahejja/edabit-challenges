@@ -403,13 +403,8 @@ function validatePIN(string $pin) : bool
  */
 function countAll(string $str) : array
 {
-    $lettersCount = 0;
-    $digitsCount = 0;
-
-    foreach (str_split(preg_replace('/[^\w]/', '', $str)) as $char) {
-        ! ctype_digit($char) ?: $digitsCount++;
-        ! ctype_alpha($char) ?: $lettersCount++;
-    }
+    $digitsCount = strlen(preg_replace('/[^0-9]/', '', $str));
+    $lettersCount = strlen(preg_replace('/[^a-zA-Z]/', '', $str));
 
     return ['LETTERS' => $lettersCount, 'DIGITS' => $digitsCount];
 }
