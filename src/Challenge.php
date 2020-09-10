@@ -7,7 +7,7 @@
  * @param array $originalArr
  * @return array
  */
-function accumulatingArray($originalArr) {
+function accumulatingArray(array $originalArr) : array {
     $sum = array_reduce($originalArr, function($acc, $val) { return $acc + $val; }, 0);
 
     return array_map(function($index) use ($sum, $originalArr) {
@@ -21,9 +21,9 @@ function accumulatingArray($originalArr) {
  *
  * @param array $a1
  * @param array $a2
- * @return boolean
+ * @return bool
  */
-function consecutiveCombo($a1, $a2) {
+function consecutiveCombo(array $a1, array $a2) : bool {
     $combinedElements = array_merge($a1, $a2);
     $consecutiveSequenceOfElements = range(min($combinedElements), max($combinedElements), 1);
 
@@ -38,10 +38,10 @@ function consecutiveCombo($a1, $a2) {
  * inside the interval, or on the interval's boundary.
  *
  * @param array $intervals
- * @param integer $point
- * @return integer
+ * @param int $point
+ * @return int
  */
-function countOverlapping($intervals, $point) {
+function countOverlapping(array $intervals, int $point) : int {
     return count(array_filter($intervals, function($interval) use ($point) {
         $lowerBoundary = $interval[0];
         $upperBoundary = $interval[1];
@@ -58,7 +58,7 @@ function countOverlapping($intervals, $point) {
  * @param array $b
  * @return array
  */
-function mergeArrays($a, $b) {
+function mergeArrays(array $a, array $b) : array {
     $minLength = min(count($a), count($b));
     $maxLength = max(count($a), count($b));
 
@@ -76,11 +76,11 @@ function mergeArrays($a, $b) {
  * The digit distance between two numbers is the total
  * value of the difference between each pair of digits.
  *
- * @param integer $num1
- * @param integer $num2
- * @return integer
+ * @param int $num1
+ * @param int $num2
+ * @return int
  */
-function digitDistance($num1, $num2) {
+function digitDistance(int $num1, int $num2) : int {
     $totalDistance = 0;
 
     while ($num1 && $num2) {
@@ -100,9 +100,9 @@ function digitDistance($num1, $num2) {
  *
  * @param array $digits
  * @param array $arr
- * @return boolean
+ * @return bool
  */
-function canBuild($digits, $arr) {
+function canBuild(array $digits, array $arr) : bool {
     $requiredCountOfDigits = array_reduce($arr, function($acc, $number) {
         $digits = str_split(strval($number));
         for($i = 0; $i < count($digits); $i++) {
@@ -130,7 +130,7 @@ function canBuild($digits, $arr) {
  * @param string $type
  * @return array
  */
-function countDigits($arr, $type) {
+function countDigits(array $arr, string $type) : array {
     return array_map(function($number) use ($type) {
         $digits = str_split(strval($number));
         $oddCount = count(array_filter($digits, function($digit) { return $digit % 2 != 0; }));
@@ -145,9 +145,9 @@ function countDigits($arr, $type) {
  * Write a function that finds the fulcrum of an array.
  *
  * @param array $arr
- * @return integer
+ * @return int
  */
-function findFulcrum($arr) {
+function findFulcrum(array $arr) : int {
 	foreach(array_slice($arr, 1, -1, true) as $index => $num) {
         $leftSum = array_sum(array_slice($arr, 0, $index));
         $rightSum = array_sum(array_slice($arr, $index + 1));
@@ -165,10 +165,10 @@ function findFulcrum($arr) {
  * then order each pair in this order: [smaller, larger].
  *
  * @param array $arr
- * @param integer $target
+ * @param int $target
  * @return array
  */
-function allPairs($arr, $target) {
+function allPairs(array $arr, int $target) : array {
     $foundNumbers = [];
     $matchingPairs = [];
 
@@ -200,7 +200,7 @@ function allPairs($arr, $target) {
  * @param array $arr
  * @return array
  */
-function getProducts($arr) {
+function getProducts(array $arr) : array {
     $countOfZeros = count(array_filter($arr, function($val) { return $val === 0; }));
 
     if ($countOfZeros > 1) return array_fill(0, count($arr), 0);
@@ -224,8 +224,9 @@ function getProducts($arr) {
  *
  * @param string $str
  * @param array $arr
+ * @return string
  */
-function remix($str, $arr) {
+function remix(string $str, array $arr) : string {
     $rearrangedByOrderSpecified = array_reduce(range(0, strlen($str) - 1), function ($acc, $i) use ($str, $arr) {
         $acc[$arr[$i]] = $str[$i];
         return $acc;
@@ -246,7 +247,7 @@ function remix($str, $arr) {
  * @param array $cost
  * @return array
  */
-function billSplit($spicy, $cost) {
+function billSplit(array $spicy, array $cost) : array{
     $totalBill = array_sum($cost);
     $myPay = array_reduce(
         range(0, count($spicy) - 1),
@@ -257,7 +258,8 @@ function billSplit($spicy, $cost) {
     return [intval($myPay), intval($totalBill - $myPay)];
 }
 
-function currentlyWinning($scores) {
+
+function currentlyWinning(array $scores) : array {
     $scoresOfY = array_map(function($key) use ($scores) { return $scores[$key]; }, array_filter(array_keys($scores), function($key) { return $key % 2 === 0; }));
     $scoresOfO = array_map(function($key) use ($scores) { return $scores[$key]; }, array_filter(array_keys($scores), function($key) { return $key % 2 !== 0; }));
 
@@ -291,9 +293,9 @@ function currentlyWinning($scores) {
  * Create a function that takes an array of numbers and return the number that's unique.
  *
  * @param array $arr
- * @return integer
+ * @return int
  */
-function unique($arr) {
+function unique(array $arr) : int {
     $countOfValues = array_reduce($arr, function($acc, $val) {
         $key = strval($val);
 
@@ -308,10 +310,10 @@ function unique($arr) {
  * A city skyline can be represented as a 2-D array with 1s representing buildings.
  * Create a function that takes a skyline (2-D array of 0's and 1's) and returns the height of the tallest skyscraper.
  *
- * @param $arr
- * @return integer
+ * @param array $arr
+ * @return int
  */
-function tallestSkyscraper($arr) {
+function tallestSkyscraper(array $arr) : int {
     $columnsCount = count(reset($arr));
     $heightsOfSkyscrapers = array_map(function($colIndex) use ($arr) {
         $colContentsAsStr = implode('', array_column($arr, $colIndex));
@@ -330,7 +332,7 @@ function tallestSkyscraper($arr) {
  * @param string $str
  * @return string
  */
-function alternatingCaps($str) {
+function alternatingCaps(string $str) : string {
 	$alternatingCapsCharacters = array_reduce(range(1, strlen($str) - 1), function($acc, $index) use ($str) {
         $lastSeenChar = ctype_space($acc[$index - 1]) ? $acc[$index - 2] : $acc[$index - 1];
         $acc[$index] = ctype_lower($lastSeenChar) ? strtoupper($str[$index]) : strtolower($str[$index]);
@@ -340,5 +342,6 @@ function alternatingCaps($str) {
 
     return implode('', $alternatingCapsCharacters);
 }
+
 
 ?>
