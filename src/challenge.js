@@ -1770,3 +1770,38 @@ function isWristband(arr) {
 
   return false;
 }
+
+/**
+ * First Recurrence Index.
+ * Create a function that identifies the very first item that has recurred in the string argument passed.
+ * It returns the identified item with the index where it first appeared and the very next index where it
+ * resurfaced -- entirely as an object; or as an empty object if the passed argument is either null,
+ * undefined, empty string, or no recurring item exists.
+ *
+ * @param {string}
+ * @return {object}
+ */
+function recurIndex(str) {
+  if (! str) {
+    return {};
+  }
+
+  const indicesOfFirstRecurringElement = [...str].map(ch => {
+    const firstOccurence = str.indexOf(ch);
+    const lastOccurence = str.lastIndexOf(ch);
+
+    if (firstOccurence === -1 && lastOccurence === -1) {
+      return []
+    } else if (firstOccurence === lastOccurence) {
+      return [firstOccurence]
+    }
+
+    return [firstOccurence, str.indexOf(ch, firstOccurence + 1)];
+  })
+  .filter(occurencesIndicesArr => occurencesIndicesArr.length === 2)
+  .sort((leftRecurIndices, rightRecurIndices) => leftRecurIndices[1] - rightRecurIndices[1])
+  .shift();
+
+  return indicesOfFirstRecurringElement ?
+    { [str.charAt(indicesOfFirstRecurringElement[0])] : indicesOfFirstRecurringElement } : {};
+}
