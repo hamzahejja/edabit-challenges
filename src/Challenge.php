@@ -365,4 +365,53 @@ function alternatingCaps(string $str) : string
     return implode('', $alternatingCapsCharacters);
 }
 
+/**
+ * Sum of Missing Numbers.
+ * Create a function that returns the sum of missing numbers.
+ * The minimum and maximum value of the given array are the inclusive
+ * bounds of the numeric range to consider when searching for missing numbers.
+ *
+ * @param array $arr
+ * @return int
+ */
+function sumMissingNumbers(array $arr) : int
+{
+    $minVal = min($arr);
+    $maxVal = max($arr);
+
+    return array_sum(range($minVal, $maxVal)) - array_sum($arr);
+}
+
+/**
+ * ATM machines allow 4 or 6 digit PIN codes and PIN codes
+ * cannot contain anything but exactly 4 digits or exactly 6 digits.
+ *
+ * @param string $pin
+ * @return bool
+ */
+function validatePIN(string $pin) : bool
+{
+    return preg_match('/\b\d{4}\b|\b\d{6}\b/', $pin);
+}
+
+/**
+ * Write a function that takes a string and calculates the number of
+ * letters and digits within it. Return the result as an array.
+ *
+ * @param string $str
+ * @return array
+ */
+function countAll(string $str) : array
+{
+    $lettersCount = 0;
+    $digitsCount = 0;
+
+    foreach (str_split(preg_replace('/[^\w]/', '', $str)) as $char) {
+        ! ctype_digit($char) ?: $digitsCount++;
+        ! ctype_alpha($char) ?: $lettersCount++;
+    }
+
+    return ['LETTERS' => $lettersCount, 'DIGITS' => $digitsCount];
+}
+
 ?>
