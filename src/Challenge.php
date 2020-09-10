@@ -9,9 +9,9 @@
  */
 function accumulatingArray(array $originalArr) : array
 {
-    $sum = array_reduce($originalArr, function($acc, $val) { return $acc + $val; }, 0);
+    $sum = array_reduce($originalArr, function ($acc, $val) { return $acc + $val; }, 0);
 
-    return array_map(function($index) use ($sum, $originalArr) {
+    return array_map(function ($index) use ($sum, $originalArr) {
         return $sum - array_sum(array_slice($originalArr, $index + 1));
     }, count($originalArr) === 0 ? [] : range(0, count($originalArr) - 1));
 }
@@ -45,7 +45,7 @@ function consecutiveCombo(array $a1, array $a2) : bool
  */
 function countOverlapping(array $intervals, int $point) : int
 {
-    return count(array_filter($intervals, function($interval) use ($point) {
+    return count(array_filter($intervals, function ($interval) use ($point) {
         $lowerBoundary = $interval[0];
         $upperBoundary = $interval[1];
 
@@ -66,7 +66,7 @@ function mergeArrays(array $a, array $b) : array
     $minLength = min(count($a), count($b));
     $maxLength = max(count($a), count($b));
 
-    $result = array_reduce(range(0, $minLength - 1), function($acc, $index) use ($a, $b) {
+    $result = array_reduce(range(0, $minLength - 1), function ($acc, $index) use ($a, $b) {
         return array_merge($acc, [$a[$index], $b[$index]]);
     }, []);
 
@@ -109,16 +109,16 @@ function digitDistance(int $num1, int $num2) : int
  */
 function canBuild(array $digits, array $arr) : bool
 {
-    $requiredCountOfDigits = array_reduce($arr, function($acc, $number) {
+    $requiredCountOfDigits = array_reduce($arr, function ($acc, $number) {
         $digits = str_split(strval($number));
-        for($i = 0; $i < count($digits); $i++) {
+        for ($i = 0; $i < count($digits); $i++) {
             $acc[$digits[$i]] = array_key_exists($digits[$i], $acc) ? $acc[$digits[$i]] + 1 : 1;
         }
 
         return $acc;
     }, []);
 
-    foreach($requiredCountOfDigits as $d => $requiredCount) {
+    foreach ($requiredCountOfDigits as $d => $requiredCount) {
         if ($digits[$d] < $requiredCount) {
             return false;
         }
@@ -138,9 +138,9 @@ function canBuild(array $digits, array $arr) : bool
  */
 function countDigits(array $arr, string $type) : array
 {
-    return array_map(function($number) use ($type) {
+    return array_map(function ($number) use ($type) {
         $digits = str_split(strval($number));
-        $oddCount = count(array_filter($digits, function($digit) { return $digit % 2 != 0; }));
+        $oddCount = count(array_filter($digits, function ($digit) { return $digit % 2 != 0; }));
 
         return $type === "odd" ? $oddCount : count($digits) - $oddCount;
     }, $arr);
@@ -276,8 +276,8 @@ function billSplit(array $spicy, array $cost) : array
 
 function currentlyWinning(array $scores) : array
 {
-    $scoresOfY = array_map(function ($key) use ($scores) { return $scores[$key]; }, array_filter(array_keys($scores), function($key) { return $key % 2 === 0; }));
-    $scoresOfO = array_map(function ($key) use ($scores) { return $scores[$key]; }, array_filter(array_keys($scores), function($key) { return $key % 2 !== 0; }));
+    $scoresOfY = array_map(function ($key) use ($scores) { return $scores[$key]; }, array_filter(array_keys($scores), function ($key) { return $key % 2 === 0; }));
+    $scoresOfO = array_map(function ($key) use ($scores) { return $scores[$key]; }, array_filter(array_keys($scores), function ($key) { return $key % 2 !== 0; }));
 
     $cumulativeScoresY = [];
     $cumulativeScoresO = [];
