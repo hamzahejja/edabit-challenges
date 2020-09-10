@@ -343,5 +343,4 @@ function alternatingCaps(string $str) : string {
     return implode('', $alternatingCapsCharacters);
 }
 
-
 ?>
