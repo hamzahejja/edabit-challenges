@@ -7,7 +7,8 @@
  * @param array $originalArr
  * @return array
  */
-function accumulatingArray(array $originalArr) : array {
+function accumulatingArray(array $originalArr) : array
+{
     $sum = array_reduce($originalArr, function($acc, $val) { return $acc + $val; }, 0);
 
     return array_map(function($index) use ($sum, $originalArr) {
@@ -23,7 +24,8 @@ function accumulatingArray(array $originalArr) : array {
  * @param array $a2
  * @return bool
  */
-function consecutiveCombo(array $a1, array $a2) : bool {
+function consecutiveCombo(array $a1, array $a2) : bool
+{
     $combinedElements = array_merge($a1, $a2);
     $consecutiveSequenceOfElements = range(min($combinedElements), max($combinedElements), 1);
 
@@ -41,7 +43,8 @@ function consecutiveCombo(array $a1, array $a2) : bool {
  * @param int $point
  * @return int
  */
-function countOverlapping(array $intervals, int $point) : int {
+function countOverlapping(array $intervals, int $point) : int
+{
     return count(array_filter($intervals, function($interval) use ($point) {
         $lowerBoundary = $interval[0];
         $upperBoundary = $interval[1];
@@ -58,7 +61,8 @@ function countOverlapping(array $intervals, int $point) : int {
  * @param array $b
  * @return array
  */
-function mergeArrays(array $a, array $b) : array {
+function mergeArrays(array $a, array $b) : array
+{
     $minLength = min(count($a), count($b));
     $maxLength = max(count($a), count($b));
 
@@ -80,7 +84,8 @@ function mergeArrays(array $a, array $b) : array {
  * @param int $num2
  * @return int
  */
-function digitDistance(int $num1, int $num2) : int {
+function digitDistance(int $num1, int $num2) : int
+{
     $totalDistance = 0;
 
     while ($num1 && $num2) {
@@ -102,7 +107,8 @@ function digitDistance(int $num1, int $num2) : int {
  * @param array $arr
  * @return bool
  */
-function canBuild(array $digits, array $arr) : bool {
+function canBuild(array $digits, array $arr) : bool
+{
     $requiredCountOfDigits = array_reduce($arr, function($acc, $number) {
         $digits = str_split(strval($number));
         for($i = 0; $i < count($digits); $i++) {
@@ -130,7 +136,8 @@ function canBuild(array $digits, array $arr) : bool {
  * @param string $type
  * @return array
  */
-function countDigits(array $arr, string $type) : array {
+function countDigits(array $arr, string $type) : array
+{
     return array_map(function($number) use ($type) {
         $digits = str_split(strval($number));
         $oddCount = count(array_filter($digits, function($digit) { return $digit % 2 != 0; }));
@@ -147,14 +154,17 @@ function countDigits(array $arr, string $type) : array {
  * @param array $arr
  * @return int
  */
-function findFulcrum(array $arr) : int {
-	foreach(array_slice($arr, 1, -1, true) as $index => $num) {
+function findFulcrum(array $arr) : int
+{
+	foreach (array_slice($arr, 1, -1, true) as $index => $num) {
         $leftSum = array_sum(array_slice($arr, 0, $index));
         $rightSum = array_sum(array_slice($arr, $index + 1));
+
         if ($leftSum === $rightSum) {
             return $num;
         }
     }
+
     return -1;
 }
 
@@ -168,20 +178,22 @@ function findFulcrum(array $arr) : int {
  * @param int $target
  * @return array
  */
-function allPairs(array $arr, int $target) : array {
+function allPairs(array $arr, int $target) : array
+{
     $foundNumbers = [];
     $matchingPairs = [];
 
-    foreach($arr as $number) {
+    foreach ($arr as $number) {
         if (array_search($target - $number, $foundNumbers) !== false) {
             $matchingPairs[] = $number > ($target - $number) ?
-                [$target - $number, $number] : [$number, $target - $number];
+                [$target - $number, $number]:
+                [$number, $target - $number];
         } else {
             $foundNumbers[] = $number;
         }
     }
 
-    usort($matchingPairs, function($lhsPair, $rhsPair) {
+    usort($matchingPairs, function ($lhsPair, $rhsPair) {
         $lhsSmallerNumber = min($lhsPair);
         $rhsSmallerNumber = min($rhsPair);
 
@@ -200,21 +212,22 @@ function allPairs(array $arr, int $target) : array {
  * @param array $arr
  * @return array
  */
-function getProducts(array $arr) : array {
-    $countOfZeros = count(array_filter($arr, function($val) { return $val === 0; }));
+function getProducts(array $arr) : array
+{
+    $countOfZeros = count(array_filter($arr, function ($val) { return $val === 0; }));
 
     if ($countOfZeros > 1) return array_fill(0, count($arr), 0);
 
-    else if ($countOfZeros == 1) {
-        $nonZeroProduct = array_product(array_filter($arr, function($val) { return $val !== 0; }));
+    elseif ($countOfZeros == 1) {
+        $nonZeroProduct = array_product(array_filter($arr, function ($val) { return $val !== 0; }));
 
-        return array_map(function($val) use ($nonZeroProduct) {
+        return array_map(function ($val) use ($nonZeroProduct) {
             return $val !== 0 ? 0 : $nonZeroProduct;
         }, $arr);
     }
 
-    $productOfAllElements = array_reduce($arr, function($product, $val) { return $product * $val; }, 1);
-    return array_map(function($val) use ($productOfAllElements) { return $productOfAllElements / $val; }, $arr);
+    $productOfAllElements = array_reduce($arr, function ($product, $val) { return $product * $val; }, 1);
+    return array_map(function ($val) use ($productOfAllElements) { return $productOfAllElements / $val; }, $arr);
 }
 
 /**
@@ -226,7 +239,8 @@ function getProducts(array $arr) : array {
  * @param array $arr
  * @return string
  */
-function remix(string $str, array $arr) : string {
+function remix(string $str, array $arr) : string
+{
     $rearrangedByOrderSpecified = array_reduce(range(0, strlen($str) - 1), function ($acc, $i) use ($str, $arr) {
         $acc[$arr[$i]] = $str[$i];
         return $acc;
@@ -247,11 +261,12 @@ function remix(string $str, array $arr) : string {
  * @param array $cost
  * @return array
  */
-function billSplit(array $spicy, array $cost) : array{
+function billSplit(array $spicy, array $cost) : array
+{
     $totalBill = array_sum($cost);
     $myPay = array_reduce(
         range(0, count($spicy) - 1),
-        function($acc, $index) use ($spicy, $cost) {
+        function ($acc, $index) use ($spicy, $cost) {
             return $acc + (strcmp(strtolower($spicy[$index]), 'n') ? $cost[$index] : $cost[$index] / 2);
         }, 0);
 
@@ -259,32 +274,36 @@ function billSplit(array $spicy, array $cost) : array{
 }
 
 
-function currentlyWinning(array $scores) : array {
-    $scoresOfY = array_map(function($key) use ($scores) { return $scores[$key]; }, array_filter(array_keys($scores), function($key) { return $key % 2 === 0; }));
-    $scoresOfO = array_map(function($key) use ($scores) { return $scores[$key]; }, array_filter(array_keys($scores), function($key) { return $key % 2 !== 0; }));
+function currentlyWinning(array $scores) : array
+{
+    $scoresOfY = array_map(function ($key) use ($scores) { return $scores[$key]; }, array_filter(array_keys($scores), function($key) { return $key % 2 === 0; }));
+    $scoresOfO = array_map(function ($key) use ($scores) { return $scores[$key]; }, array_filter(array_keys($scores), function($key) { return $key % 2 !== 0; }));
 
     $cumulativeScoresY = [];
     $cumulativeScoresO = [];
 
-	array_map(function($index, $val) use (&$cumulativeScoresY) {
+	array_map(function ($index, $val) use (&$cumulativeScoresY) {
             $cumulativeScoresY[$index] = $cumulativeScoresY ? $val + $cumulativeScoresY[$index - 1] : $val;
         },
         range(0, count($scores) / 2 - 1),
         $scoresOfY
     );
 
-    array_map(
-        function($index, $val) use (&$cumulativeScoresO) {
+    array_map(function ($index, $val) use (&$cumulativeScoresO) {
             $cumulativeScoresO[$index] = $cumulativeScoresO ? $val + $cumulativeScoresO[$index - 1] : $val;
         },
         range(0, count($scores) / 2 - 1),
         $scoresOfO
     );
 
-    return array_map(function($cumulativeScoreY, $cumulativeScoreO) {
-        if ($cumulativeScoreY > $cumulativeScoreO) return 'Y';
-        elseif ($cumulativeScoreY < $cumulativeScoreO) return 'O';
-        else return 'T';
+    return array_map(function ($cumulativeScoreY, $cumulativeScoreO) {
+        if ($cumulativeScoreY > $cumulativeScoreO) {
+            return 'Y';
+        } elseif ($cumulativeScoreY < $cumulativeScoreO) {
+            return 'O';
+        } else {
+            return 'T';
+        }
     }, $cumulativeScoresY, $cumulativeScoresO);
 }
 
@@ -295,14 +314,15 @@ function currentlyWinning(array $scores) : array {
  * @param array $arr
  * @return int
  */
-function unique(array $arr) : int {
-    $countOfValues = array_reduce($arr, function($acc, $val) {
+function unique(array $arr) : int
+{
+    $countOfValues = array_reduce($arr, function ($acc, $val) {
         $key = strval($val);
 
         return array_replace($acc, [$key => array_key_exists($key, $acc) ? $acc[$key] + 1 : 1]);
     }, []);
 
-	return array_keys(array_filter($countOfValues, function($count) { return $count === 1; }))[0];
+	return array_keys(array_filter($countOfValues, function ($count) { return $count === 1; }))[0];
 }
 
 /**
@@ -313,9 +333,10 @@ function unique(array $arr) : int {
  * @param array $arr
  * @return int
  */
-function tallestSkyscraper(array $arr) : int {
+function tallestSkyscraper(array $arr) : int
+{
     $columnsCount = count(reset($arr));
-    $heightsOfSkyscrapers = array_map(function($colIndex) use ($arr) {
+    $heightsOfSkyscrapers = array_map(function ($colIndex) use ($arr) {
         $colContentsAsStr = implode('', array_column($arr, $colIndex));
 
         return strlen($colContentsAsStr) - strlen(preg_replace('/(1)((?<=1)|(?=1))/', '', $colContentsAsStr));
@@ -332,8 +353,9 @@ function tallestSkyscraper(array $arr) : int {
  * @param string $str
  * @return string
  */
-function alternatingCaps(string $str) : string {
-	$alternatingCapsCharacters = array_reduce(range(1, strlen($str) - 1), function($acc, $index) use ($str) {
+function alternatingCaps(string $str) : string
+{
+	$alternatingCapsCharacters = array_reduce(range(1, strlen($str) - 1), function ($acc, $index) use ($str) {
         $lastSeenChar = ctype_space($acc[$index - 1]) ? $acc[$index - 2] : $acc[$index - 1];
         $acc[$index] = ctype_lower($lastSeenChar) ? strtoupper($str[$index]) : strtolower($str[$index]);
 
