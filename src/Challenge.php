@@ -409,4 +409,41 @@ function countAll(string $str) : array
     return ['LETTERS' => $lettersCount, 'DIGITS' => $digitsCount];
 }
 
+/**
+ * Write a function that repeats the shorter string until
+ * it is equal to the length of the longer string.
+ *
+ * @param string $s1
+ * @param string $s2
+ * @return string
+ */
+function lengthen($s1, $s2) {
+    return strlen($s1) < strlen($s2) ?
+        str_pad($s1, strlen($s2), $s1):
+        str_pad($s2, strlen($s1), $s2);
+}
+
+/**
+ * String Flips.
+ * Create a function that takes a string as the first argument, and a (string) specification
+ * as a second argument. If the specification is "word", return a string with each word reversed
+ * while maintaining their original order. If the specification is "sentence", reverse the order
+ * of the words in the string, while keeping the words intact.
+ *
+ * @param string $str
+ * @param string $spec
+ * @return string
+ */
+function flip($str, $spec) {
+	if (! strcmp($spec, 'word')) {
+        $reversedWords = array_map(function ($word) {
+            return strrev($word);
+        }, explode(' ', $str));
+
+        return implode(' ', $reversedWords);
+    }
+
+    return implode(' ', array_reverse(explode(' ', $str)));
+}
+
 ?>
