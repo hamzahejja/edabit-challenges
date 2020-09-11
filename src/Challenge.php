@@ -446,4 +446,39 @@ function flip($str, $spec) {
     return implode(' ', array_reverse(explode(' ', $str)));
 }
 
+/**
+ * Split String by Identical Characters.
+ * Create a function that splits a string into an array of identical clusters.
+ *
+ * @param string $str
+ * @return array
+ */
+function splitGroups($str) {
+	return explode(' ', trim(preg_replace('/(.)(?!\1)/', '$1 ', $str)));
+}
+
+/**
+ * All or Nothing.
+ * Suppose a student can earn 100% on an exam by getting the answers all correct or all incorrect.
+ * Given a potentially incomplete answer key and the student's answers, write a function that determines
+ * whether or not a student can still score 100%. Questions with missing answers are marked with an underscore, "_".
+ *
+ * @param array $key
+ * @param array $answers
+ * @return bool
+ */
+function possiblyPerfect($key, $answers) {
+    $allCorrect = true;
+    $allIncorrect = true;
+
+	array_walk($answers, function ($studentAnswer, $index) use ($key, &$allCorrect, &$allIncorrect) {
+        if ($studentAnswer !== '_' && $key[$index] !== '_') {
+            $allCorrect = $allCorrect && ($studentAnswer === $key[$index]);
+            $allIncorrect = $allIncorrect && ($studentAnswer !== $key[$index]);
+        }
+    });
+
+    return $allCorrect || $allIncorrect;
+}
+
 ?>
