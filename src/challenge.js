@@ -1805,3 +1805,27 @@ function recurIndex(str) {
   return indicesOfFirstRecurringElement ?
     { [str.charAt(indicesOfFirstRecurringElement[0])] : indicesOfFirstRecurringElement } : {};
 }
+
+/**
+ * Find the Overlapping Range.
+ * For an array of ranges, find the maximum range that is contained in all the ranges.
+ * If there is no such range, return "No overlapping".
+ *
+ * @param {object} arr
+ * @return {object|string}
+ */
+function overlapping(arr) {
+  const frequencyMap = arr.reduce((acc, range) => {
+    const [lowerBound, upperBound] = range;
+    return [...acc, ...Array.from({ length: upperBound - lowerBound + 1 }, (_, i) => lowerBound + i)];
+  }, [])
+  .reduce((map, num) => map.set(num, (map.get(num) || 0) + 1), new Map());
+
+  const intersection = Array.from(frequencyMap.entries())
+    .filter(entry => entry[1] === arr.length)
+    .map(entry => entry[0]);
+
+  return ! intersection.length ?
+    'No overlapping':
+    [Math.min(...intersection), Math.max(...intersection)];
+}

@@ -417,7 +417,7 @@ function countAll(string $str) : array
  * @param string $s2
  * @return string
  */
-function lengthen($s1, $s2) {
+function lengthen(string $s1, string $s2) : string {
     return strlen($s1) < strlen($s2) ?
         str_pad($s1, strlen($s2), $s1):
         str_pad($s2, strlen($s1), $s2);
@@ -434,7 +434,7 @@ function lengthen($s1, $s2) {
  * @param string $spec
  * @return string
  */
-function flip($str, $spec) {
+function flip(string $str, string $spec) : string {
 	if (! strcmp($spec, 'word')) {
         $reversedWords = array_map(function ($word) {
             return strrev($word);
@@ -453,7 +453,7 @@ function flip($str, $spec) {
  * @param string $str
  * @return array
  */
-function splitGroups($str) {
+function splitGroups(string $str) : array {
 	return explode(' ', trim(preg_replace('/(.)(?!\1)/', '$1 ', $str)));
 }
 
@@ -467,7 +467,7 @@ function splitGroups($str) {
  * @param array $answers
  * @return bool
  */
-function possiblyPerfect($key, $answers) {
+function possiblyPerfect(array $key,  array $answers) : bool {
     $allCorrect = true;
     $allIncorrect = true;
 
@@ -479,6 +479,24 @@ function possiblyPerfect($key, $answers) {
     });
 
     return $allCorrect || $allIncorrect;
+}
+
+/**
+ * Sort a String by Its Last Character.
+ * Create a function that takes a string of words and return a string sorted alphabetically by the last character of each word.
+ * If two words have the same last character, sort by the order they originally appeared.
+ *
+ * @param string $str
+ * @return string
+ */
+function sortByLast(string $str) : string {
+    $words = explode(' ', $str);
+
+	usort($words, function ($lhsWord, $rhsWord) {
+        return $lhsWord[strlen($lhsWord) - 1] <=> $rhsWord[strlen($rhsWord) - 1];
+    });
+
+    return implode(' ', $words);
 }
 
 ?>
