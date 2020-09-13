@@ -499,4 +499,31 @@ function sortByLast(string $str) : string {
     return implode(' ', $words);
 }
 
+/**
+ * Create a function that accepts a string as an argument. Find its shortest word(s)
+ * and return them as an array sorted alphabetically (if there are multiple shortest words).
+ * NOTE: Periods, commas and other special characters don't count as part of a word's length
+ * NOTE: Return words in lowercase only.
+ *
+ * @param string $str
+ * @return array
+ */
+function findShortestWords(string $str) : array {
+    $filteredWords = explode(' ', preg_replace('/[^\w\s]/', '', strtolower($str)));
+
+    $minLength = min(array_map(function ($word) {
+        return strlen($word);
+    }, $filteredWords));
+
+    $shortestWords = array_filter($filteredWords, function ($word) use ($minLength) {
+        return strlen($word) === $minLength && ctype_alpha($word);
+    });
+
+    usort($shortestWords, function ($lhsWord, $rhsWord) {
+        return $lhsWord <=> $rhsWord;
+    });
+
+    return $shortestWords;
+}
+
 ?>
