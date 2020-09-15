@@ -526,4 +526,28 @@ function findShortestWords(string $str) : array {
     return $shortestWords;
 }
 
+/**
+ * Longest Common Ending.
+ * Write a function that returns the longest common ending between two strings.
+ *
+ * @param string $s1
+ * @param string $s2
+ * @return string
+ */
+function longestCommonEnding(string $s1, string $s2) : string {
+    $commonEnding = [];
+
+    for ($i = 0; $i < min(strlen($s1), strlen($s2)); $i++) {
+        $currCharOfStr1 = $s1[strlen($s1) - 1 - $i];
+        $currCharOfStr2 = $s2[strlen($s2) - 1 - $i];
+        if ($currCharOfStr1 !== $currCharOfStr2) {
+            break;
+        }
+
+        array_unshift($commonEnding, $currCharOfStr1);
+    }
+
+    return implode('', $commonEnding);
+}
+
 ?>
