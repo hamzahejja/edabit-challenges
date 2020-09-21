@@ -1829,3 +1829,54 @@ function overlapping(arr) {
     'No overlapping':
     [Math.min(...intersection), Math.max(...intersection)];
 }
+
+/**
+ * How Many Unique Styles?
+ * Create a function that takes an array of musical styles from albums and returns how many styles are unique.
+ *
+ * @param {object} albums
+ * @return {number}
+ */
+function uniqueStyles(albums) {
+	return new Set(
+    albums.reduce((styles, album) => {
+      return [...styles, ...album.split(',')]
+    }, [])
+  ).size;
+}
+
+/**
+ * Lunar Sum
+ * Return the Sum of Two Numbers (on the Moon).
+ *
+ * @param {number} number1
+ * @param {number} number2
+ * @return {number}
+ */
+function lunarSum(number1, number2) {
+  const maxDigitsCount = Math.max(`${number1}`.length, `${number2}`.length);
+  const firstrNumStr = `${number1}`.padStart(maxDigitsCount, '0');
+  const secondNumStr = `${number2}`.padStart(maxDigitsCount, '0');
+
+  const lunarSum = Array.from({ length: maxDigitsCount }, (_, i) => i).map(index => {
+    return Math.max(firstrNumStr[index], secondNumStr[index] || 0);
+  }).join('');
+
+  return Number(lunarSum);
+}
+
+/**
+ * Abbreviations Unique?
+ * You are given two inputs:
+ * An array of abbreviations.
+ * An array of words.
+ *
+ * Write a function that returns true if each abbreviation uniquely identifies a word, and false otherwise.
+ *
+ * @param {object} abbs
+ * @param {object} words
+ * @return {boolean}
+ */
+function uniqueAbbrev(abbs, words) {
+  return abbs.every(abbervation => words.filter(word => word.startsWith(abbervation)).length === 1);
+}
