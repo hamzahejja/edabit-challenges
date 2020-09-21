@@ -550,4 +550,26 @@ function longestCommonEnding(string $s1, string $s2) : string {
     return implode('', $commonEnding);
 }
 
+/**
+ * Single Letter Swaps.
+ * Given an array of strings and an original string, write a function to output an
+ * array of boolean values - true if the word can be formed from the original word
+ * by swapping two letters only once and false otherwise.
+ *
+ * @param array $arr
+ * @param string $str
+ * @return array
+ */
+function validateSwaps(array $arr, string $str) : array {
+	return array_map(function ($word) use ($str) {
+        $correctlyPlacedCharacters = array_filter(range(0, strlen($word) - 1), function ($pos) use ($word, $str) {
+            return $pos === strpos($str, $word[$pos]);
+        });
+
+
+        return count($correctlyPlacedCharacters) === strlen($str) - 2 &&
+            count(array_unique(str_split($word))) === count(array_unique(str_split($str)));
+    }, $arr);
+}
+
 ?>
