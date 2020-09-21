@@ -561,7 +561,7 @@ function longestCommonEnding(string $s1, string $s2) : string {
  * @return array
  */
 function validateSwaps(array $arr, string $str) : array {
-	return array_map(function ($word) use ($str) {
+    return array_map(function ($word) use ($str) {
         $correctlyPlacedCharacters = array_filter(range(0, strlen($word) - 1), function ($pos) use ($word, $str) {
             return $pos === strpos($str, $word[$pos]);
         });
