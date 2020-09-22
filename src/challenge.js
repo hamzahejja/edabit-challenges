@@ -1880,3 +1880,51 @@ function lunarSum(number1, number2) {
 function uniqueAbbrev(abbs, words) {
   return abbs.every(abbervation => words.filter(word => word.startsWith(abbervation)).length === 1);
 }
+
+/**
+ * Unmix My Strings.
+ * Somehow my strings have all become mixed up; every pair of characters
+ * has been swapped. Help me undo this so I can understand my strings again.
+ *
+ * @param {string} str
+ * @return {string}
+ */
+function unmix(str) {
+  let temp;
+  let chars = [...str];
+
+  for (let i = 0; i < chars.length - 1; i += 2) {
+    temp = chars[i];
+    chars[i] = chars[i + 1];
+    chars[i + 1] = temp;
+  }
+
+  return chars.join('');
+}
+
+/**
+ * Write a function that pairs the first number in an array with the last, the second number with the second to last, etc.
+ * If the array has an odd length, repeat the middle element twice for the last pair.
+ * Return an empty array if the input is an empty array.
+ *
+ * @param {object} arr
+ * @return {object}
+ */
+function pairs(arr) {
+  return Array.from({ length: Math.ceil(arr.length / 2) }, (_, i) => i)
+    .map((_, i) => [arr[i], arr[arr.length - 1 - i]]);
+}
+
+/**
+ * Positives and Negatives
+ * Create a function which validates whether a given array alternates between positive and negative numbers.
+ *
+ * @param {object} arr
+ * @return {boolean}
+ */
+function alternatePosNeg(arr) {
+  if (arr.length == 1) return arr[0] !== 0;
+
+  return Array.from({ length: arr.length - 1}, (_, i) => i)
+    .every(i => arr[i] * arr[i + 1] < 0)
+}
