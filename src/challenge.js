@@ -1928,3 +1928,17 @@ function alternatePosNeg(arr) {
   return Array.from({ length: arr.length - 1}, (_, i) => i)
     .every(i => arr[i] * arr[i + 1] < 0)
 }
+
+/**
+ * Sum of Positive Integers
+ * Create a function that takes a string containing integers as well as
+ * other characters and return the sum of the positive integers only.
+ *
+ * @param {string} chars
+ * @return {number}
+ */
+function positiveSum(chars) {
+  return (chars.replace(/-\d+/g, '').match(/\d+/g) || [])
+    .map(Number)
+    .reduce((acc, num) => acc + num, 0);
+}
