@@ -1942,3 +1942,21 @@ function positiveSum(chars) {
     .map(Number)
     .reduce((acc, num) => acc + num, 0);
 }
+
+/**
+ * Keeping Count.
+ * Given a number, create a function which returns a new number based on the following rules:
+ *    For each digit, replace it by the number of times it appears in the number.
+ *    The final instance of the number will be an integer, not as a string.
+ *
+ * @param {number} num
+ * @return {number}
+ */
+function digitCount(num) {
+  const numAsString = String(num);
+  const digitCountStr = [...numAsString].map(
+    d => numAsString.length - numAsString.replace(new RegExp(d, "g"), '').length
+  ).join('');
+
+  return Number(digitCountStr);
+}
