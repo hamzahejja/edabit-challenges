@@ -1960,3 +1960,42 @@ function digitCount(num) {
 
   return Number(digitCountStr);
 }
+
+/**
+ * Array Multiplier
+ * Create a function that takes an array as an argument and returns a new nested array
+ * for each element in the original array. The nested array must be filled with the corresponding element (string or number)
+ * in the original array and each nested array has the same amount of elements as the original array.
+ * 
+ * @param {object} arr
+ * @return {object}
+ */
+function multiply(arr) {
+  return Array.from(arr).map(value => {
+    return Array.from({ length: arr.length }, (v, i) => value);
+  });
+}
+
+/**
+ * It's a Meteor!
+ * In a video game, a meteor will fall toward the main character's home planet.
+ * Given the meteor's trajectory as a string in the form y = mx + b and the character's
+ * position as an array pair of [x, y], return true if the meteor will hit the character and false if it will not.
+ *
+ * @param {string} equation
+ * @param {object} position
+ * @return {boolean}
+ */
+function willHit(equation, position) {
+  if (new RegExp('y \= -?\dx \[\+\-] \d', 'g').test(equation)) return false;
+
+  const [xPosition, yPosition] = position;
+  const [m, operation, b] = equation.replace(/[^\d\-\+\s]/g, '')
+    .trim()
+    .split(' ')
+    .map(val => ['-', '+'].includes(val) ? val : Number(val));
+
+  return operation === "+" ?
+    m * xPosition + b === yPosition:
+    m * xPosition - b === yPosition;
+}
