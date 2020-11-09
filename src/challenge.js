@@ -1999,3 +1999,26 @@ function willHit(equation, position) {
     m * xPosition + b === yPosition:
     m * xPosition - b === yPosition;
 }
+
+/**
+ * Two Product Problem.
+ * Create a function that takes an array arr and a number n and returns an array of two integers whose product is that of the number n.
+ * 
+ * @param {object} arr 
+ * @param {number} n
+ * @return {object} 
+ */
+function twoProduct(arr, n) {
+  let seenElements = new Set();
+  let result = undefined;
+  
+  for(let i = 0; i < arr.length; i++) {
+    if (seenElements.has(n / arr[i])) {
+      result = [n / arr[i], arr[i]];
+      break;
+    }
+    seenElements.add(arr[i]);
+  }
+
+  return result;
+}
