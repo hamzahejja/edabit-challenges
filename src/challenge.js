@@ -1966,7 +1966,7 @@ function digitCount(num) {
  * Create a function that takes an array as an argument and returns a new nested array
  * for each element in the original array. The nested array must be filled with the corresponding element (string or number)
  * in the original array and each nested array has the same amount of elements as the original array.
- * 
+ *
  * @param {object} arr
  * @return {object}
  */
@@ -2003,15 +2003,15 @@ function willHit(equation, position) {
 /**
  * Two Product Problem.
  * Create a function that takes an array arr and a number n and returns an array of two integers whose product is that of the number n.
- * 
- * @param {object} arr 
+ *
+ * @param {object} arr
  * @param {number} n
- * @return {object} 
+ * @return {object}
  */
 function twoProduct(arr, n) {
   let seenElements = new Set();
   let result = undefined;
-  
+
   for(let i = 0; i < arr.length; i++) {
     if (seenElements.has(n / arr[i])) {
       result = [n / arr[i], arr[i]];
@@ -2021,4 +2021,35 @@ function twoProduct(arr, n) {
   }
 
   return result;
+}
+
+/**
+ * Identical Row and Column?
+ * Write a function that returns true if there exists a row that is identical to a column in a 2-D matrix, otherwise false.
+ *
+ * @param {object} arr
+ * @return {boolean}
+ */
+function hasIdentical(arr) {
+  const numberOfRows = arr.length;
+  const numberOfColumns = arr[0].length;
+
+  if (numberOfRows === numberOfColumns) {
+    let rows = [];
+    let columns = [];
+
+    for (let rowIndex = 0; rowIndex < numberOfRows; rowIndex++) {
+      rows = [...rows, arr[rowIndex]]
+      for (let colIndex = 0; colIndex < numberOfColumns; colIndex++) {
+        columns[colIndex] = [...(columns[colIndex] || []), arr[rowIndex][colIndex]];
+      }
+    }
+
+    return new Set([
+      ...rows.map(row => row.join('')),
+      ...columns.map(column => column.join(''))
+    ]).size !== numberOfRows + numberOfColumns;
+  }
+
+  return false;
 }
