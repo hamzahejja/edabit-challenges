@@ -2053,3 +2053,31 @@ function hasIdentical(arr) {
 
   return false;
 }
+
+/**
+ * Column With Maximum Sum.
+ * Given an array of numbers and a value for n, split the numbers into n-sized groups.
+ *  If we imagine that these groups are stacked on top of each other (see below), return the column number
+ *  that has the greatest sum. If two or more columns have the same sum, return the one with the smallest column number.
+ *
+ * @param {object} nums - Array of numbers
+ * @param {number} n - number to split the array on.
+ * @return {number} - column. number with Maximum Sum
+ */
+function colWithMaxSum(nums, n) {
+  const columnSumArr = Array.from(nums).reduce((acc, val, index) => {
+    acc[index % n] = [...(acc[index % n] || []), val];
+    return acc;
+  }, []).map(col => Array.from(col).reduce((sum, val) => sum + val, 0));
+
+
+  const colIndexOrderingBySummation = Array.from(
+    {length: columnSumArr.length}, (_, i) => i
+  ).sort((colIndexA, colIndexB) => {
+    if (columnSumArr[colIndexA] > columnSumArr[colIndexB]) return -1;
+    else if (columnSumArr[colIndexA] == columnSumArr[colIndexB]) return colIndexA < colIndexB ? -1 : 1;
+    return 1;
+  });
+
+  return colIndexOrderingBySummation[0] + 1;
+}
