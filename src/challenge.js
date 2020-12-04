@@ -2081,3 +2081,27 @@ function colWithMaxSum(nums, n) {
 
   return colIndexOrderingBySummation[0] + 1;
 }
+
+/**
+ * Blood Types.
+ * Write a function that takes in a donor's and receiver's blood types as strings
+ * and returns whether or not the donor can safely give blood to the receiver, according to the rules above.
+ *
+ * @param {string} donor
+ * @param {string} receiver
+ * @return {boolean}
+ */
+function canGiveBlood(donor, receiver) {
+	const safeTransfusionsMap = {
+    'A+': ['A+', 'AB+'],
+    'A-': ['A-', 'A+', 'AB-', 'AB+'],
+    'B+': ['B+', 'AB+'],
+    'B-': ['B-', 'B+', 'AB-', 'AB+'],
+    'AB+': ['AB+'],
+    'AB-': ['AB-', 'AB+'],
+    'O+': ['A+', 'B+', 'AB+', 'O+'],
+    'O-': ['A-', 'A+', 'B-', 'B+', 'AB-', 'AB+', 'O-', 'O+'],
+  }
+
+  return Array.from(safeTransfusionsMap[donor]).includes(receiver);
+}
