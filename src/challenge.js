@@ -2105,3 +2105,35 @@ function canGiveBlood(donor, receiver) {
 
   return Array.from(safeTransfusionsMap[donor]).includes(receiver);
 }
+
+/**
+ * An OSHA Approved Ladder?
+ * the Occupational Safety and Health Administration require your help in determining whether a ladder
+ * is safe enough for use in the work place! It is vital that a ladder passes all criterea:
+ * The ladder must be at least 5 characters wide.
+ * The ladder mustn't have more than a 2 character gap between rungs.
+ * Rungs must be evenly spaced apart.
+ * Rungs should not be broken (i.e. no gaps).
+ *
+ * @param {object} ldr - Array of Strings
+ * @return {boolean} - Whether ladder is OSHA Approved or not.
+ */
+function isLadderSafe(ldr) {
+  const LADDER_MIN_WIDTH = 5;
+  const ONE_CHAR_SPACE_TOP_OR_BOTTOM = 1;
+  const MAX_CHARS_GAP_BETWEEN_RUNGS = 2;
+
+  const indicesOfRungs = Array.from({ length: ldr.length }, (_, i) => i).filter(index => {
+    return new RegExp(/^#{5,}$/, 'g').test(ldr[index]);
+  });
+
+  const gapsBetweenRungs = Array.from({ length: indicesOfRungs.length - 1}, (_, i) => i)
+    .map(i => indicesOfRungs[i + 1] - indicesOfRungs[i] - 1);
+
+  if (new Set(gapsBetweenRungs).size === 1 && gapsBetweenRungs[0] <= MAX_CHARS_GAP_BETWEEN_RUNGS) {
+    return  Array.from(ldr).every(str => str.length >= LADDER_MIN_WIDTH) &&
+      ldr.length === ((2 * ONE_CHAR_SPACE_TOP_OR_BOTTOM) + (indicesOfRungs.length) + gapsBetweenRungs.length * gapsBetweenRungs[0])
+  }
+
+  return false;
+}
