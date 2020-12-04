@@ -2092,7 +2092,7 @@ function colWithMaxSum(nums, n) {
  * @return {boolean}
  */
 function canGiveBlood(donor, receiver) {
-	const safeTransfusionsMap = {
+  const safeTransfusionsMap = {
     'A+': ['A+', 'AB+'],
     'A-': ['A-', 'A+', 'AB-', 'AB+'],
     'B+': ['B+', 'AB+'],
