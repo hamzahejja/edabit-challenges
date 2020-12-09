@@ -2137,3 +2137,68 @@ function isLadderSafe(ldr) {
 
   return false;
 }
+
+/**
+ * Scoring a Field Goal
+ * Create a function that returns true if the ball 0 goes through the goal.
+ * You will be given an array of arrays.
+ *
+ * @param {object} goal.
+ * @return {boolean}
+ */
+function isGoalScored(goal) {
+  return Array.from(goal)
+    .map(line => String(line).replace(/\s/g, ''))
+    .slice(0, 3)
+    .some(line => new RegExp(/^#0#$/g).test(line))
+}
+
+/**
+ * Traditional safes use a three-wheel locking mechanism, with the safe combination entered
+ *  using a dial on the door of the safe. The dial is marked with clockwise increments between 0 and 99.
+ *  The three-number combination is entered by first dialling to the right (clockwise), then to the left (anti-clockwise),
+ *  and then to the right (clockwise) again. Combination numbers are read from the top of the dial:
+ * Given the starting (top) position of the dial and the increments used for each turn of the dial,
+ *  return an array containing the combination of the safe
+ *
+ * @param {number} start - top position of the dial.
+ * @param {object} increments - array of increments used for each turn of the safe dial.
+ * @return {object} - array containing the combination of the safe; one per each dial/turn.
+ */
+function safecracker(start, increments) {
+  start = 100 + start;
+
+  return increments.map((increment, index) => index % 2 == 0 ? - increment : increment)
+    .reduce((acc, increment) => {
+      const nextCombination = safeModulus(start + increment, 100);
+      acc = [...acc, nextCombination];
+      start = nextCombination;
+
+      return acc;
+    }, [])
+}
+
+/**
+ * Perform Safe Modulo (%).
+ * It handles calculating modulus for negative dividers.
+ *
+ * @param {number} q - divider
+ * @param {number} r - dividend
+ * @return {number} - Modulo Result (Remainder)
+ */
+const safeModulus = (q, r) => {
+  return q < 0 ?
+    r - (Math.abs(q) % r) :
+    q % r;
+}
+
+/**
+ * Given num as input, return an array with all primes up to num included.
+ *
+ * @param {number} n - number
+ * @return {object} - an array of all prime numbers up to input num included.
+ */
+function eratosthenes(n) {
+  return Array.from({length: n}, (_, i) => i + 1)
+    .filter(num => isPrime(num));
+}
