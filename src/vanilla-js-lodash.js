@@ -89,3 +89,31 @@ const pull = (arr, ...args) => {
 
   return arr;
 }
+
+/**
+ * According to the lodash documentation,
+ * _.dropwWhile Creates a slice of array excluding elements dropped from the beginning.
+ * Elements are dropped until the predicate returns falsey.
+ * The predicate is invoked with three arguments: (value, index, array).
+ * The documents state that if, instead of passing a function to dropwhile, you pass an object.
+ *  It knows to convert that to the "matches" function.
+ *
+ * @param {Array} arr
+ * @param {function|object} fn
+ */
+const dropWhile = (arr, fn) => {
+  return typeof(fn) === 'function' ?
+    arr.slice(arr.findIndex(v => !fn(v))):
+    arr.slice(arr.findIndex(v => !buildObjectLikePredicate(v, fn)));
+}
+
+/**
+ * Build condition with object-like predicate,
+ * instead of passing a function as predicate for dropWhile
+ *
+ * @param {object} obj
+ * @param {object} predicateFn
+ */
+const buildObjectLikePredicate = (obj, predicateFn) => {
+  return Object.entries(predicateFn).every(([key, value]) => obj[key] === value);
+}
