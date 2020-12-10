@@ -127,3 +127,51 @@ const buildObjectLikePredicate = (obj, predicateFn) => {
  * @return {Array}
  */
 const drop = (arr, val = 1) => arr.slice(val);
+
+/**
+ * According to the lodash documentation,
+ *  _.differenceBy is like _.difference except that it accepts iteratee which is invoked for each element of array and
+ * values to generate the criterion by which they're compared. The order and references of result values are determined
+ * by the first array. The iteratee is invoked with one argument:
+ * The iteratee can be a function or a value.
+ *
+ * @param {Array} array - The array to inspect
+ * @param  {Array} values - The number of arrays containing the values to exclude.
+ * @return {Array} - Returns the new array of filtered values.
+ */
+const differenceBy = (array, ...values) => {
+  const iterateeInvokedPerElement = values.pop();
+
+  return typeof(iterateeInvokedPerElement) === 'function' ?
+    differenceByWithFunctionIteratee(array, values, iterateeInvokedPerElement):
+    differenceByWithPropertyIteratee(array, values, iterateeInvokedPerElement);
+}
+
+/**
+ * differenceBy with value/property iteratee.
+ *
+ * @param {Array} array - The array to inspect
+ * @param {Array} values - the number of arrays containing values to exclude.
+ * @param {string} iteratee - invoked per element and user for comparison/filtering
+ * @return {Array} - the new array of filtered elements.
+ */
+const differenceByWithPropertyIteratee = (array, values, iteratee) => {
+  return array.filter(element => {
+    return ![...values.flat()].some(o => o[iteratee] === element[iteratee]);
+  });
+}
+
+/**
+ * differenceBy with function iteratee.
+ *
+ * @param {Array} array - The array to inspect
+ * @param {Array} values - the number of arrays containing values to exclude.
+ * @param {string} iteratee - invoked per element and user for comparison/filtering.
+ * @return {Array} - the new array of filtered elements.
+ */
+const differenceByWithFunctionIteratee = (array, values, iterateeFn) => {
+  return array.filter(element => {
+    return iterateeFn(element) &&
+      [...values.flat()].filter(val => iterateeFn(val)).length === 0;
+  })
+}
