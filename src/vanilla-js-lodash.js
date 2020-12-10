@@ -175,3 +175,31 @@ const differenceByWithFunctionIteratee = (array, values, iterateeFn) => {
       [...values.flat()].filter(val => iterateeFn(val)).length === 0;
   })
 }
+
+/**
+ * Write a function that creates an array of values found within all given arrays.
+ * The first array will serve as the base from which the remaining arrays will be checked to see if they have the matching values.
+ * If they do they will be added to the new array which will return only unique values showing the "intersecting" values of all arrays.
+ *
+ * @param  {Array} a
+ * @return {Array} - Array of only unique values showing the "intersection" values of all arrays.
+ */
+const intersection = (...a) => {
+  const [baseArray, ...remainingArrays] = a;
+
+  return baseArray.filter(element => {
+    return remainingArrays.every(subArr => subArr.some(subElement => isSimilar(element, subElement)));
+  })
+}
+
+/**
+ * Compare values and check if similar.
+ *
+ * @param {any} val1
+ * @param {any} val2
+ */
+const isSimilar = (val1, val2) => {
+  return typeof(val1 === 'object' && typeof(val2) === 'object') ?
+    JSON.stringify(val1) === JSON.stringify(val2):
+    val1 === val2;
+}
