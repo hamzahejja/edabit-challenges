@@ -2202,3 +2202,18 @@ function eratosthenes(n) {
   return Array.from({length: n}, (_, i) => i + 1)
     .filter(num => isPrime(num));
 }
+
+/**
+ * Create a function that takes an array and returns the sum of all items in the array.
+ * https://edabit.com/challenge/27Toh4rACcmRvRLrb
+ *
+ * @param {object} arr
+ * @return {number}
+ */
+function sumArray(arr) {
+	while(arr.some(e => Array.isArray(e))) {
+    arr = arr.flat();
+  }
+
+  return arr.reduce((sum, e) => sum + e, 0);
+}
