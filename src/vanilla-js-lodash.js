@@ -55,3 +55,37 @@ const findByArrayLikePredicate = (collection, predicate, startIndex) => {
 const findByStringLikePredicate = (collection, predicate, startIndex) => {
   return collection.slice(startIndex).filter(o => o[predicate])[0];
 }
+
+/**
+ * According to the lodash documentation, _.difference(array, [values]) creates an array of array values
+ * not included in the other given arrays using SameValueZero for equality comparisons.
+ * The order and references of result values are determined by the first array.
+
+ * @param {Array} array - The array to inspect.
+ * @param  {...Array} arrays - The any number of arrays containing the values to exclude
+ * @return {Array} - Returns the new array of filtered values
+ */
+const difference = (array, ...arrays) => {
+	const excludedValues = arrays.flat();
+  return array.filter(val => ! excludedValues.includes(val));
+}
+
+/**
+ * According to the lodash documentation,
+ * _.pull Removes all given values from array using SameValueZero for equality comparisons.
+ * Note that unlike _.without, this method mutates array.
+ * @param {Array} arr
+ * @param  {...any} args
+ */
+const pull = (arr, ...args) => {
+  let index = 0;
+  while(index < arr.length) {
+    if (args.includes(arr[index])) {
+      arr.splice(index, 1);
+    } else {
+      index++;
+    }
+  }
+
+  return arr;
+}
