@@ -117,3 +117,13 @@ const dropWhile = (arr, fn) => {
 const buildObjectLikePredicate = (obj, predicateFn) => {
   return Object.entries(predicateFn).every(([key, value]) => obj[key] === value);
 }
+
+/**
+ * According to the lodash documentation,
+ * _.drop creates a slice of an array with n elements dropped from the beginning.
+ *
+ * @param {Array} arr
+ * @param {Number} val
+ * @return {Array}
+ */
+const drop = (arr, val = 1) => arr.slice(val);
