@@ -2218,6 +2218,16 @@ function sumArray(arr) {
   return arr.reduce((sum, e) => sum + e, 0);
 }
 
+/**
+ * According to the lodash documentation, _.groupBy Creates an object composed of keys generated
+ * from the results of running each element of collection thru iteratee.
+ * The order of grouped values is determined by the order they occur in collection.
+ * The corresponding value of each key is an array of elements responsible for generating the key.
+ * The iteratee is invoked with one argument: (value).
+ *
+ * @param {Array|Object} collection
+ * @param {Function|Object|String|Number} iteratee
+ */
 function myGroupBy(collection, iteratee) {
   const values = Array.isArray(collection) ? collection : Object.values(collection);
 
@@ -2230,5 +2240,27 @@ function myGroupBy(collection, iteratee) {
       ...obj,
       [key]: [...(obj[key] || []), val]
     };
+  }, {});
+}
+
+/**
+ * According to the lodash documentation, _.countBy creates an object composed of keys generated
+ * from the results of running each element of collection thru iteratee.
+ * The corresponding value of each key is the number of times the key was returned by iteratee.
+ * The iteratee is invoked with one argument: (value).
+ *
+ * @param {Array|Object} collection
+ * @param {Function|Object|String|Number} iteratee
+ * @returns {Object}
+ */
+function countByValue(collection, iteratee) {
+  const values = Array.isArray(collection) ? collection : Object.values(collection);
+
+  return values.reduce((obj, val) => {
+    const key = typeof(iteratee) === 'object'
+    ? Object.entries(iteratee).every(([k, v]) => val[k] === v)
+    : typeof(iteratee) === 'function' ? iteratee(val) : val[iteratee];
+
+    return { ...obj, [key]: (obj[key] || 0) + 1 };
   }, {});
 }
