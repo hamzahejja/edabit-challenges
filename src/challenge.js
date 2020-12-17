@@ -2212,8 +2212,23 @@ function eratosthenes(n) {
  */
 function sumArray(arr) {
 	while(arr.some(e => Array.isArray(e))) {
-    arr = arr.flat();
+    arr = arr.reduce((acc, val) => acc.concat(val), []);
   }
 
   return arr.reduce((sum, e) => sum + e, 0);
+}
+
+function myGroupBy(collection, iteratee) {
+  const values = Array.isArray(collection) ? collection : Object.values(collection);
+
+  return values.reduce((obj, val) => {
+    const key = typeof(iteratee) === 'object'
+    ? Object.entries(iteratee).every(([k, v]) => val[k] === v)
+    : typeof(iteratee) === 'function' ? iteratee(val) : val[iteratee];
+
+    return {
+      ...obj,
+      [key]: [...(obj[key] || []), val]
+    };
+  }, {});
 }
