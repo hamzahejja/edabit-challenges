@@ -37,3 +37,52 @@ Lists should be concatenated in order of the arguments.
 def concat(*argv):
     return [element for arg in argv for element in arg];
 
+"""
+Write a function that takes a list of two numbers and determines if
+the sum of the digits in each number are equal to each other.
+"""
+def is_equal(lst):
+    first_number, second_number = lst;
+    first_digits_sum = sum(int(digit) for digit in str(first_number))
+    second_digits_sum = sum(int(digit) for digit in str(second_number))
+    return first_digits_sum == second_digits_sum
+
+"""
+Create a function that takes in a list of intervals and returns
+how many intervals overlap with a given point.
+An interval overlaps a particular point if the point exists inside the interval,
+or on the interval's boundary. For example the point 3 overlaps with the interval [2, 4] (it is inside)
+and [2, 3] (it is on the boundary).
+"""
+def count_overlapping(intervals, point):
+	return sum(lower_bound <= point <= upper_bound for lower_bound,upper_bound in intervals);
+
+"""
+Create a function that takes a list as an argument and returns a
+new nested list for each element in the original list.
+The nested list must be filled with the corresponding element (string or number) in the original list
+and each nested list has the same amount of elements as the original list.
+"""
+def multiply(l):
+	return list(map(lambda x: [x] * len(l), l))
+
+"""
+Create a function that converts a date formatted as MM/DD/YYYY to YYYYDDMM.
+"""
+def format_date(date):
+    return ''.join(date.split('/')[::-1]);
+
+"""
+Create a function that builds a word from the scrambled letters contained in the first list.
+Use the second list to establish each position of the letters in the first list.
+Return a string from the unscrambled letters (that made-up the word).
+"""
+def word_builder(ltr, pos):
+    return ''.join(ltr[index] for index in pos);
+
+"""
+Write a function that converts a dictionary into a list, where each element
+represents a key-value pair in the form of a list. Sort the list alphabetically by key.
+"""
+def to_list(dct):
+	return sorted([[key, value]] for key, value in dct.items());
