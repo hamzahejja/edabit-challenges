@@ -2333,3 +2333,26 @@ function flattenArray(array) {
 
   return output;
 }
+
+function deepFlatten(array) {
+  return array.reduce((acc, v) => {
+    return Array.isArray(v)
+      ? acc.concat(deepFlatten(v))
+      : [...acc, v]
+  }, []);
+}
+
+/**
+ * Write a function that takes an array of strings of arbitrary dimensionality ([], [][], [][][], etc.)
+ * and returns the sum of every separate number in each string in the array.
+ *
+ * @param {Array} arr
+ * @returns {number}
+ */
+function sum(arr) {
+  const flattened = deepFlatten(arr);
+  return flattened.reduce((sum, str) => {
+    const innerSum = (str.match(/-?\d+/g) || []).map(Number).reduce((s, v) => s + v, 0);
+    return sum + innerSum;
+  }, 0)
+}
