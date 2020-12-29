@@ -1,3 +1,7 @@
+from typing import List
+from math import ceil
+from functools import reduce
+
 """
 Create a function that takes two numbers as arguments (num, length)
 and returns a list of multiples of num until the list length reaches length.
@@ -86,3 +90,31 @@ represents a key-value pair in the form of a list. Sort the list alphabetically 
 """
 def to_list(dct):
 	return sorted([[key, value]] for key, value in dct.items());
+
+"""
+There are many different styles of music and many albums exhibit multiple styles.
+Create a function that takes a list of musical styles from albums and returns how many styles are unique.
+"""
+def unique_styles(albums: List[str]) -> int:
+    return len(set([style for album in albums for style in album.split(',')]))
+
+def count_datatypes(*args):
+    elements_data_types = [type(arg) for arg in args];
+    return [elements_data_types.count(dt) for dt in (int, str, bool, list, tuple, dict)];
+
+def flip_list(lst):
+    return [el.pop() if isinstance(el, list) else [el] for el in lst]
+
+def pairs(lst):
+    pairs = list()
+    left_index = 0
+    right_index = len(lst) - 1
+    while left_index <= right_index:
+        pairs.append([lst[left_index], lst[right_index]])
+        left_index += 1
+        right_index -= 1
+    return pairs
+
+def chunkify(lst, size):
+    chunk_start_indices = [start_index for start_index in range(ceil(len(lst) / size))]
+    return [lst[i * size: i * size + size] for i in chunk_start_indices]
