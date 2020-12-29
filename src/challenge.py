@@ -118,3 +118,12 @@ def pairs(lst):
 def chunkify(lst, size):
     chunk_start_indices = [start_index for start_index in range(ceil(len(lst) / size))]
     return [lst[i * size: i * size + size] for i in chunk_start_indices]
+
+def boolean_and(lst):
+	return reduce(lambda acc, x: acc and x, lst, True)
+
+def boolean_or(lst):
+	return reduce(lambda acc, x: acc or x, lst, False)
+
+def boolean_xor(lst):
+	return reduce(lambda acc, x: acc ^ x, lst, False)
