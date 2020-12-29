@@ -2264,3 +2264,44 @@ function countByValue(collection, iteratee) {
     return { ...obj, [key]: (obj[key] || 0) + 1 };
   }, {});
 }
+
+/**
+ * Given an array of math equations (given as strings),
+ * return the percentage of correct answers as a string.
+ * Round to the nearest whole number.
+ *
+ * @param {Array} arr
+ * @returns {boolean}
+ */
+function markMaths(arr) {
+  const numberOfCorrectEquations = arr.filter(isCorrectMathEquation).length;
+  const percentageOfCorrectEquations = Math.round((numberOfCorrectEquations / arr.length) * 100);
+  return `${percentageOfCorrectEquations}%`;
+}
+
+/**
+ * Evaluate The Mathematical Equation of form: `op1(+-)op2=result`
+ * and Return true if it is evaluated correctly.
+ *
+ * @param {str} equation
+ * @returns {boolean}
+ */
+function isCorrectMathEquation(equation) {
+  const [operand1, mathOperation, operand2, result] = equation.replace(
+    /(-?\d+)([\+\-])(-?\d+)=(-?\d+)/g,
+    '$1 $2 $3 $4'
+  ).split(' ').map(p => /-?\d+/g.test(p) ? +p : p);
+
+  switch(mathOperation) {
+    case '+':
+      return operand1 + operand2 === result;
+    case '-':
+      return operand1 - operand2 === result;
+    case '*':
+      return operand1 * operand2 === result;
+    case '/':
+      return operand1/operand2 === result;
+    default:
+      return false;
+  }
+}
