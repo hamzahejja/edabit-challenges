@@ -144,3 +144,39 @@ def matrix_multiply(a, b):
             result_row.append(s)
         result_matrix.append(result_row)
     return result_matrix
+
+def find_even_nums(num):
+	return [n for n in range(2, num + 1, 2)]
+
+def find_odd(lst):
+	return [x for x in lst if lst.count(x) % 2][0];
+
+def filter_list(l):
+	return [el for el in l if type(el) is not str]
+
+def nth_smallest(lst, n):
+	return sorted(lst)[n - 1] if (n - 1) in range(len(lst)) else None
+
+def sort_by_length(lst):
+	return sorted(lst, key=len)
+
+def setify(lst):
+	return sorted(set(lst))
+
+def return_only_integer(lst):
+    return [i for i in lst if type(i) is int]
+
+def society_name(friends):
+	return ''.join(name[0] for name in sorted(friends))
+
+def last(a, n):
+    return a[len(a) - n:] if n <= len(a) else 'invalid'
+
+def add_indexes(lst):
+    return [lst[i] + i for i in range(len(lst))]
+
+def sum_of_evens(lst):
+	return sum([e for l in lst for e in l if e % 2 == 0]);
+
+def convert_cartesian(x, y):
+	return [[x,y] for x,y in zip(x,y)]
