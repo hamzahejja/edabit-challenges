@@ -1,5 +1,5 @@
 from typing import List
-from math import ceil
+from math import ceil, sqrt
 from functools import reduce
 
 """
@@ -180,3 +180,39 @@ def sum_of_evens(lst):
 
 def convert_cartesian(x, y):
 	return [[x,y] for x,y in zip(x,y)]
+
+def index_multiplier(lst):
+	return sum([i*e for i,e in enumerate(lst)]);
+
+def mapping(letters ):
+	return {l.lower(): l.upper() for l in letters}
+
+def factor_chain(lst):
+	return all([lst[i+1] % lst[i] == 0 for i in range(len(lst) - 1)])
+
+def move_to_end(lst, el):
+	return [e for e in lst if e != el] + ([el] * lst.count(el))
+
+def count_characters(lst):
+	return sum(len(s) for s in lst)
+
+def next_in_line(lst, num):
+	return 'No list has been selected' if not len(lst) else lst[1:] + [num]
+
+def trace(lst):
+	return sum(lst[i][i] for i in range(len(lst)))
+
+def simon_says(lst1, lst2):
+    return lst1[:-1] == lst2[1:]
+
+def get_budgets(lst):
+	return sum(p['budget'] for p in lst)
+
+def magnitude(lst):
+	return sum(map(lambda x : x ** 2, lst)) ** 0.5
+
+def unique_sort(lst):
+	return sorted(set(lst))
+
+def probability(lst, n):
+	return round(sum([e >= n for e in lst]) / len(lst) * 100, 1)
