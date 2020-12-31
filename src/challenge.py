@@ -216,3 +216,17 @@ def unique_sort(lst):
 
 def probability(lst, n):
 	return round(sum([e >= n for e in lst]) / len(lst) * 100, 1)
+
+def rotate(mat):
+	return [[row[col] for row in mat][::-1] for col in range(len(mat[0]))]
+
+def tallest_skyscraper(lst):
+    return max(map(sum, [[row[col] for row in lst] for col in range(len(lst[0]))]))
+
+def char_at_pos(r, s):
+	return r[1::2] if s == 'even' else r[::2]
+
+def collect(s, n):
+    if len(s) < n:
+        return []
+    return sorted([s[i:i+n] for i in range(0, (len(s)//n) * n, n)])
