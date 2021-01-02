@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Any
 from math import ceil, sqrt
 from functools import reduce
 
@@ -231,13 +231,32 @@ def collect(s, n):
         return []
     return sorted([s[i:i+n] for i in range(0, (len(s)//n) * n, n)])
 
-def modify(word):
+def modify(word: str) -> str:
     modified = ''.join([s.upper() for s in reversed(word)])
     return modified[:(len(modified) + 1) // 2] + '-' + modified[(len(modified) + 1) // 2:]
 
-def edit_words(lst):
+def edit_words(lst: List[str]) -> List[str]:
 	return list(map(modify, lst))
 
-def secret(txt):
+def secret(txt: str) -> str:
     element, *classes = txt.split('.')
     return '<{} class=\'{}\'></{}>'.format(element, ' '.join(classes), element)
+
+def num_of_sublists(lst: List[Any]) -> int:
+	return len([sl for sl in lst if type(sl) == list])
+
+def square_patch(n: int)->List[List[int]]:
+	return [[n] * n] * n
+
+def sum_odd_and_even(lst: List[int]) -> List[int]:
+	return [sum(e for e in lst if e % 2 == 0), sum(o for o in lst if o % 2)]
+
+def largest_gap(lst: List[int]) -> int:
+    lst.sort()
+    return max([lst[i + 1] - lst[i] for i in range(0, len(lst) - 1)])
+
+def duplicates(txt: str) -> int:
+	return sum(txt.count(l)-1 for l in set(txt))
+
+def peel_layer_off(lst: List[List[Any]]) -> List[List[Any]]:
+    return [sublist[1:-1] for sublist in lst[1:-1]]
