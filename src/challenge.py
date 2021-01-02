@@ -245,7 +245,7 @@ def secret(txt: str) -> str:
 def num_of_sublists(lst: List[Any]) -> int:
 	return len([sl for sl in lst if type(sl) == list])
 
-def square_patch(n: int)->List[List[int]]:
+def square_patch(n: int)-> List[List[int]]:
 	return [[n] * n] * n
 
 def sum_odd_and_even(lst: List[int]) -> List[int]:
@@ -260,3 +260,26 @@ def duplicates(txt: str) -> int:
 
 def peel_layer_off(lst: List[List[Any]]) -> List[List[Any]]:
     return [sublist[1:-1] for sublist in lst[1:-1]]
+
+def char_appears(sentence: str, char: str) -> List[int]:
+	return [word.lower().count(char) for word in sentence.split()]
+
+def even_odd_transform(lst: List[int], n: int) -> List[int]:
+	return [e + 2*n if e % 2 else e - 2*n for e in lst]
+
+def match_last_item(lst: List[Any]) -> bool:
+	return ''.join(map(str, lst[:-1])) == lst[-1]
+
+def lst_ele_sum(args: List[int]) -> List[int]:
+	sum_of_elements = sum(args)
+	return [sum_of_elements - arg for arg in args]
+
+def win_round(you: List[int], opp: List[int]) -> bool:
+    (x1, y1), (x2, y2) = sorted(you, reverse=True)[:2], sorted(opp, reverse=True)[:2]
+    return (x1*10 + y1) > (x2*10 + y2)
+
+def accumulating_list(lst):
+    return [sum(lst[:i + 1]) for i in range(len(lst))]
+
+def sum_every_nth(numbers: List[int], n: int) -> int:
+    return sum(numbers[i] for i in range(-1+n, len(numbers), n))
