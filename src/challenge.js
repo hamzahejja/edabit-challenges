@@ -2445,7 +2445,7 @@ function getSubsets(arr, num) {
         const diffIndex = Array.from({ length: subsetA.length }, (_, i) => i).filter(i => subsetA[i] !== subsetB[i])[0];
         return subsetA[diffIndex] - subsetB[diffIndex];
       }
-q
+
       return subsetA.length - subsetB.length;
     })
 }
