@@ -2385,3 +2385,67 @@ function seatingStudents(arr) {
       (vd1 % 2 !== 0 && vd2 % 2 === 0 && Math.abs(vd1 - vd2) === 1);
   }).length;
 }
+
+/**
+ * Splitting Objects Inside an Array
+ * You bought a few bunches of fruit over the weekend.
+ * Create a function that splits a bunch into singular objects inside an array.
+ * https://edabit.com/challenge/FrFkH5BPnqz4pYpqD
+ *
+ * @param {Array} bunches
+ * @returns {Array}
+ */
+function splitBunches(bunches) {
+	return bunches.reduce((acc, fruit) => {
+    return fruit['quantity'] > 1
+      ? [...acc, ...Array(fruit['quantity']).fill({...fruit, quantity: 1})]
+      : [...acc, fruit]
+  }, [])
+}
+
+/**
+ * Count How Many Times an Element is Repeated
+ * Given an array, create a function that returns an object detailing
+ * how many times each element was repeated. Sort the object by value in descending order.
+ * https://edabit.com/challenge/XWXprtaTWYCWBGAax
+ *
+ * @param {Array} arr
+ * @returns {object}
+ */
+function countRepetitions(arr) {
+	const repsObj = arr.reduce((acc, val) => {
+    return {...acc, [val]: (acc[val] || 0) + 1}
+  }, {});
+
+  return Object.entries(repsObj)
+    .sort(([, reps1], [, reps2]) => reps2 - reps1)
+    .reduce((acc, [k, reps]) => ({...acc, [k]: reps}), {});
+}
+
+/**
+ * All Subsets that Add to a Value
+ * Create a function that returns all subarrays in an array that sum to a particular value.
+ * Return the subarrays in the following order:
+ * 1. First by ascending length
+ * 2. Second by comparing element-by-element, starting from the leftmost one.
+  Put the array with the smaller element first in the pairwise comparison.
+
+ * @param {Array} arr
+ * @param {number} num1
+ * @returns {Array}
+ */
+function getSubsets(arr, num) {
+	const subsets = arr.reduce((subsets, value) => {
+    return subsets.concat(subsets.map(s => [...s, value]));
+  }, [[]]);
+
+  return subsets.filter(subset => subset.reduce((acc, v) => acc + v, 0) === num)
+    .sort((subsetA, subsetB) => {
+      if (subsetA.length === subsetB.length) {
+        const diffIndex = Array.from({ length: subsetA.length }, (_, i) => i).filter(i => subsetA[i] !== subsetB[i])[0];
+        return subsetA[diffIndex] - subsetB[diffIndex];
+      }
+q
+      return subsetA.length - subsetB.length;
+    })
+}
