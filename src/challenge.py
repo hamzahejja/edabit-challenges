@@ -283,3 +283,14 @@ def accumulating_list(lst):
 
 def sum_every_nth(numbers: List[int], n: int) -> int:
     return sum(numbers[i] for i in range(-1+n, len(numbers), n))
+
+def balanced(lst: List[int]) -> List[int]:
+    first_half, other_half = (lst[:len(lst)//2], lst[len(lst)//2:])
+    first_sum, other_sum = (sum(first_half), sum(other_half))
+    if first_sum == other_sum:
+        return lst
+
+    return first_half * 2 if first_sum > other_sum else other_half * 2
+
+def accumulating_product(lst: List[int]) -> List[int]:
+    return [reduce(lambda acc,x: acc * x, lst[:i]) for i in range(1, len(lst) + 1)]
