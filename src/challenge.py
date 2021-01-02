@@ -230,3 +230,14 @@ def collect(s, n):
     if len(s) < n:
         return []
     return sorted([s[i:i+n] for i in range(0, (len(s)//n) * n, n)])
+
+def modify(word):
+    modified = ''.join([s.upper() for s in reversed(word)])
+    return modified[:(len(modified) + 1) // 2] + '-' + modified[(len(modified) + 1) // 2:]
+
+def edit_words(lst):
+	return list(map(modify, lst))
+
+def secret(txt):
+    element, *classes = txt.split('.')
+    return '<{} class=\'{}\'></{}>'.format(element, ' '.join(classes), element)
