@@ -294,3 +294,37 @@ def balanced(lst: List[int]) -> List[int]:
 
 def accumulating_product(lst: List[int]) -> List[int]:
     return [reduce(lambda acc,x: acc * x, lst[:i]) for i in range(1, len(lst) + 1)]
+
+def number_length(num: int) -> int:
+    return sum(1 for l in str(num))
+
+def valid(txt: str) -> bool:
+    return len(txt) in [4,6] and all([ch.isnumeric() for ch in txt])
+
+def invert(dct: dict):
+	return { value: key for key, value in dct.items() }
+
+def expensive_orders(orders: dict, cost: int) -> dict:
+	return {o: c for o, c in orders.items() if c > cost}
+
+def keys_and_values(d: dict) -> List[List[Any]]:
+    sorted_keys = sorted(d.keys())
+    return [sorted_keys, [d.get(k) for k in sorted_keys]]
+
+def common_elements(lst1: List[int], lst2: List[int]) -> List[int]:
+    return sorted(list(set([e for e in lst1 if e in lst2])))
+
+def ordered_matrix(a: int, b:int) -> List[List[int]]:
+	return [[c for c in range(b*r + 1, (b*r + 1) + b)] for r in range(a)]
+
+def tallest_building_height(lst: List[str]) -> str:
+	return '{}m'.format(20 * sum([bool(s.strip()) for s in lst]))
+
+def pirates_killed(gold: List[int], tolerance: List[int]) -> bool:
+    return any(diff > tol for diff, tol in zip([max(gold) - g for g in gold], tolerance))
+
+def bound_sort(lst: List[int], bounds: List[int]) -> bool:
+    return sorted(lst[:bounds[1] + 1]) + lst[bounds[1] + 1:] == sorted(lst)
+
+def mini_peaks(lst: List[int]) -> List[int]:
+    return [lst[i] for i in range(1, len(lst) - 1) if lst[i]>lst[i-1] and lst[i]>lst[i+1]]
