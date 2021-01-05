@@ -1,4 +1,4 @@
-from typing import List, Any
+from typing import List, Any, Optional, Union
 from math import ceil, sqrt
 from functools import reduce
 
@@ -328,3 +328,21 @@ def bound_sort(lst: List[int], bounds: List[int]) -> bool:
 
 def mini_peaks(lst: List[int]) -> List[int]:
     return [lst[i] for i in range(1, len(lst) - 1) if lst[i]>lst[i-1] and lst[i]>lst[i+1]]
+
+def merge_sort(lst1: List[int], lst2: List[int]) -> List[int]:
+    return sorted(lst1 + lst2, reverse = lst1[0] > lst1[1])
+
+def duplicate_nums(nums: List[int]) -> Optional[List[int]]:
+    return sorted(list(set([d for d in nums if nums.count(d) > 1]))) or None
+
+def total_sales(sales_table: List[List[Union[str,int]]], product: str) -> Union[int, str]:
+    return sum([s[sales_table.index(product)] for s in sales_table[1:]]) if product in sales_table[0] else "Product not found"
+
+def is_scalable(lst: List[int]) -> bool:
+    return all([abs(lst[i+1] - lst[i]) <= 5 for i in range(len(lst) - 1)])
+
+def digit_distance(num1: int, num2: int) -> int:
+	return sum(n2 - n1 for n1, n2 in zip(map(int, str(num1)), map(int, str(num2))))
+
+def cons(lst: List[int]) -> bool:
+    return sorted(lst) == list(range(min(lst), max(lst) + 1))
