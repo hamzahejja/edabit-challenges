@@ -355,3 +355,23 @@ def moving_partition(lst: List[int]) -> List[List[List[int]]]:
 
 def sort_by_character(lst: List[str], n: int) -> List[str]:
     return sorted(lst, key = lambda s: s[n - 1])
+
+def diag_dom(lst: List[List[int]]) -> bool:
+    return all(abs(lst[r][r]) > sum(map(abs, lst[r])) - abs(lst[r][r]) for r in range(len(lst)))
+
+def check_sum(lst: List[int], n: int) -> bool:
+    seen = set()
+    for num in lst:
+        if (n - num) in seen:
+            return True
+        seen.add(num)
+    return False
+
+def twins(lst: List[int]) -> int:
+    return [i for i in range(len(lst)) if sum(lst[:i]) == sum(lst[i:])][0]
+
+def can_concatenate(lst: List[List[int]], target: List[int]) -> bool:
+    return sorted(sum(lst, [])) == sorted(target)
+
+def empty_values(lst: List[Any]) -> List[Any]:
+    return [type(e)() for e in lst]
