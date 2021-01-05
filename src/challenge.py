@@ -346,3 +346,12 @@ def digit_distance(num1: int, num2: int) -> int:
 
 def cons(lst: List[int]) -> bool:
     return sorted(lst) == list(range(min(lst), max(lst) + 1))
+
+def is_positive_dominant(lst: List[int]) -> bool:
+    return len(set([pos for pos in lst if pos > 0])) > len(set([neg for neg in lst if neg < 0]))
+
+def moving_partition(lst: List[int]) -> List[List[List[int]]]:
+	return [[lst[:i], lst[i:]] for i in range(1, len(lst))]
+
+def sort_by_character(lst: List[str], n: int) -> List[str]:
+    return sorted(lst, key = lambda s: s[n - 1])
