@@ -1,4 +1,4 @@
-from typing import List, Any, Optional, Union
+from typing import List, Any, Optional, Union, Dict
 from math import ceil, sqrt
 from functools import reduce
 
@@ -375,3 +375,35 @@ def can_concatenate(lst: List[List[int]], target: List[int]) -> bool:
 
 def empty_values(lst: List[Any]) -> List[Any]:
     return [type(e)() for e in lst]
+
+def points_in_circle(points: List[dict], centerX: int, centerY: int, radius: int):
+	return sum((point['x'] - centerX) ** 2 + (point['y'] - centerY) ** 2 < radius ** 2 for point in points)
+
+def initialize(names: List[str]) -> List[str]:
+	return [' '.join(map(lambda n: '{}.'.format(n[0].upper()), name.split())) for name in names]
+
+def alternate_pos_neg(lst: List[int]) -> bool:
+	return all(x * y < 0 for x,y in zip(lst, lst[1:])) and 0 not in lst
+
+def factory(n):
+	return lambda lst: [e/n for e in lst]
+
+def standard_deviation(lst: List[int]) -> float:
+    mean = sum(lst) / len(lst)
+    return round((sum([abs(d-mean) ** 2 for d in lst]) / len(lst)) ** 0.5, 2)
+
+def items_purchase(store: Dict[str, str], wallet: str) -> List[str]:
+    getval = lambda x: int(x.replace('$','').replace(',',''))
+    return sorted([item for item, cost in store.items() if getval(cost) <= getval(wallet)]) or 'Nothing'
+
+def missing_letter(lst: List[str]) -> str:
+    return chr(ord(next(x for x,y in zip(lst[:], lst[1:]) if ord(y) - ord(x) == 2)) + 1)
+
+def shared_digits(lst: List[int]) -> bool:
+    return all(set(str(num1)) & set(str(num2)) for num1,num2 in zip(lst, lst[1:]))
+
+def multiplicity(lst: List[int]) -> List[List[int]]:
+	return [[el, lst.count(el)] for el in sorted(set(lst), key=lst.index)]
+
+def merge_arrays(a: List[Union[int, str]], b: List[Union[int, str]]) -> List[Union[int, str]]:
+    return sum([list(t) for t in zip(a, b)], []) + (b[len(a):] if len(b) > len(a) else a[len(b):])
