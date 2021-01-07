@@ -405,5 +405,30 @@ def shared_digits(lst: List[int]) -> bool:
 def multiplicity(lst: List[int]) -> List[List[int]]:
 	return [[el, lst.count(el)] for el in sorted(set(lst), key=lst.index)]
 
-def merge_arrays(a: List[Union[int, str]], b: List[Union[int, str]]) -> List[Union[int, str]]:
+def merge_arrays(a: List[Union[int, str]], b: List[Union[int, str]]) -> List[Union[int,]]:
     return sum([list(t) for t in zip(a, b)], []) + (b[len(a):] if len(b) > len(a) else a[len(b):])
+
+def sort_it(lst: List[Union[List[int], int]]) -> List[Union[List[int], int]]:
+	return sorted(lst, key = lambda x: x[0] if type(x) == list else x)
+
+def num_in_str(lst: List[str]) -> List[str]:
+    return [s for s in lst if any(ch.isnumeric() for ch in s)]
+
+def check(lst: Lst[int]) -> str:
+    if all(x < y for x,y in zip(lst, lst[1:])):
+        return 'increasing'
+    elif all(x > y for x,y in zip(lst, lst[1:])):
+        return 'decreasing'
+    return 'neither'
+
+def count_repetitions(lst: List[Any]) -> Dict[Any, int]:
+    return {el: lst.count(el) for el in set(lst)}
+
+def difference_two(lst: List[int]) -> List[List[int]]:
+    return sorted([[x,y] for x in lst for y in set(lst)-set([x]) if y-x == 2])
+
+def get_products(lst: List[int]) -> List[int]:
+    return [reduce(lambda acc,x: acc * x, set(lst)-{el}, 1) for el in lst]
+
+def sliding_sum(lst: List[int], n: int, k: int) -> List[List[int]]:
+	return [lst[i:i+n] for i in range(len(lst) - n + 1) if sum(lst[i:i+n]) == k]
