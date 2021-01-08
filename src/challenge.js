@@ -2449,3 +2449,19 @@ function getSubsets(arr, num) {
       return subsetA.length - subsetB.length;
     })
 }
+
+/**
+* Write a function that sorts the words in a given string
+* lexicographically (lexical sort) and by length in reverse order.
+* https://edabit.com/challenge/jX6FbEai4APajFbeC
+*
+* @param {string} str
+* @returns {string}
+**/
+function reverseSort(str) {
+	return String(str).split(' ').sort((wordA, wordB) => {
+    return wordA.length !== wordB.length
+      ? wordB.length - wordA.length
+      : wordB.toLowerCase().localeCompare(wordA.toLowerCase())
+  }).join(' ')
+}
