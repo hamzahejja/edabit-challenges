@@ -468,4 +468,4 @@ def same_line(lst: List[List[int]]) -> bool:
     return all(slope(pnt1,pnt2) == slope(lst[0],lst[1]) for pnt1, pnt2 in zip(lst, lst[1:]))
 
 def reorder_digits(lst: List[int], direction: str) -> List[int]:
-    return [int(''.join(sorted(str(num)))) for num in lst] if direction == 'asc' else [int(''.join(sorted(str(num), reverse=True))) for num in lst]
+    return [int(''.join(sorted(str(num), reverse = direction == 'desc'))) for num in lst]
