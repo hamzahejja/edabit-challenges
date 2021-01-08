@@ -432,3 +432,29 @@ def get_products(lst: List[int]) -> List[int]:
 
 def sliding_sum(lst: List[int], n: int, k: int) -> List[List[int]]:
 	return [lst[i:i+n] for i in range(len(lst) - n + 1) if sum(lst[i:i+n]) == k]
+
+def majority_vote(lst: List[Any]) -> Optional[Any]:
+    return next((el for el in lst if lst.count(el) > len(lst) / 2), None)
+
+def min_miss_pos(lst: List[int]) -> int:
+    return min(i for i in range(1, max(lst) + 2) if i not in lst)
+
+def show_the_love(lst: List[int]) -> List[float]:
+    min_element = min(lst)
+    total_removed = (sum(lst) - min_element) * 0.25
+    return [0.75*el if el != min_element else el+total_removed for el in lst]
+
+def filter_primes(num: List[int]) -> List[int]:
+    return [k for k in num if k >= 2 and all(k % f for f in range(2, k))]
+
+def sum_primes(lst: List[int]) -> Optional[int]:
+    is_prime = lambda el: el > 1 and all(el % f for f in range(2, el))
+    return sum(el for el in lst if is_prime(el)) or None
+
+def remove_letters(letters: List[str], word: str) -> List[str]:
+    return sorted(list(set([ch for ch in letters if letters.count(ch) > word.count(ch)])), key=letters.index)
+
+def checker_board(n: int, el1: Union[int, str], el2: Union[int, str]) -> List[Union[int, str]]:
+    if el1 == el2:
+        return 'invalid'
+    return [[el1 if j % 2 else el2 for j in range(n)] if i % 2 else [el2 if j % 2 else el1 for j in range(n)] for i in range(n)]
