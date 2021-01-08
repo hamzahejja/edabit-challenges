@@ -1,6 +1,7 @@
 from typing import List, Any, Optional, Union, Dict
 from math import ceil, sqrt
 from functools import reduce
+import re
 
 """
 Create a function that takes two numbers as arguments (num, length)
@@ -458,3 +459,13 @@ def checker_board(n: int, el1: Union[int, str], el2: Union[int, str]) -> List[Un
     if el1 == el2:
         return 'invalid'
     return [[el1 if j % 2 else el2 for j in range(n)] if i % 2 else [el2 if j % 2 else el1 for j in range(n)] for i in range(n)]
+
+def find_longest(sentence: str) -> str:
+    return max([re.sub('\'s|[^a-zA-Z]', '', word) for word in sentence.lower().split(' ')], key=len)
+
+def same_line(lst: List[List[int]]) -> bool:
+    slope = lambda p1,p2: (p2[1]-p1[1])/(p2[0]-p1[0]) if (p2[0]-p1[0]) else 0
+    return all(slope(pnt1,pnt2) == slope(lst[0],lst[1]) for pnt1, pnt2 in zip(lst, lst[1:]))
+
+def reorder_digits(lst: List[int], direction: str) -> List[int]:
+    return [int(''.join(sorted(str(num)))) for num in lst] if direction == 'asc' else [int(''.join(sorted(str(num), reverse=True))) for num in lst]
