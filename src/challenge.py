@@ -469,3 +469,37 @@ def same_line(lst: List[List[int]]) -> bool:
 
 def reorder_digits(lst: List[int], direction: str) -> List[int]:
     return [int(''.join(sorted(str(num), reverse = direction == 'desc'))) for num in lst]
+
+def number_pairs(txt: str) -> int:
+    numbers = list(map(int, txt.split(' ')[1:]))
+    return sum(numbers.count(num) // 2 for num in set(numbers))
+
+def larger_than_right(lst: List[int]) -> List[int]:
+    return [lst[i] for i in range(len(lst)) if all(lst[j] < lst[i] for j in range(i+1, len(lst)))]
+
+def is_ord_sub(smlst: List[int], biglst: List[int]) -> bool:
+    return bool(re.match('\\d*{}\\d*'.format('[0-9]*'.join(map(str, smlst))), ''.join(map(str, biglst))))
+
+def number_groups(group1: List[int], group2: List[int], group3: List[int]) -> List[int]:
+    return sorted([el for el in set(group1+group2+group3) if sum(el in g for g in (group1, group2, group3)) > 1])
+
+def find_missing(lst: List[List[int]]) -> int:
+    if not lst or any(not sublist for sublist in lst):
+        return False
+    lengths = [len(sublist) for sublist in lst]
+    return sum(range(min(lengths), max(lengths) + 1)) - sum(lengths)
+
+def covered_integers(lst: List[List[int]]) -> int:
+    return len({el for x,y in lst for el in range(x, y + 1)})
+
+def mode(nums: List[int]) -> List[int]:
+    return sorted({num for num in set(nums) if nums.count(num) == max(nums.count(n) for n in nums)})
+
+def alternate_sort(lst: List[Union[int, str]]) -> List[Union[int,str]]:
+    nums = sorted(k for k in lst if type(k) is int)
+    letters = sorted(l for l in lst if type(l) is str)
+    return reduce(lambda acc,sublist: acc+sublist, [[num, letter] for num, letter in zip(nums, letters)], [])
+
+def odd_sort(lst: List[int]) -> List[int]:
+    it = iter(sorted([el for el in lst if el % 2]))
+    return [next(it) if el % 2 else el for el in lst]
