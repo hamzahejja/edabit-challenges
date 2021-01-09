@@ -503,3 +503,15 @@ def alternate_sort(lst: List[Union[int, str]]) -> List[Union[int,str]]:
 def odd_sort(lst: List[int]) -> List[int]:
     it = iter(sorted([el for el in lst if el % 2]))
     return [next(it) if el % 2 else el for el in lst]
+
+def tidy_books(lst: List[List[str]]) -> List[List[str]]:
+    return [[s.strip() for s in entry[0].split(' - ')] for entry in lst]
+
+def available_spots(lst: List[int], num: int) -> int:
+    return sum(x % 2 == num % 2 or y % 2 == num % 2 for x,y in zip(lst, lst[1:]))
+
+def replace_next_largest(lst):
+    return [min([el for el in set(lst)-{lst[i]} if el > lst[i]] or [-1]) for i in range(len(lst))]
+
+def get_length(lst):
+    return len(re.findall('\d+', str(lst)))
