@@ -510,8 +510,29 @@ def tidy_books(lst: List[List[str]]) -> List[List[str]]:
 def available_spots(lst: List[int], num: int) -> int:
     return sum(x % 2 == num % 2 or y % 2 == num % 2 for x,y in zip(lst, lst[1:]))
 
-def replace_next_largest(lst):
+def replace_next_largest(lst: List[int]) -> List[int]:
     return [min([el for el in set(lst)-{lst[i]} if el > lst[i]] or [-1]) for i in range(len(lst))]
 
-def get_length(lst):
-    return len(re.findall('\d+', str(lst)))
+def get_length(lst: List[List[int]]) -> int:
+    return len(re.findall('\\d+', str(lst)))
+
+def is_checkerboard(lst: List[List[int]]) -> bool:
+    return all([1 - el for el in l1] == l2 for l1, l2 in zip(lst, lst[1:]))
+
+def all_pairs(lst: List[int], target: int) -> List[List[int]]:
+    pairs = []
+    sorted_list = sorted(lst.copy())
+    for i in range(len(sorted_list)):
+        for j in sorted_list[i+1:]:
+            if sorted_list[i] + j == target:
+                pairs.append([sorted_list[i], j])
+    return pairs
+
+def split_n_cases(txt: str, cases: int) -> List[str]:
+    if len(txt) % cases:
+        return ["Error"]
+    return [txt[i*(len(txt)//cases): i*(len(txt)//cases) + len(txt) // cases] for i in range(cases)]
+
+def highest_pair(cards: List[str]) -> Union[List[Union[bool,str]], bool]:
+    pairs = [card for card in set(cards) if cards.count(card) >= 2]
+    return [True, max(pairs, key = '123456789JQKA'.index)] if pairs else False
