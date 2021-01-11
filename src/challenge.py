@@ -536,3 +536,10 @@ def split_n_cases(txt: str, cases: int) -> List[str]:
 def highest_pair(cards: List[str]) -> Union[List[Union[bool,str]], bool]:
     pairs = [card for card in set(cards) if cards.count(card) >= 2]
     return [True, max(pairs, key = '123456789JQKA'.index)] if pairs else False
+
+def sel_reverse(lst: List[int], length: int) -> List[int]:
+    return sum([lst[i*length:length*(i+1)][::-1] for i in range(len(lst)//length + 1)], []) if length else lst
+
+def bridge_shuffle(lst1: List[Union[int, str]], lst2: List[Union[int, str]]) -> List[Union[int, str]]:
+    min_length = min(len(lst1), len(lst2))
+    return [j for x in ([[lst1[i],lst2[i]] for i in range(min_length)]) for j in x] + (lst1[min_length:] or lst2[min_length:])
