@@ -1,4 +1,4 @@
-from typing import List, Any, Optional, Union, Dict
+from typing import List, Any, Optional, Union, Dict, Set
 from math import ceil, sqrt
 from functools import reduce
 import re
@@ -543,3 +543,51 @@ def sel_reverse(lst: List[int], length: int) -> List[int]:
 def bridge_shuffle(lst1: List[Union[int, str]], lst2: List[Union[int, str]]) -> List[Union[int, str]]:
     min_length = min(len(lst1), len(lst2))
     return [j for x in ([[lst1[i],lst2[i]] for i in range(min_length)]) for j in x] + (lst1[min_length:] or lst2[min_length:])
+
+def left_rotations(txt: str) -> List[str]:
+    return [''.join(txt[(i+shiftbits) % len(txt)] for i in range(len(txt))) for shiftbits in range(len(txt))]
+
+def right_rotations(txt: str) -> List[str]:
+    return [''.join(txt[(i - shiftbits) % len(txt)] for i in range(len(txt))) for shiftbits in range(len(txt))]
+
+def sort_by_answer(lst: List[str]) -> List[str]:
+    return sorted(lst, key = lambda eq: eval(eq.replace('x', '*')))
+
+def odd_one_out(lst: List[str]) -> bool:
+    lengths = [len(item) for item in lst]
+    len_counts = [lengths.count(i) for i in set(lengths)]
+    return len(set(lengths)) == 2 and 1 in len_counts
+
+def sentence_searcher(txt: str, word: str) -> str:
+    return next(iter([sentence for sentence in re.split(r"(?<=\.)\s", txt) if word.lower() in sentence.lower()]), '')
+
+def parse_code(txt: str) -> Dict[str, str]:
+    fname, lname, _id = re.split(r"0+", txt)
+    return {'first_name': fname, 'last_name': lname, 'id': _id}
+
+def convert_to_hex(txt: str) -> str:
+    return ' '.join([format(ord(ch), 'x') for ch in txt])
+
+def pluralize(lst: List[str]) -> Set[str]:
+    return {'{}s'.format(word) if lst.count(word) > 1 else word for word in lst}
+
+def is_disarium(n: int) -> bool:
+    return sum(int(d) ** (idx + 1) for idx, d in enumerate(str(n))) == n
+
+def arithmetic_operation(n: str) -> int:
+    calculation_mapper = {
+        '+': lambda op1, op2: op1 + op2,
+        '-': lambda op1, op2: op1 - op2,
+        '*': lambda op1, op2: op1 * op2,
+        '//': lambda op1, op2: op1 // op2 if op2 else -1
+    }
+
+    op1, operation, op2 = n.split(' ')
+    return calculation_mapper[operation](int(op1), int(op2))
+
+def uncensor(txt: str, vowels: str) -> str:
+    vowels_iter = iter(vowels)
+    return ''.join(next(vowels_iter) if ch == '*' else ch for ch in txt)
+
+def censor_string(txt: str, lst: List[str], char: str) -> str:
+    return ' '.join([char * len(word) if word in lst else word for word in txt.split(' ')])
