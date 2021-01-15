@@ -591,3 +591,111 @@ def uncensor(txt: str, vowels: str) -> str:
 
 def censor_string(txt: str, lst: List[str], char: str) -> str:
     return ' '.join([char * len(word) if word in lst else word for word in txt.split(' ')])
+
+def first_before_second(s: str, first: str, second: str) -> bool:
+    return first not in s[s.index(second) + 1:]
+
+def vowel_links(txt: str) -> bool:
+    return any(lword[-1] in 'aeiou' and rword[0] in 'aeiou' for lword, rword in zip(txt.split(), txt.split()[1:]))
+
+def no_duplicate_letters(phrase):
+    return all(len(word) == len(set(word)) for word in phrase.lower().split())
+
+def sort_by_letter(lst: List[str]) -> List[str]:
+	return sorted(lst, key = lambda w: ord(re.findall(r"[a-zA-Z]", w)[0]))
+
+def is_valid_hex_code(txt: str) -> bool:
+    return bool(re.match(r"#[0-9a-f]{6}$", txt, flags= re.IGNORECASE))
+
+def is_correct_aliases(names: List[str], aliases: List[str]) -> bool:
+	return all(word.istitle() and word.startswith(name[0]) for name, alias in zip(names, aliases) for word in alias.split())
+
+def inverter(txt: str, t: str) -> str:
+    return ' '.join(w[::-1] for w in txt.split()).capitalize() if t == 'W' else ' '.join(txt.split()[::-1]).capitalize()
+
+
+class Magic:
+    def replace(self, string, old, new):
+        return string.replace(old, new)
+    def str_length(self, string):
+        return len(string)
+    def trim(self, string):
+        return string.strip()
+    def list_slice(self, lst, tpl):
+        start, end = tpl
+        return lst[start-1:end]
+
+class Employee:
+    def __init__(self, firstname, lastname, salary):
+        self.firstname = firstname
+        self.lastname = lastname
+        self.salary = salary
+
+    @classmethod
+    def from_string(cls, attributes):
+        fname, lname, salary = attributes.split('-')
+        attributes_mapping = {'firstname': fname, 'lastname': lname, 'salary': int(salary)}
+        return cls(**attributes_mapping)
+
+class Employee:
+    def __init__(self, fullname, **kwargs):
+        self.name, self.lastname = fullname.split()
+        for attr, value in kwargs.items():
+            setattr(self, attr, value)
+
+class Memories:
+    def add(self, **kwargs):
+        for attr, val in kwargs.items():
+            setattr(self, attr, val)
+
+    def remember(self, key):
+        return getattr(self, key, False)
+
+class Pagination:
+    def __init__(self, items=[], pageSize=10):
+        self.items = items
+        self.pageSize = int(pageSize)
+        self.totalPages = (len(items) // pageSize  + 1) if len(items) % pageSize else len(items) // pageSize
+        self.currentPage = 1
+
+    def getItems(self):
+        return self.items
+
+    def getPageSize(self):
+        return self.pageSize
+
+    def getCurrentPage(self):
+        return self.currentPage
+
+    def getTotalPages(self):
+        return self.totalPages
+
+    def prevPage(self):
+        if self.currentPage > 1:
+            self.currentPage -= 1
+        return self
+
+    def nextPage(self):
+        if self.currentPage < self.totalPages:
+            self.currentPage += 1
+        return self
+
+    def firstPage(self):
+        self.currentPage = 1
+        return self
+
+    def lastPage(self):
+        self.currentPage = self.totalPages
+        return self
+
+    def goToPage(self, page):
+        page = int(page)
+        if page in range(1, self.totalPages + 1):
+            self.currentPage = page
+        else:
+            self.currentPage = 1 if page < 1 else self.totalPages
+        return self
+
+    def getVisibleItems(self):
+        pgindex = self.currentPage - 1
+        return self.items[pgindex * self.pageSize: self.pageSize * (pgindex + 1)]
