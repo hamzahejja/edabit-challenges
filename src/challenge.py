@@ -699,3 +699,66 @@ class Pagination:
     def getVisibleItems(self):
         pgindex = self.currentPage - 1
         return self.items[pgindex * self.pageSize: self.pageSize * (pgindex + 1)]
+
+class Testpaper:
+    def __init__(self, subject, markscheme, pass_mark):
+        self.subject = subject
+        self.markscheme = markscheme
+        self.pass_mark = pass_mark
+
+class Student:
+    def __init__(self):
+        self.tests = {}
+
+    @property
+    def tests_taken(self):
+        return 'No tests taken' if not self.tests else self.tests
+
+    def take_test(self, test, answers):
+        test_pass_mark = int(test.pass_mark.replace('%', ''))
+        number_of_correct_answers = sum(test.markscheme[i] == answers[i] for i in range(len(answers)))
+        percentage_of_correct_answers = round(number_of_correct_answers / len(test.markscheme) * 100)
+        if percentage_of_correct_answers >= test_pass_mark:
+            self.tests.update({test.subject: 'Passed! ({}%)'.format(percentage_of_correct_answers)})
+        else:
+            self.tests.update({test.subject: 'Failed! ({}%)'.format(percentage_of_correct_answers)})
+
+class Pizza:
+    order_number = 0
+
+    def __init__(self, ingredients):
+        self.ingredients = ingredients.copy()
+        Pizza.order_number += 1
+        self.order_number = Pizza.order_number
+
+    @classmethod
+    def hawaiian(cls):
+        return cls(ingredients=['ham', 'pineapple'])
+    @classmethod
+    def meat_festival(cls):
+        return cls(ingredients=['beef', 'meatball', 'bacon'])
+    @classmethod
+    def garden_feast(cls):
+        return cls(ingredients=['spinach', 'olives', 'mushroom'])
+
+class Menu:
+    def __init__(self, items):
+        self.items = items
+        self.__currently_selected_index = 0
+    def to_the_right(self):
+        self.__currently_selected_index = (self.__currently_selected_index + 1) % len(self.items)
+    def display(self):
+        selection = [[el] if el == self.items[self.__currently_selected_index] else el for el in self.items]
+        return str(selection)
+
+class Train:
+	def __init__(self, destinations, expected_time):
+		self.destinations = destinations
+		self.expected_time = expected_time
+
+def manage_delays(train: Train, dest, delay):
+    if dest in train.destinations:
+        hours, mins = list(map(int, train.expected_time.split(':')))
+        updated_mins = (mins + delay) % 60
+        updated_hours = (hours + ((mins + delay) // 60)) % 24
+        train.expected_time = '{}:{}'.format(str(updated_hours).rjust(2, '0'), str(updated_mins).rjust(2, '0'))
