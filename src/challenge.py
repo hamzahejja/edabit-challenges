@@ -762,3 +762,23 @@ def manage_delays(train: Train, dest, delay):
         updated_mins = (mins + delay) % 60
         updated_hours = (hours + ((mins + delay) // 60)) % 24
         train.expected_time = '{}:{}'.format(str(updated_hours).rjust(2, '0'), str(updated_mins).rjust(2, '0'))
+
+def palindrome_type(n: int) -> str:
+    if str(n) == str(n)[::-1] and format(n, 'b') == format(n, 'b')[::-1]:
+        return 'Decimal and binary.'
+    elif str(n) == str(n)[::-1]:
+        return 'Decimal only.'
+    elif format(n, 'b') == format(n, 'b')[::-1]:
+        return 'Binary only.'
+
+    return 'Neither!'
+
+def letters(word1: str, word2: str) -> List[str]:
+    return [
+        ''.join(sorted(set(word1) & set(word2))),
+        ''.join(sorted(set(word1) - set(word2))),
+        ''.join(sorted(set(word2) - set(word1)))
+    ]
+
+def find_the_difference(s: str, t: str) -> str:
+    return next(ch for ch in t if t.count(ch) != s.count(ch))
