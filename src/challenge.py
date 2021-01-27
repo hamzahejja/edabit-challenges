@@ -782,3 +782,21 @@ def letters(word1: str, word2: str) -> List[str]:
 
 def find_the_difference(s: str, t: str) -> str:
     return next(ch for ch in t if t.count(ch) != s.count(ch))
+
+def get_prices(lst: List[str]) -> List[float]:
+    return list(map(float, [re.match(r'.*\(\$(\d+\.\d+)\)', item).group(1) for item in lst]))
+
+def plus_sign(txt: str) -> bool:
+    return len(re.findall(r'(?=(\+[a-zA-Z]\+))', txt)) == sum(ch.isalpha() for ch in txt)
+
+def is_shuffled_well(lst: List[int]) -> bool:
+    return not sum(lst[i] - lst[i-1] == lst[i+1] - lst[i] and abs(lst[i] - lst[i-1]) == 1 for i in range(1, len(lst) - 1))
+
+def rotate_clockwise(arr: List[int], n: int = 1) -> List[int]:
+    lst = arr.copy()
+    for i in range(n):
+        lst = [lst[(idx-1) % len(lst)] for idx in range(len(lst))]
+    return lst
+
+def check(lst: List[int]) -> str:
+    return 'YES' if any(rotate_clockwise(sorted(lst), i) == lst for i in range(1, len(lst))) else 'NO'
